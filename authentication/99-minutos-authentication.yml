@@ -1,0 +1,13 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/99minutos-api-v3-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: AuthJWT
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/99minutos-api-v3-openapi.json
