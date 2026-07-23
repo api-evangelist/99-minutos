@@ -1,0 +1,103 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: openapi/99minutos-api-v3-openapi.json
+notes: No official hosted/remote MCP server found. Candidate tool list derived one-per-operation from
+  the harvested OpenAPI v3.
+server:
+  name: 99minutos
+  transport: stdio
+  url: null
+tools:
+- name: orders_confirm_create
+  description: Confirm change the value draft to False for the given order id
+  source_operation: openapi/99minutos-api-v3-openapi.json#orders_confirm_create
+- name: orders_retrieve
+  description: Return a order given an encoded order id.
+  source_operation: openapi/99minutos-api-v3-openapi.json#orders_retrieve
+- name: orders_list
+  description: Get the list of active orders.
+  source_operation: openapi/99minutos-api-v3-openapi.json#orders_list
+- name: orders_create
+  description: Create orders.
+  source_operation: openapi/99minutos-api-v3-openapi.json#orders_create
+- name: orders_multibox_create
+  description: Create a multibox order that groups multiple packages (children) under a single parent
+    order (master). All children shar
+  source_operation: openapi/99minutos-api-v3-openapi.json#orders_multibox_create
+- name: GetZipCodesByCountry
+  description: Return list of postal codes by country paginated
+  source_operation: openapi/99minutos-api-v3-openapi.json#GetZipCodesByCountry
+- name: documents_guides_create
+  description: Return a list of pdf guides for the given identifiers.
+  source_operation: openapi/99minutos-api-v3-openapi.json#documents_guides_create
+- name: documents_zpl_create
+  description: ZPL returns a list of ZPL based on the received identifiers.
+  source_operation: openapi/99minutos-api-v3-openapi.json#documents_zpl_create
+- name: locations_create
+  description: 'Get the location id of a given address Through this endpoint you can exchange an address
+    for a location id. The purpose '
+  source_operation: openapi/99minutos-api-v3-openapi.json#locations_create
+- name: locations_all_retrieve
+  description: Location viewset.
+  source_operation: openapi/99minutos-api-v3-openapi.json#locations_all_retrieve
+- name: locations_nearest_create
+  description: Location viewset.
+  source_operation: openapi/99minutos-api-v3-openapi.json#locations_nearest_create
+- name: oauth_token_create
+  description: Request an access token sending the client credentials.
+  source_operation: openapi/99minutos-api-v3-openapi.json#oauth_token_create
+- name: get-api-v3-shipments-id
+  description: Return a shipment given an trackingId or internalKey
+  source_operation: openapi/99minutos-api-v3-openapi.json#get-api-v3-shipments-id
+- name: shipments_partial_update
+  description: 'Update the destination address of a shipment. The shipment must be in one of the following
+    statuses:'
+  source_operation: openapi/99minutos-api-v3-openapi.json#shipments_partial_update
+- name: delete-api-v3-shipments-id
+  description: Cancels an order by trackingId or internalKey.
+  source_operation: openapi/99minutos-api-v3-openapi.json#delete-api-v3-shipments-id
+- name: shipments_tracking_retrieve
+  description: Track a shipment by the given identifier. Get all information about the shipments with
+    the related events and data. **Re
+  source_operation: openapi/99minutos-api-v3-openapi.json#shipments_tracking_retrieve
+- name: shipments_tracking_batch_retrieve
+  description: Batch tracking can add multiple identifiers of the following format -->  `/api/v3/shipments/tracking/batch?identifiers={
+  source_operation: openapi/99minutos-api-v3-openapi.json#shipments_tracking_batch_retrieve
+- name: post-api-v3-webhooks
+  description: Submit a new webhook configuration. You can set 2 settings at most.
+  source_operation: openapi/99minutos-api-v3-openapi.json#post-api-v3-webhooks
+- name: get-api-v3-webhooks
+  description: Get webhooks configurations
+  source_operation: openapi/99minutos-api-v3-openapi.json#get-api-v3-webhooks
+- name: patch-api-v3-webhooks-webhook_id
+  description: Update webhook configuration. You can update headers or/and status_rules.
+  source_operation: openapi/99minutos-api-v3-openapi.json#patch-api-v3-webhooks-webhook_id
+- name: delete-api-v3-webhooks-webhook_id
+  description: Delete webhook config by id
+  source_operation: openapi/99minutos-api-v3-openapi.json#delete-api-v3-webhooks-webhook_id
+- name: get-api-v3-webhooks-evidences-by-tracking-id
+  description: Get evidences by trackingId
+  source_operation: openapi/99minutos-api-v3-openapi.json#get-api-v3-webhooks-evidences-by-tracking-id
+- name: calculate_shipping_rates
+  description: Estimate shipping cost and validate coverage based on origin and destination, package dimensions,
+    and weight. If the cou
+  source_operation: openapi/99minutos-api-v3-openapi.json#calculate_shipping_rates
+- name: get_api_v3_shipping_rates_addresses_origin_country_origin_address_destination_country_destination_address
+  description: Rates by Address
+  source_operation: openapi/99minutos-api-v3-openapi.json#get_api_v3_shipping_rates_addresses_origin_country_origin_address_destination_country_destination_address
+- name: get_api_v3_shipping_rates_coordinates_origin_country_origin_lat_origin_lng_destination_country_destination_lat_destination_lng
+  description: Rates by Coordinates
+  source_operation: openapi/99minutos-api-v3-openapi.json#get_api_v3_shipping_rates_coordinates_origin_country_origin_lat_origin_lng_destination_country_destination_lat_destination_lng
+- name: get_api_v3_shipping_rates_sizes
+  description: Get package size by dimensions
+  source_operation: openapi/99minutos-api-v3-openapi.json#get_api_v3_shipping_rates_sizes
+- name: get_api_v3_shipping_rates_zipcodes_origin_country_origin_zipcode_destination_country_destination_zipcode
+  description: Rates by Zipcodes
+  source_operation: openapi/99minutos-api-v3-openapi.json#get_api_v3_shipping_rates_zipcodes_origin_country_origin_zipcode_destination_country_destination_zipcode
+- name: validate_address_validate_address_post
+  description: super geocoding
+  source_operation: openapi/99minutos-api-v3-openapi.json#validate_address_validate_address_post
+- name: createMultiboxOrder
+  description: Create multibox orders
+  source_operation: openapi/99minutos-api-v3-openapi.json#createMultiboxOrder

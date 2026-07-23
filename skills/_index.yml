@@ -1,0 +1,20 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/99minutos-api-v3-openapi.json
+notes: >-
+  Packaged agent skills for the 99minutos last-mile logistics API v3. Every step
+  is grounded in a real operationId from the harvested OpenAPI; auth, rate-limit
+  and webhook rules come from conventions/ and errors/.
+skills:
+  - file: 99-minutos-create-and-track-shipment.md
+    name: Create and track a shipment
+    api: openapi/99minutos-api-v3-openapi.json
+    operations: [oauth_token_create, locations_create, orders_create, orders_confirm_create, documents_guides_create, shipments_tracking_retrieve]
+  - file: 99-minutos-quote-shipping-rate.md
+    name: Quote a shipping rate and check coverage
+    api: openapi/99minutos-api-v3-openapi.json
+    operations: [oauth_token_create, calculate_shipping_rates, GetZipCodesByCountry]
+  - file: 99-minutos-subscribe-webhooks.md
+    name: Subscribe to shipment status webhooks
+    api: openapi/99minutos-api-v3-openapi.json
+    operations: [oauth_token_create, post-api-v3-webhooks, get-api-v3-webhooks, get-api-v3-webhooks-evidences-by-tracking-id]

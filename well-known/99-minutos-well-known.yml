@@ -1,0 +1,21 @@
+generated: '2026-07-17'
+method: searched
+source: live probes of 99minutos hosts
+notes: >-
+  Probed the /.well-known/ discovery surface on the website and API hosts.
+  No documents were served (all 404 / no security.txt). Absence is recorded data.
+hosts:
+  - host: https://99minutos.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://developers.99minutos.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://delivery.99minutos.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404

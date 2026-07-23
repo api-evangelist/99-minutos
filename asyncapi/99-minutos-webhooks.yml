@@ -1,0 +1,50 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/reference/post-api-v3-webhooks
+spec_type: Webhooks
+notes: >-
+  99minutos documents a real-time webhook notification system for shipment
+  status changes (preferred over polling the tracking endpoints). No AsyncAPI
+  document is published; this captures the webhook catalog. Up to 2 webhook
+  configurations are allowed.
+management:
+  create: post-api-v3-webhooks
+  list: get-api-v3-webhooks
+  update: patch-api-v3-webhooks-webhook_id
+  delete: delete-api-v3-webhooks-webhook_id
+  evidences: get-api-v3-webhooks-evidences-by-tracking-id
+  max_configurations: 2
+delivery:
+  transport: http-post
+  content_type: application/json
+  payload_fields:
+    - StatusName
+    - TrackingId
+    - InternalKey
+    - Events   # ordered list of transitions: StatusCode, StatusName, Data{comment,evidence[]}, CreatedAt (UTC)
+  status_rules:
+    status_version: configurable
+    allowed_status_names: configurable
+events:
+  description: Shipment lifecycle status transitions (status_code, status_name)
+  catalog:
+    - {code: 1001, name: DRAFT}
+    - {code: 1002, name: CONFIRMED}
+    - {code: 2002, name: ON_ROAD_TO_PICKUP}
+    - {code: 2003, name: COLLECTED}
+    - {code: 2101, name: UNSUCCESSFUL_PICKUP}
+    - {code: 3001, name: STORED}
+    - {code: 3002, name: ON_CONTAINER}
+    - {code: 3003, name: CHARGED_TO_VEHICLE}
+    - {code: 3004, name: ON_LINEHAUL}
+    - {code: 4001, name: ON_ROAD_TO_DELIVERY}
+    - {code: 4002, name: DELIVERED}
+    - {code: 4101, name: UNSUCCESSFUL_DELIVERY}
+    - {code: 5001, name: ON_ROAD_TO_RETURN}
+    - {code: 5002, name: RETURNED}
+    - {code: 5101, name: UNSUCCESSFUL_RETURN}
+    - {code: 7101, name: IN_CORRECTION}
+    - {code: 7102, name: CORRECTED}
+    - {code: 8001, name: STOLEN}
+    - {code: 8003, name: CANCELLED}
+    - {code: 8004, name: DAMAGED}

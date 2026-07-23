@@ -1,0 +1,38 @@
+{
+  "provider": "99-minutos",
+  "sources": [
+    "99-minutos-coverage-api-openapi.yml",
+    "99-minutos-documents-api-openapi.yml",
+    "99-minutos-locations-api-openapi.yml",
+    "99-minutos-oauth-api-openapi.yml",
+    "99-minutos-orders-api-openapi.yml",
+    "99-minutos-shipments-api-openapi.yml",
+    "99-minutos-shipping-rates-api-openapi.yml",
+    "99-minutos-super-geocoding-api-openapi.yml",
+    "99-minutos-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "99-minutos-coverage-api-openapi.yml",
+    "99-minutos-documents-api-openapi.yml",
+    "99-minutos-locations-api-openapi.yml",
+    "99-minutos-oauth-api-openapi.yml",
+    "99-minutos-orders-api-openapi.yml",
+    "99-minutos-shipments-api-openapi.yml",
+    "99-minutos-shipping-rates-api-openapi.yml",
+    "99-minutos-super-geocoding-api-openapi.yml",
+    "99-minutos-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "99-minutos-shipments-api-openapi.yml: dangling $ref: #/components/responses/ShipmentDeactiveResponse",
+    "99-minutos-shipments-api-openapi.yml: dangling $ref: #/components/responses/ShipmentDetailResponse",
+    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/requestBodies/Config",
+    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/ConfigGetResponse",
+    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/ConfigResponse",
+    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/DeleteConfigResponse",
+    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/Notification"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

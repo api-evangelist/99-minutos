@@ -1,0 +1,40 @@
+generated: '2026-07-17'
+method: searched
+source: https://registry.npmjs.org
+notes: >-
+  Searched npm, PyPI, and the 99minutos GitHub org. No PyPI packages. The only
+  clearly first-party published package is a UI component library (agave-material)
+  under the 99minutos org; the two API-client packages on npm are community
+  publications (unverified first-party) and are marked official:false.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@x99minutos/agave-material"
+    url: https://www.npmjs.com/package/@x99minutos/agave-material
+    install: npm install @x99minutos/agave-material
+    official: true
+    kind: ui-component-library
+    repository: https://github.com/99minutos/agave-material
+    note: >-
+      First-party reusable Material UI component library with the 99minutos
+      look & feel. Design system, not an API client SDK.
+  - language: javascript
+    registry: npm
+    name: apiv3_99min
+    url: https://www.npmjs.com/package/apiv3_99min
+    install: npm install apiv3_99min
+    official: false
+    kind: api-client
+    note: >-
+      Promise-based Node.js client for 99minutos API v3. Community-maintained
+      (npm maintainer operez97); no repository link or org affiliation confirmed.
+  - language: javascript
+    registry: npm
+    name: minutos99
+    url: https://www.npmjs.com/package/minutos99
+    install: npm install minutos99
+    official: false
+    kind: middleware
+    note: >-
+      Middleware for the 99minutos shipping handler. Community-maintained
+      (npm maintainer jmalvarezs); first-party affiliation not confirmed.

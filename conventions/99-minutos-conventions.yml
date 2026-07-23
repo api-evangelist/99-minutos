@@ -1,0 +1,63 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/llms.txt
+docs: https://developers.99minutos.com/
+summary: >-
+  Cross-cutting request/response semantics for the 99minutos public API v3
+  (last-mile logistics: orders, shipments, tracking, rates, webhooks).
+authentication:
+  style: oauth2-client-credentials-to-bearer-jwt
+  token_endpoint: https://delivery.99minutos.com/api/v3/oauth/token
+  flow: >-
+    POST client_id + client_secret to /api/v3/oauth/token, receive a JWT
+    access_token (token_type bearer, expires_in ~3599s), then send it as
+    Authorization: Bearer <jwt> on every call.
+  scheme: AuthJWT (http bearer, bearerFormat JWT)
+  ref: authentication/99-minutos-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header or parameter is documented in the API reference.
+    Order creation is not documented as idempotent.
+pagination:
+  supported: true
+  style: page-based
+  evidence:
+    - operationId: GetZipCodesByCountry
+      note: "GET /api/v3/coverage/zipcodes/{country} returns postal codes paginated."
+    - operationId: orders_list
+      note: "GET /api/v3/orders lists active orders."
+request_tracing:
+  supported: true
+  field: traceId
+  location: response body
+  format: uuid
+  note: "Responses carry a traceId (uuid) to correlate/support a request."
+versioning:
+  scheme: uri-path
+  current: v3
+  note: >-
+    Endpoints are namespaced under /api/v3/. A legacy /api/v1/orders/multibox
+    endpoint is still present in the reference.
+  ref: lifecycle/99-minutos-lifecycle.yml
+rate_limiting:
+  documented: true
+  limit: "max 8 requests/second on tracking pull endpoints"
+  signal: "HTTP 429 documented on shipments tracking endpoints"
+  guidance: >-
+    Prefer the real-time webhook notification system over recurring polling of
+    the tracking endpoints; if polling, cap at 8 req/s.
+  applies_to:
+    - shipments_tracking_retrieve
+    - shipments_tracking_batch_retrieve
+error_envelope:
+  format: application-json
+  problem_json: false
+  fields: [message, traceId]
+  ref: errors/99-minutos-problem-types.yml
+webhooks:
+  supported: true
+  ref: asyncapi/99-minutos-webhooks.yml
+  note: >-
+    Configure up to 2 webhook endpoints; notifications fire on shipment status
+    changes with the full ordered Events[] history.

@@ -1,0 +1,12 @@
+generated: '2026-07-17'
+method: searched
+probe: true
+source: https://security.99minutos.com/
+url: https://security.99minutos.com/
+certifications:
+- ISO 27001
+evidence:
+- source: https://security.99minutos.com/
+  keywords:
+  - iso/iec 27001
+  - trust center

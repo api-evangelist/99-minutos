@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage shipping-rates API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: shipping-rates
+paths:
+  /api/v3/shipping/rates:
+    post:
+      operationId: calculate_shipping_rates
+      description: Estimate shipping cost and validate coverage based on origin and destination, package dimensions, and weight. If the country is different from Mexico, the zipcode must be empty, and validation will be done using coordinates only.
+      tags:
+      - shipping-rates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                withTaxes:
+                  type: boolean
+                  description: Indicates whether taxes should be included in the response.
+                validateOnlyCoordinates:
+                  type: boolean
+                  description: Must be true if country is not Mexico, as zipcode validation is not supported outside Mexico.
+                origin:
+                  type: object
+                  properties:
+                    codePostal:
+                      type: string
+                      description: Zip code of the shipping origin. Must be empty if country is not Mexico.
+                    country:
+                      type: string
+                      description: Country code (e.g., 'MEX' for Mexico).
+                  required:
+                  - country
+                destination:
+                  type: object
+                  properties:
+                    codePostal:
+                      type: string
+                      description: Zip code of the shipping destination. Must be empty if country is not Mexico.
+                    country:
+                      type: string
+                      description: Country code (e.g., 'MEX' for Mexico).
+                  required:
+                  - country
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      weight:
+                        type: integer
+                        description: Weight of the item in grams.
+                      depth:
+                        type: integer
+                        description: Depth of the item in centimeters.
+                      width:
+                        type: integer
+                        description: Width of the item in centimeters.
+                      height:
+                        type: integer
+                        description: Height of the item in centimeters.
+                      size:
+                        type: string
+                        description: Package size category (e.g., 's', 'm', 'l').
+                    required:
+                    - weight
+                    - depth
+                    - width
+                    - height
+              required:
+              - withTaxes
+              - validateOnlyCoordinates
+              - origin
+              - destination
+              - items
+            examples:
+              Mexico Zip Code Validation:
+                value:
+                  withTaxes: true
+                  validateOnlyCoordinates: false
+                  origin:
+                    codePostal: 08100
+                    country: MEX
+                  destination:
+                    codePostal: '32616'
+                    country: MEX
+                  items:
+                  - weight: 2500
+                    depth: 1
+                    width: 1
+                    height: 1
+                    size: s
+              International Coordinate Validation:
+                value:
+                  withTaxes: true
+                  validateOnlyCoordinates: true
+                  origin:
+                    codePostal: ''
+                    country: USA
+                  destination:
+                    codePostal: ''
+                    country: CAN
+                  items:
+                  - weight: 5000
+                    depth: 10
+                    width: 15
+                    height: 5
+                    size: m
+      responses:
+        '200':
+          description: Returns shipping cost and available service levels.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traceId:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      totalCost:
+                        type: number
+                        description: Total shipping cost including taxes if requested.
+                      serviceLevels:
+                        type: array
+                        items:
+                          type: string
+                          description: Available shipping service levels.
+                  errors:
+                    type: object
+              examples:
+                Success Response:
+                  value:
+                    traceId: 12345abcde
+                    message: Shipping cost calculated successfully.
+                    data:
+                      totalCost: 150
+                      serviceLevels:
+                      - Standard
+                      - Express
+                    errors: {}
+        '400':
+          description: Invalid request payload.
+          content:
+            application/json:
+              examples:
+                Invalid Country Zipcode Combination:
+                  value:
+                    traceId: error-67890
+                    message: Zipcode must be empty for non-Mexico countries and validateOnlyCoordinates must be true.
+                    errors:
+                      origin: Invalid zipcode for country
+                      destination: Invalid zipcode for country
+  /api/v3/shipping/rates/addresses/{origin_country}/{origin_address}/{destination_country}/{destination_address}:
+    get:
+      tags:
+      - shipping-rates
+      summary: Rates by Address
+      security:
+      - AuthJWT: []
+      parameters:
+      - name: destination_address
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Destination address
+      - name: destination_country
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Country of destination address
+      - name: origin_address
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Origin address
+      - name: origin_country
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Country of origin address
+      - name: cash_on_delivery
+        in: query
+        schema:
+          type: number
+        description: Cash on delivery amount
+      - name: delivery_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - SMD
+          - SPT
+          - 99M
+          - CO2F
+          - RET
+          - NAL
+          - P2P
+        description: DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above.
+      - name: insurance
+        in: query
+        schema:
+          type: number
+      - name: size
+        in: query
+        schema:
+          type: string
+        description: Package size
+      responses:
+        '200':
+          description: OK
+  ? /api/v3/shipping/rates/coordinates/{origin_country}/{origin_lat}/{origin_lng}/{destination_country}/{destination_lat}/{destination_lng}
+  : get:
+      tags:
+      - shipping-rates
+      summary: Rates by Coordinates
+      security:
+      - AuthJWT: []
+      parameters:
+      - schema:
+          type: string
+        name: origin_country
+        in: path
+        required: true
+        description: Country of origin address
+      - schema:
+          type: string
+        name: origin_lat
+        in: path
+        required: true
+        description: Latitude is taken to define the origin location
+      - schema:
+          type: string
+        name: origin_lng
+        in: path
+        required: true
+        description: Longitude is taken to define the origin location
+      - schema:
+          type: string
+        name: destination_country
+        in: path
+        required: true
+        description: Country of destination address
+      - schema:
+          type: string
+        name: destination_lat
+        in: path
+        required: true
+        description: Latitude is taken to define the destination location
+      - schema:
+          type: string
+        name: destination_lng
+        in: path
+        required: true
+        description: Longitude is taken to define the destination location
+      - name: cash_on_delivery
+        in: query
+        schema:
+          type: number
+        description: Cash on delivery amount
+      - name: delivery_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - SMD
+          - SPT
+          - 99M
+          - CO2F
+          - RET
+          - NAL
+          - P2P
+        description: DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above.
+      - name: insurance
+        in: query
+        schema:
+          type: number
+      - name: size
+        in: query
+        schema:
+          type: string
+        description: Package size
+      responses:
+        '200':
+          description: OK
+  /api/v3/shipping/rates/sizes:
+    get:
+      tags:
+      - shipping-rates
+      summary: Get package size by dimensions
+      security:
+      - AuthJWT: []
+      parameters:
+      - name: depth
+        in: query
+        required: true
+        schema:
+          format: double
+          type: number
+          nullable: false
+        description: Package depth
+      - name: height
+        in: query
+        required: true
+        schema:
+          format: double
+          type: number
+          nullable: false
+        description: Package height
+      - name: weight
+        in: query
+        required: true
+        schema:
+          format: double
+          type: number
+          nullable: false
+        description: Package weight
+      - name: width
+        in: query
+        required: true
+        schema:
+          format: double
+          type: number
+          nullable: false
+        description: Package width
+      responses:
+        '200':
+          description: OK
+  /api/v3/shipping/rates/zipcodes/{origin_country}/{origin_zipcode}/{destination_country}/{destination_zipcode}:
+    parameters:
+    - schema:
+        type: string
+      name: origin_country
+      in: path
+      required: true
+      description: Country of origin address
+    - schema:
+        type: string
+      name: origin_zipcode
+      in: path
+      required: true
+      description: Zipcode of origin address
+    - schema:
+        type: string
+      name: destination_country
+      in: path
+      required: true
+      description: Country of destination address
+    - schema:
+        type: string
+      name: destination_zipcode
+      in: path
+      required: true
+      description: Zipcode of destination address
+    get:
+      tags:
+      - shipping-rates
+      summary: Rates by Zipcodes
+      security:
+      - AuthJWT: []
+      parameters:
+      - name: destination_country
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Country of destination address
+      - name: destination_zipcode
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Zipcode of destination address
+      - name: origin_country
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Country of origin address
+      - name: origin_zipcode
+        in: path
+        required: true
+        schema:
+          type: string
+          nullable: false
+        description: Zipcode of origin address
+      - name: cash_on_delivery
+        in: query
+        schema:
+          type: number
+        description: Cash on delivery amount
+      - name: delivery_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - SMD
+          - SPT
+          - 99M
+          - CO2F
+          - RET
+          - NAL
+          - P2P
+        description: DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above.
+      - name: insurance
+        in: query
+        schema:
+          type: number
+      - name: size
+        in: query
+        schema:
+          type: string
+        description: Package size
+      responses:
+        '200':
+          description: OK
+      description: ''
+components:
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

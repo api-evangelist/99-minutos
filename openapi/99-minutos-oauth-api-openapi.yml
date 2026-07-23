@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage oauth API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: oauth
+paths:
+  /api/v3/oauth/token:
+    post:
+      operationId: oauth_token_create
+      description: Request an access token sending the client credentials.
+      tags:
+      - oauth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenSerializers'
+            examples:
+              ExampleClientCredentials:
+                value:
+                  client_id: 123e4567-e89b-12d3-a456-426655440000
+                  client_secret: asdfgasdf.$~.pS
+                summary: Example client credentials
+                description: Request an access token
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenSerializers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenSerializers'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenSerializers'
+              examples:
+                ExampleSuccessResponse:
+                  value:
+                    access_token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMiwiZXhwIjoxNTE2MjM5MzIyfQ.DdaLEKqWoX5SmxZrRH_xPazoHyBPxv589Q_I_ZX9ZwR-5J49Ry7jUiT1i7OIu-vhK8ZdBCig9CWTev4NXa1rzo5i41w_ZQAF3eWeda5gzJTXFmdgBM1hAtDnG-843X6NNCPQr9aegwJyrs92s12d8vITQR9h1M78jwu_UgWedSO87uLi2GLVsy7QhynnCRaTKQa_DXXRAXkaqemywOpKf221dRd1IsdBCRYXQSJDkkxViEwqtY3vAFAT5fM6iIzbfXgsuCH7bwLExq7oVoUkWE-HeXcQ3C3FXQh3cTX9W-02v1dpAT2RbpR0kHijOybA0euZ5V3mbPZzR8waOLXElA
+                    expires_in: 3599
+                    token_type: bearer
+                    traceId: 22df996f-460c-45f6-baa9-7465d366c32b
+                  summary: Example success response
+                  description: New token created
+          description: ''
+components:
+  schemas:
+    TokenSerializers:
+      type: object
+      properties:
+        client_id:
+          type: string
+          format: uuid
+          writeOnly: true
+          description: Client identifier granted for 99minutos.
+        client_secret:
+          type: string
+          writeOnly: true
+        access_token:
+          type: string
+          readOnly: true
+          description: Json web token
+        expires_in:
+          type: integer
+          readOnly: true
+          description: jwt expires in seconds
+        token_type:
+          type: string
+          readOnly: true
+          default: bearer
+          description: Token type
+        traceId:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Serial for help us to tracking request
+      required:
+      - access_token
+      - client_id
+      - client_secret
+      - expires_in
+      - token_type
+      - traceId
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

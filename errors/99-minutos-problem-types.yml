@@ -1,0 +1,51 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/99minutos-api-v3-openapi.json
+format: application-json
+problem_json: false
+notes: >-
+  Derived from documented 4xx/5xx responses in the 99minutos API v3 reference.
+  Errors are returned as application/json (not RFC 9457 problem+json); responses
+  carry a traceId for support correlation.
+envelope:
+  content_type: application/json
+  fields: [message, traceId]
+problems:
+  - status: 400
+    title: Invalid request payload
+    meaning: The JSON payload is malformed or fails field validation.
+    source_operations:
+      - orders_create
+      - orders_multibox_create
+      - calculate_shipping_rates
+      - createMultiboxOrder
+  - status: 401
+    title: Authentication error
+    meaning: JWT is missing, malformed, or expired. Re-authenticate at /api/v3/oauth/token.
+    source_operations:
+      - orders_create
+      - orders_multibox_create
+  - status: 412
+    title: Precondition failed
+    meaning: A precondition on the order-create request was not met.
+    source_operations:
+      - orders_create
+  - status: 422
+    title: Validation or business-rule error
+    meaning: The request is well-formed but violates a validation or business rule.
+    source_operations:
+      - orders_multibox_create
+      - validate_address_validate_address_post
+  - status: 429
+    title: Too many requests
+    meaning: >-
+      Rate limit exceeded. Tracking pull endpoints are capped at 8 requests/second;
+      prefer webhooks over polling.
+    source_operations:
+      - shipments_tracking_retrieve
+      - shipments_tracking_batch_retrieve
+  - status: 500
+    title: Internal server error
+    meaning: An unexpected error occurred on the 99minutos side.
+    source_operations:
+      - orders_multibox_create

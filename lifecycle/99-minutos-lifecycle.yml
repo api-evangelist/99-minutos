@@ -1,0 +1,23 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/
+versioning:
+  scheme: uri-path
+  current: v3
+  docs: https://developers.99minutos.com/
+  note: >-
+    Public API is namespaced under /api/v3/. A legacy /api/v1/orders/multibox
+    endpoint remains documented in the reference.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    Company markets a 98% on-time delivery rate operationally; no API uptime SLA
+    document was found.
+status_page: null
+status_page_note: No dedicated API status page (status.99minutos.com does not resolve).
+deprecated_operations: []

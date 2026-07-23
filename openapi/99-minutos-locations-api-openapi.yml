@@ -1,0 +1,947 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage locations API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: locations
+paths:
+  /api/v3/locations:
+    post:
+      operationId: locations_create
+      description: Get the location id of a given address Through this endpoint you can exchange an address for a location id. The purpose of this exchange is that later, in a second request, you can include the location id as origin or destination to create an order. Using this flow you won't need to include any more information and you can always reuse the location id for that point.
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+            examples:
+              LocationPayloadExample:
+                value:
+                  addresses:
+                  - Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México
+                  - Calle del Correo Mayor 112, Centro, Cuauhtémoc, Ciudad de México, CDMX, México
+                  city: Cuauhtémoc
+                  country: MEX
+                summary: Location payload example
+                description: Location payload.
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+        required: true
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationsResponse'
+              examples:
+                LocationResponse:
+                  value:
+                    traceId: ec1d12ad-48dc-4628-99a5-0db1cc8b2bba
+                    message: OK
+                    data:
+                    - address: Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, Mexico
+                      latitude: '19.417688'
+                      longitude: '-99.118484'
+                      locationId: 3aefcb54-698f-43e9-9b1f-252ac72f6cfd
+                      locationType: private
+                      geoType: ROOFTOP
+                    - address: Calle del Correo Mayor 112, Centro Histórico de la Cdad. de México, Centro, Cuauhtémoc, 06090 Ciudad de México, CDMX, Mexico
+                      latitude: '19.427275'
+                      longitude: '-99.13072'
+                      locationId: 04639da9-63f4-40ab-a8c3-8fff2f2509e3
+                      locationType: private
+                      geoType: ROOFTOP
+                    errors: {}
+                  summary: Location response
+                  description: Location response
+          description: ''
+  /api/v3/locations/all:
+    get:
+      operationId: locations_all_retrieve
+      description: Location viewset.
+      parameters:
+      - in: query
+        name: country
+        schema:
+          type: string
+        description: Country
+      - in: query
+        name: page
+        schema:
+          type: integer
+          exclusiveMaximum: true
+        description: Page of the response.
+      tags:
+      - locations
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllLocationResponse'
+              examples:
+                AllLocationsResponse:
+                  value:
+                    traceId: 1c9eb6f1-9f7d-477d-9032-fd531e713e14
+                    message: All locations retrieved succesfully.
+                    data:
+                    - description: null
+                      address: Novedades Montecarlo, S.A. De C.V., Calle Avena, Granjas México, Ciudad de México, CDMX, México
+                      latitude: '19.4013975'
+                      longitude: '-99.0949735'
+                      locationId: 59ce70e8-4ba9-47b9-8e88-a3796560198a
+                      country: MEX
+                      schedule:
+                        friday:
+                          opens: 07:30
+                          closed: false
+                          closes: '17:00'
+                        monday:
+                          opens: 01:02
+                          closed: false
+                          closes: '17:00'
+                        sunday:
+                          opens: 08:00
+                          closed: true
+                          closes: '19:00'
+                        tuesday:
+                          opens: 07:30
+                          closed: false
+                          closes: '17:00'
+                        saturday:
+                          opens: 08:00
+                          closed: false
+                          closes: '14:00'
+                        thursday:
+                          opens: 07:30
+                          closed: false
+                          closes: '17:00'
+                        time_zone: America/Mexico_City
+                        wednesday:
+                          opens: 07:30
+                          closed: false
+                          closes: '17:00'
+                      zipcode: 08400
+                      locationType: p99
+                    - description: Masaryk 29
+                      address: Avenida Presidente Masaryk 29, Polanco, Polanco V Sección, Ciudad de México, CDMX, México
+                      latitude: '19.4315008'
+                      longitude: '-99.1823602'
+                      locationId: 013c75b6-a027-4595-b405-10d82250aa0b
+                      country: MEX
+                      schedule:
+                        friday:
+                          opens: 09:00
+                          closed: false
+                          closes: '18:00'
+                        monday:
+                          opens: 09:00
+                          closed: false
+                          closes: '18:00'
+                        sunday:
+                          opens: 08:00
+                          closed: true
+                          closes: '19:00'
+                        tuesday:
+                          opens: 09:00
+                          closed: false
+                          closes: '18:00'
+                        saturday:
+                          opens: 08:00
+                          closed: true
+                          closes: '19:00'
+                        thursday:
+                          opens: 09:00
+                          closed: false
+                          closes: '18:00'
+                        time_zone: America/Mexico_City
+                        wednesday:
+                          opens: 09:00
+                          closed: false
+                          closes: '18:00'
+                      zipcode: '11560'
+                      locationType: p99
+                    next: https://sandbox.99minutos.com/api/v3/locations/all?page=2
+                    previous: null
+                    errors: {}
+                  summary: All locations response
+                  description: All locations response
+          description: ''
+  /api/v3/locations/nearest:
+    post:
+      operationId: locations_nearest_create
+      description: Location viewset.
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearestRequest'
+            examples:
+              NearestPayloadExample:
+                value:
+                  distance: 5000
+                  address: 'Planta Ixtapantongo #62, col. Electra, CP: 54060'
+                  includeP99: false
+                  city: Tlalnepantla de Baz
+                  country: MEX
+                summary: Nearest payload example
+                description: Nearest payload.
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NearestRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/NearestRequest'
+        required: true
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NearestResponse'
+              examples:
+                NearestResponse:
+                  value:
+                    traceId: 3e724f8a-70e4-4c59-bad6-bf19c228c85a
+                    message: Nearest location to the given point retrieved successfully.
+                    data:
+                    - description: Venta de abarrotes
+                      'latitude:': 19.4717429
+                      longitude: -99.1406644
+                      distance: 3964.2093
+                      address: Albéniz 4443, Guadalupe Victoria, 07790 Ciudad de México, CDMX, México
+                      locationId: 67427e39-638d-4f18-a53a-e4802f351d41
+                      locationType: p99
+                      zipcode: 07790
+                    - description: Oficina  de suplementos
+                      'latitude:': 19.4008331
+                      longitude: -99.1344385
+                      distance: 4033.1268
+                      address: Calle José Antonio Torres 812, Viaducto Piedad, Ciudad de México, CDMX, México
+                      locationId: 90ca79c2-d8ca-4df3-94e7-524a657979e9
+                      locationType: p99
+                      zipcode: 08200
+                    errors: {}
+                  summary: Nearest response
+                  description: Nearest response
+          description: ''
+components:
+  schemas:
+    NearestRequest:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        includeP99:
+          type: boolean
+          description: p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.
+        distance:
+          type: integer
+          maximum: 20000
+          minimum: 0
+          default: 5000
+          description: Maximum distance in meters between the given direction and the nearest p99
+        city:
+          type: string
+          description: City of the address
+        country:
+          type: string
+          description: Country of the address
+      required:
+      - address
+      - city
+      - country
+      x-examples:
+        example-1:
+          address: string
+          includeP99: true
+          distance: 5000
+          city: string
+          country: string
+    NearestList:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+        distance:
+          type: number
+          format: double
+          description: Distance to the given address.
+        zipcode:
+          type: string
+          description: Zipcode address
+      required:
+      - description
+      - address
+      - latitude
+      - longitude
+      - locationId
+      - locationType
+      - distance
+      - zipcode
+    LocationSchedule:
+      type: object
+      x-examples:
+        Example Location Schedule:
+          friday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          monday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          sunday:
+            opens: 08:00
+            closed: true
+            closes: '19:00'
+          tuesday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          saturday:
+            opens: 08:00
+            closed: true
+            closes: '13:00'
+          thursday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          time_zone: America/Mexico_City
+          wednesday:
+            opens: 08:00
+            closed: false
+            closes: '18:00'
+      properties:
+        friday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        monday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        sunday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        tuesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        saturday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        thursday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        time_zone:
+          type: string
+        wednesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+    AllLocationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllLocationList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+      x-examples:
+        Example All Location Response:
+          traceId: fd57804c-ca28-4f42-987a-57c2afc1f7a5
+          message: All locations retrieved succesfully.
+          data:
+          - description: null
+            address: Novedades Montecarlo, S.A. De C.V., Calle Avena, Granjas México, Ciudad de México, CDMX, México
+            latitude: '19.4013975'
+            longitude: '-99.0949735'
+            locationId: 59ce70e8-4ba9-47b9-8e88-a3796560198a
+            country: MEX
+            schedule:
+              friday:
+                opens: 07:30
+                closed: false
+                closes: '17:00'
+              monday:
+                opens: 01:02
+                closed: false
+                closes: '17:00'
+              sunday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              tuesday:
+                opens: 07:30
+                closed: false
+                closes: '17:00'
+              saturday:
+                opens: 08:00
+                closed: false
+                closes: '14:00'
+              thursday:
+                opens: 07:30
+                closed: false
+                closes: '17:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 07:30
+                closed: false
+                closes: '17:00'
+            locationType: p99
+          - description: Masaryk 29
+            address: Avenida Presidente Masaryk 29, Polanco, Polanco V Sección, Ciudad de México, CDMX, México
+            latitude: '19.4315008'
+            longitude: '-99.1823602'
+            locationId: 6807192f-aa2f-4ffc-a4df-e1ff28262537
+            country: MEX
+            schedule:
+              friday:
+                opens: 09:00
+                closed: false
+                closes: '18:00'
+              monday:
+                opens: 09:00
+                closed: false
+                closes: '18:00'
+              sunday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              tuesday:
+                opens: 09:00
+                closed: false
+                closes: '18:00'
+              saturday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              thursday:
+                opens: 09:00
+                closed: false
+                closes: '18:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 09:00
+                closed: false
+                closes: '18:00'
+            locationType: p99
+          - description: null
+            address: Liverpool Polanco, Calzada General Mariano Escobedo, Chapultepec Morales, Miguel Hidalgo, Ciudad de México, CDMX, México
+            latitude: '19.4336265'
+            longitude: '-99.1826747'
+            locationId: 4db4fc0a-62a4-4514-9f3f-ffddf90cc607
+            country: MEX
+            schedule:
+              friday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              monday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              sunday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              tuesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              saturday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              thursday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+            locationType: p99
+          - description: Pedregal de Santo Domingo
+            address: Avenida Anacahuita 294, Pedregal de Santo Domingo, Ciudad de México, CDMX, México
+            latitude: '19.4319472'
+            longitude: '-99.1860116'
+            locationId: e5212ebd-9cfd-4838-966b-59de2ae840b3
+            country: MEX
+            schedule:
+              friday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              monday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              sunday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              tuesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              saturday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              thursday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+            locationType: p99
+          - description: Servicio de restaurante
+            address: Rodolfo Usigli 1508, Sector Popular, Héroes de Churubusco, 09060 Ciudad de México, CDMX, México
+            latitude: '19.3637464'
+            longitude: '-99.1168201'
+            locationId: f97c50d8-f7d0-4cf6-94b0-e051c454a3d8
+            country: MEX
+            schedule:
+              friday:
+                opens: '10:00'
+                closed: false
+                closes: '21:00'
+              monday:
+                opens: '10:00'
+                closed: false
+                closes: '21:00'
+              sunday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              tuesday:
+                opens: '10:00'
+                closed: false
+                closes: '21:00'
+              saturday:
+                opens: '10:00'
+                closed: false
+                closes: '18:00'
+              thursday:
+                opens: '10:00'
+                closed: false
+                closes: '21:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: '10:00'
+                closed: false
+                closes: '21:00'
+            locationType: p99
+          - description: pruebas
+            address: Capuchinas 90, Metropolitana 1ra Sección, Nezahualcóyotl, Méx., México
+            latitude: '19.3933869'
+            longitude: '-99.0333032'
+            locationId: 423e98d2-48e3-4432-bb3d-197485724121
+            country: MEX
+            schedule:
+              friday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              monday:
+                opens: 00:00
+                closed: true
+                closes: '19:00'
+              sunday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              tuesday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              saturday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              thursday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+            locationType: p99
+          - description: MBE Cozumel Roma Norte
+            address: Cozumel 21, Roma Nte., 06700 Ciudad de México, CDMX, México
+            latitude: '19.4203705'
+            longitude: '-99.1714553'
+            locationId: 8ad30429-6c4f-43cb-af3d-f64dc281cdd1
+            country: MEX
+            schedule: {}
+            locationType: p99
+          - description: null
+            address: Liverpool Polanco, Calzada General Mariano Escobedo, Chapultepec Morales, Lomas de Chapultepec, Ciudad de México, CDMX, México
+            latitude: '19.4336265'
+            longitude: '-99.1826747'
+            locationId: 6cd3f41e-f417-4add-8f89-cd3be65dea2f
+            country: MEX
+            schedule:
+              friday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              monday:
+                opens: 09:00
+                closed: false
+                closes: '19:00'
+              sunday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              tuesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              saturday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              thursday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 08:00
+                closed: false
+                closes: '19:00'
+            locationType: p99
+          - description: null
+            address: La luminiteca, San Guillermo Mz19 Lt15, Sta. Úrsula Coapa, 04600 Ciudad de México, CDMX, México
+            latitude: '19.3094784'
+            longitude: '-99.163203'
+            locationId: 63277320-c18a-45f2-bb06-d35426437f0a
+            country: MEX
+            schedule:
+              friday:
+                opens: '11:00'
+                closed: false
+                closes: '18:00'
+              monday:
+                opens: '11:00'
+                closed: false
+                closes: '18:00'
+              sunday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              tuesday:
+                opens: '11:00'
+                closed: false
+                closes: '18:00'
+              saturday:
+                opens: '11:00'
+                closed: false
+                closes: '19:00'
+              thursday:
+                opens: '11:00'
+                closed: false
+                closes: '18:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: '11:00'
+                closed: false
+                closes: '18:00'
+            locationType: p99
+          - description: null
+            address: Paseo Acueducto, San Pedro Atzompa, 55770 Ojo de Agua, Méx., México
+            latitude: '19.6814534'
+            longitude: '-99.030198'
+            locationId: e862a980-84c9-49d0-ac0f-01078001a310
+            country: MEX
+            schedule:
+              friday:
+                opens: 08:00
+                closed: false
+                closes: '16:00'
+              monday:
+                opens: 08:00
+                closed: false
+                closes: '16:00'
+              sunday:
+                opens: 08:00
+                closed: true
+                closes: '19:00'
+              tuesday:
+                opens: 08:00
+                closed: false
+                closes: '16:00'
+              saturday:
+                opens: 08:00
+                closed: true
+                closes: '13:00'
+              thursday:
+                opens: 08:00
+                closed: false
+                closes: '16:00'
+              time_zone: America/Mexico_City
+              wednesday:
+                opens: 08:00
+                closed: false
+                closes: '18:00'
+            locationType: p99
+          next: https://sandbox.99minutos.com/api/v3/locations/all?page=2
+          previous: null
+          errors: {}
+    NearestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NearestList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    LocationsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationsList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    LocationTypeEnum:
+      enum:
+      - p99_network
+      - private
+      type: string
+    NewLocation:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            type: string
+            example: Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México
+        city:
+          type: string
+        country:
+          type: string
+      required:
+      - addresses
+      - city
+      - country
+    AllLocationList:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+        country:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/LocationSchedule'
+        zipcode:
+          type: string
+          description: Zipcode address
+      required:
+      - description
+      - address
+      - latitude
+      - longitude
+      - locationId
+      - locationType
+      - country
+      - zipcode
+    LocationsList:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+          description: p99_network if the location belongs to our network of points 99 or private if is a private address outside of p99_network.
+        geoType:
+          type: string
+      required:
+      - address
+      - geoType
+      - latitude
+      - locationId
+      - locationType
+      - longitude
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

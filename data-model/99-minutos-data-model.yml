@@ -1,0 +1,53 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/99minutos-api-v3-openapi.json
+notes: >-
+  Entity-relationship graph derived from the harvested OpenAPI v3 paths and
+  schemas for the 99minutos last-mile logistics API.
+entities:
+  - name: Order
+    description: A shipment request created by the client; may be draft or confirmed.
+    operations: [orders_create, orders_list, orders_retrieve, orders_confirm_create, orders_multibox_create]
+    id_fields: [orderId, internalKey]
+  - name: Shipment
+    description: The tracked parcel produced from an order; carries status/event history.
+    operations: [get-api-v3-shipments-id, shipments_partial_update, delete-api-v3-shipments-id, shipments_tracking_retrieve, shipments_tracking_batch_retrieve]
+    id_fields: [trackingId, internalKey]
+  - name: Location
+    description: A resolved address exchanged for a reusable location id (origin/destination).
+    operations: [locations_create, locations_all_retrieve, locations_nearest_create]
+    id_fields: [locationId]
+  - name: Webhook
+    description: A subscriber configuration receiving shipment status notifications (max 2).
+    operations: [post-api-v3-webhooks, get-api-v3-webhooks, patch-api-v3-webhooks-webhook_id, delete-api-v3-webhooks-webhook_id]
+    id_fields: [webhook_id]
+  - name: Rate
+    description: A shipping-cost estimate + coverage validation for an origin/destination pair.
+    operations: [calculate_shipping_rates]
+  - name: Document
+    description: Printable shipping labels/guides (PDF or ZPL) for shipments.
+    operations: [documents_guides_create, documents_zpl_create]
+  - name: Coverage
+    description: Serviceable postal codes by country.
+    operations: [GetZipCodesByCountry]
+relationships:
+  - from: Order
+    to: Shipment
+    type: has_many
+    via: order produces one or more shipments (multibox = master + children)
+  - from: Order
+    to: Location
+    type: belongs_to
+    via: origin / destination locationId
+  - from: Shipment
+    to: Location
+    type: belongs_to
+    via: destination address (updatable via shipments_partial_update)
+  - from: Webhook
+    to: Shipment
+    type: has_many
+    via: notifications keyed by trackingId
+  - from: Document
+    to: Shipment
+    type: belongs_to
+    via: guide/ZPL generated per shipment identifier

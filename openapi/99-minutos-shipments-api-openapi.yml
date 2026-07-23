@@ -1,0 +1,865 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage shipments API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: shipments
+paths:
+  /api/v3/shipments/{id}:
+    parameters:
+    - schema:
+        type: string
+      name: id
+      in: path
+      required: true
+      description: trackingId or internalKey
+    get:
+      summary: ''
+      tags:
+      - shipments
+      responses:
+        '200':
+          $ref: '#/components/responses/ShipmentDetailResponse'
+      operationId: get-api-v3-shipments-id
+      description: Return a shipment given an trackingId or internalKey
+      security:
+      - AuthJWT: []
+    patch:
+      operationId: shipments_partial_update
+      description: 'Update the destination address of a shipment. The shipment must be in one of the following statuses:
+
+
+        DRAFT
+
+        CONFIRMED
+
+        UNSUCCESSFULLPICKUP
+
+        ONROADTOPICKUP
+
+        COLLECTED
+
+        STORED'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - shipments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedShipmentUpdate'
+            examples:
+              Payload example:
+                value:
+                  destination:
+                    address: Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico
+                    country: MEX
+                    reference: Torre 3 Apartamente 905
+                    zipcode: '15900'
+        description: ''
+      security:
+      - AuthJWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentUpdate'
+              examples:
+                Example response:
+                  value:
+                    traceId: ad050ab1-9344-4753-b2ce-d5a218de14f8
+                    message: OK
+                    data:
+                      sender:
+                        firstName: Esteban
+                        lastName: Ramirez
+                        phone: '+52999999999'
+                        email: esteban@gmail.com
+                      recipient:
+                        firstName: Carlos
+                        lastName: Gonzalez
+                        phone: '+52999999999'
+                        email: esteban@gmail.com
+                      origin:
+                        locationId: 2753165a-c300-4710-ad69-a7a766a939c2
+                        lat: 19.410353
+                        lng: -99.09836
+                        address: Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México
+                        country: MEX
+                        type: private
+                        reference: Primer Piso
+                        zipcode: '15900'
+                      destination:
+                        locationId: d20f80ab-ce65-4424-a359-04b9ba6b48f5
+                        lat: 19.425213
+                        lng: -99.153984
+                        address: Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico
+                        country: MEX
+                        type: private
+                        reference: Torre 3 Apartamente 905
+                        zipcode: '15900'
+                      payments:
+                        paymentMethod: cash
+                        cashOnDelivery:
+                          amount: 100
+                          currency: MXN
+                      options:
+                        pickUpAfter: '2022-10-24T23:22:51.057000'
+                        deliveryBetween: {}
+                        notes: '**Information to be printed on the label**'
+                      items:
+                      - id: e034e8e4-4f35-4156-be4b-7b9cac4e4224
+                        size: l
+                        description: This is the description
+                        weight: 1000
+                        length: 50
+                        width: 30
+                        height: 20
+                      id: aFqvmecyn29mAJ182qnS6vo1kLDtoKYi
+                      internalKey: 1f5907e6-ae32-4c98-98e7-6f5bc8d2da82
+                      deliveryType: SPT
+                      trackingId: 2753512370
+                      deactivated: false
+                    errors: ''
+          description: ''
+    delete:
+      summary: ''
+      operationId: delete-api-v3-shipments-id
+      description: Cancels an order by trackingId or internalKey.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  reason: Lorem impsm
+              properties:
+                reason:
+                  type: string
+                  description: Reason for cancellation
+              required:
+              - reason
+            examples:
+              Reason Cancellation example:
+                value:
+                  reason: El cliente canceló
+        description: Must provide a reason
+      tags:
+      - shipments
+      responses:
+        '200':
+          $ref: '#/components/responses/ShipmentDeactiveResponse'
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - trackingId
+          - internalKey
+          example: trackingId
+        in: query
+        name: by
+        description: specifies whether the order is to be searched by trackingId or internalKey
+      security:
+      - AuthJWT: []
+  /api/v3/shipments/tracking:
+    get:
+      operationId: shipments_tracking_retrieve
+      description: 'Track a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get every change in the status of the shipments, which is more efficient than pulling. For more information go to the webhooks section**
+
+
+        | **STATUS CODE** | **STATUS NAME** | **DESCRIPTION** |
+
+        | --- | --- | --- |
+
+        | 1001 | DRAFT | It is the first status when the shipment is created `in draft mode`. It means that the shipment is not yet ready by the client and its flow will not start until it is confirmed. Note that the draft value is passed when creating the order and defaults to false. Therefore, this status is only passed through if the draft was previously set to true when creating the order. |
+
+        | 1002 | CONFIRMED | The shipment has been confirmed. It is the first status to trigger the logistics operation. It is the first default state when creating an order (false draft) or when confirming a shipment that was previously created as a draft. |
+
+        | 2002 | ON_ROAD_TO_PICKUP | The shipment is on its way to be picked up. So a driver is heading to the point of origin. *`Does not apply to p99`* |
+
+        | 2003 | COLLECTED | The shipment has been collected and is in the domain of an associated driver of 99minutos. |
+
+        | 2101 | UNSUCCESSFUL_PICKUP | The shipment could not be collected. Within the response object, the attempt attribute is added with the number of collection attempts. `See examples` |
+
+        | 3001 | STORED | The shipment is stored in a wharehouse for 99minutos. |
+
+        | 3004 | ON_LINEHAUL | The shipment is in transit between stations for 99minutos `Not all shipments go through this state.` |
+
+        | 4001 | ON_ROAD_TO_DELIVERY | The shipment has left the network of 99minutos stations to the final destination |
+
+        | 4002 | DELIVERED | The shipment has been successfully delivered to its recipient |
+
+        | 4101 | UNSUCCESSFUL_DELIVERY | The shipment could not be delivered. Inside the response object, the attempt attribute is added with the number of delivery attempts. `See examples` |
+
+        | 5001 | ON_ROAD_TO_RETURN | Shipping on the way to return. The return occurs when it is not possible to deliver the package to the recipient and it is returned to the origin |
+
+        | 5002 | RETURNED | The shipment has been returned to the origin successfully |
+
+        | 5101 | UNSUCCESSFUL_RETURN | The shipment could not be returned. Inside the response object, the attempt attribute is added with the number of return attempts. `See examples` |
+
+        | 7101 | IN_CORRECTION | In some cases the information of origin, destination, etc. may not be precise enough to make the shipment. Therefore, this status indicates that some information of the shipment must be corrected. |
+
+        | 7102 | CORRECTED | If the shipment required correction, it indicates that this has already been done. |
+
+        | 8001 | STOLEN | In extremely rare cases for reasons other than 99minutos the shipment is stolen. `This is extremely rare.` |
+
+        | 8003 | CANCELLED | The shipment has been canceled via API by the client |
+
+        | 8004 | DAMAGED | The shipment was damaged during delivery. |'
+      parameters:
+      - in: query
+        name: identifier
+        schema:
+          type: integer
+          format: int64
+        description: The identifier represent a internalKey or trackingId of one shipment.
+      tags:
+      - shipments
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingResponse'
+              examples:
+                TrackingStatus:
+                  value:
+                    traceId: 73801b36-15d9-4bc2-9874-06772578ad95
+                    message: Shipment found.
+                    data:
+                      events:
+                      - statusCode: '1002'
+                        statusName: CONFIRMED
+                        data: {}
+                        metadata: {}
+                        createdAt: '2021-12-20 07:30:23'
+                      - statusCode: '2003'
+                        statusName: COLLECTED
+                        data:
+                          comment: Recolectada por el veloz Don veloz Base dd9932d
+                        metadata: {}
+                        createdAt: '2021-12-20 11:03:58'
+                      - statusCode: '3001'
+                        statusName: STORED
+                        data:
+                          comment: En estación MX2 por módulo de inducción
+                        metadata: {}
+                        createdAt: '2021-12-20 16:10:41'
+                      - statusCode: '3004'
+                        statusName: ON_LINEHAUL
+                        data:
+                          milleSegment: middle
+                          comment: En camino a estación Toluca desde estación Tultitlán por operarios.tultitlan el número de orden 2727370887
+                        metadata: {}
+                        createdAt: '2021-12-20 16:36:01'
+                      - statusCode: '3001'
+                        statusName: STORED
+                        data:
+                          location: station
+                          milleSegment: first
+                          comment: Cambiado a la estación por jose.delgado el número de orden 2727370887
+                        metadata: {}
+                        createdAt: '2021-12-21 08:12:21'
+                      - statusCode: '3001'
+                        statusName: STORED
+                        data:
+                          location: station
+                          milleSegment: first
+                          comment: Cambiado a la estación por jose.delgado el número de orden 2727370887
+                        metadata: {}
+                        createdAt: '2021-12-21 08:13:48'
+                      - statusCode: '4001'
+                        statusName: ON_ROAD_TO_DELIVERY
+                        data:
+                          attempt: 1
+                          comment: Auto-rea-asignada por el veloz Don veloz GUI TOL 65829
+                        metadata: {}
+                        createdAt: '2021-12-21 08:25:59'
+                      - statusCode: '4001'
+                        statusName: ON_ROAD_TO_DELIVERY
+                        data:
+                          attempt: 1
+                          comment: Auto-rea-asignada por el veloz Don veloz GUI TOL 65829
+                        metadata: {}
+                        createdAt: '2021-12-21 08:34:29'
+                      - statusCode: '4002'
+                        statusName: DELIVERED
+                        data:
+                          attempt: 1
+                          comment: Titular | alejandro castillo,
+                          evidence:
+                          - https://xxxxxx
+                        metadata: {}
+                        createdAt: '2021-12-21 14:32:42'
+                    errors: {}
+                  summary: Tracking status
+                  description: Tracking status response
+          description: ''
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequest'
+              examples:
+                TooManyRequests:
+                  value: 'HTTP/1.1 429 Too Many RequestsContent-type: text/htmlRetry-After: 3600'
+                  summary: Too many requests
+                  description: if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second.
+          description: ''
+  /api/v3/shipments/tracking/batch:
+    get:
+      operationId: shipments_tracking_batch_retrieve
+      description: 'Batch tracking can add multiple identifiers of the following format -->  `/api/v3/shipments/tracking/batch?identifiers={trackingId}&identifiers={trackingId}`
+
+
+        Track a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get every change in the status of the shipments, which is more efficient than pulling. For more information go to the webhooks section**
+
+
+        | **STATUS CODE** | **STATUS NAME** | **DESCRIPTION** |
+
+        | --- | --- | --- |
+
+        | 1001 | DRAFT | It is the first status when the shipment is created `in draft mode`. It means that the shipment is not yet ready by the client and its flow will not start until it is confirmed. Note that the draft value is passed when creating the order and defaults to false. Therefore, this status is only passed through if the draft was previously set to true when creating the order. |
+
+        | 1002 | CONFIRMED | The shipment has been confirmed. It is the first status to trigger the logistics operation. It is the first default state when creating an order (false draft) or when confirming a shipment that was previously created as a draft. |
+
+        | 2002 | ON_ROAD_TO_PICKUP | The shipment is on its way to be picked up. So a driver is heading to the point of origin. *`Does not apply to p99`* |
+
+        | 2003 | COLLECTED | The shipment has been collected and is in the domain of an associated driver of 99minutos. |
+
+        | 2101 | UNSUCCESSFUL_PICKUP | The shipment could not be collected. Within the response object, the attempt attribute is added with the number of collection attempts. `See examples` |
+
+        | 3001 | STORED | The shipment is stored in a wharehouse for 99minutos. |
+
+        | 3004 | ON_LINEHAUL | The shipment is in transit between stations for 99minutos `Not all shipments go through this state.` |
+
+        | 4001 | ON_ROAD_TO_DELIVERY | The shipment has left the network of 99minutos stations to the final destination |
+
+        | 4002 | DELIVERED | The shipment has been successfully delivered to its recipient |
+
+        | 4101 | UNSUCCESSFUL_DELIVERY | The shipment could not be delivered. Inside the response object, the attempt attribute is added with the number of delivery attempts. `See examples` |
+
+        | 5001 | ON_ROAD_TO_RETURN | Shipping on the way to return. The return occurs when it is not possible to deliver the package to the recipient and it is returned to the origin |
+
+        | 5002 | RETURNED | The shipment has been returned to the origin successfully |
+
+        | 5101 | UNSUCCESSFUL_RETURN | The shipment could not be returned. Inside the response object, the attempt attribute is added with the number of return attempts. `See examples` |
+
+        | 7101 | IN_CORRECTION | In some cases the information of origin, destination, etc. may not be precise enough to make the shipment. Therefore, this status indicates that some information of the shipment must be corrected. |
+
+        | 7102 | CORRECTED | If the shipment required correction, it indicates that this has already been done. |
+
+        | 8001 | STOLEN | In extremely rare cases for reasons other than 99minutos the shipment is stolen. `This is extremely rare.` |
+
+        | 8003 | CANCELLED | The shipment has been canceled via API by the client |
+
+        | 8004 | DAMAGED | The shipment was damaged during delivery. |'
+      parameters:
+      - in: query
+        name: identifiers
+        schema:
+          type: integer
+          format: int64
+        description: The identifier represent a internalKey or trackingId of one shipment.
+      tags:
+      - shipments
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingBatchResponse'
+          description: ''
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequest'
+              examples:
+                TooManyRequests:
+                  value: 'HTTP/1.1 429 Too Many RequestsContent-type: text/htmlRetry-After: 3600'
+                  summary: Too many requests
+                  description: if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second.
+          description: ''
+components:
+  schemas:
+    DeliveryType2faEnum:
+      enum:
+      - SMD
+      - SPT
+      - 99M
+      - CO2F
+      - RET
+      - NAL
+      - P2P
+      type: string
+    CurrencyEnum:
+      enum:
+      - COP
+      - MXN
+      - CLP
+      - PEN
+      - ARP
+      type: string
+    Payment:
+      type: object
+      description: Payment options are included in this section
+      properties:
+        insured:
+          type: boolean
+        insuredValue:
+          type: number
+          format: double
+          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
+        cashOnDelivery:
+          allOf:
+          - $ref: '#/components/schemas/Embedded'
+          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
+    Option:
+      type: object
+      description: Options to customize the shipment.
+      properties:
+        pickUpAfter:
+          type: string
+          format: date-time
+          description: Date time from which the shipment is available for pickup
+        deliveryBetween:
+          type: object
+          additionalProperties:
+            type: string
+            format: date-time
+        requiresIdentification:
+          type: boolean
+        requiresSignature:
+          type: boolean
+        twoFactorAuth:
+          type: boolean
+          description: Code is required to mark the order as delivered. Needs to be activated previously
+        notes:
+          type: string
+          description: Notes that will be displayed on the label
+    PatchedShipmentUpdate:
+      type: object
+      description: 'Update shipment serializer.
+
+        Only the origin and destination fields can be updated.
+
+        The deliveryType is not in read only fields because
+
+        is required for the covered'
+      properties:
+        destination:
+          $ref: '#/components/schemas/Location'
+      x-examples:
+        Example update order destination:
+          destination:
+            address: Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico
+            country: MEX
+            reference: Torre 3 Apartamente 905
+            zipcode: '15900'
+    Event:
+      type: object
+      properties:
+        statusCode:
+          allOf:
+          - $ref: '#/components/schemas/StatusCodeEnum'
+        statusName:
+          allOf:
+          - $ref: '#/components/schemas/StatusNameEnum'
+        data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - statusCode
+      - statusName
+      - data
+      - metadata
+      - createdAt
+    Sender:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    TrackingBatchResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          example: c0510fb7-0e73-4cc1-8f0b-f1ae632d2bd6
+        message:
+          type: string
+          example: OK
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              trackingId:
+                type: string
+                example: '2763022166'
+              events:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    statusCode:
+                      type: string
+                      example: '8003'
+                    statusName:
+                      type: string
+                      example: CANCELLED
+                    data:
+                      type: object
+                      properties:
+                        comment:
+                          type: string
+                          example: ''
+                    metadata:
+                      type: object
+                    createdAt:
+                      type: string
+                      format: date-time
+                      example: '2023-08-21T23:18:23.979000-05:00'
+    TrackingResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+        data:
+          $ref: '#/components/schemas/Event'
+        errors:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - data
+      - errors
+      - message
+      - traceId
+      description: ''
+    Location:
+      type: object
+      description: 'Location where the package is picked up.
+
+        Depending on the flow you choose,
+
+        you must send different parameters.
+
+
+        A location is a geographical point that can be taken as the origin and/or destination of a shipment.
+
+
+        There are 3 ways in which you can define a location, feel free to choose the one that best suits your business rules.
+
+        Each one is described below.
+
+
+        1. Coords-based
+
+        It is the option with the best precision to define an origin or destination.
+
+        Latitude and longitude are taken to define the location
+
+
+        2. LocationId-based
+
+        A LocationId is a uuid that identifies a single geographic point.
+
+        The locationId is generated by this API (check out the Get Location id request in Locations folder).
+
+        By using locationId, no further data needs to be passed.
+
+        It is useful when you have the same point in several shipments since you can reuse the locationId.
+
+
+        3. Address string-based
+
+        In this option the client sends only the address. We will process the address to obtain the other data.
+
+
+        However, if the address does not contain information necessary to locate it,
+
+        the system will return a 400 error and the order will not be created, so you must handle the error.
+
+
+        It is important to emphasize that in the two previous flows there is no possibility to reject an order for the location'
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: LocationId is a uuid that identifies a single geographic point.
+        lat:
+          type: number
+          format: double
+          maximum: 90
+          minimum: -90
+          description: Longitude coordinates
+        lng:
+          type: number
+          format: double
+          maximum: 180
+          minimum: -180
+          description: Lattitude coordinates
+        address:
+          type: string
+          description: Text sentence that references the location. This address will be printed on the labels.
+        country:
+          allOf:
+          - $ref: '#/components/schemas/LocationCountryEnum'
+        reference:
+          type: string
+          description: Any other text that enrich the address of the location such apartment, Suite, Box number, Tower, etc.
+        zipcode:
+          type: string
+          description: Location zipcode. If it is not included we will try to extract the zipcode from the address. So if your address does not include zipcode, you must include it in this field
+          nullable: true
+        city:
+          type: string
+          description: Text that reference the city of the location
+    Item:
+      type: object
+      description: Array of items/packages to send.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        size:
+          $ref: '#/components/schemas/ItemSizeEnum'
+        description:
+          type: string
+        weight:
+          type: integer
+          minimum: 1
+          description: Measurement in grams of weight
+        length:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
+        width:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
+        height:
+          type: integer
+          minimum: 1
+          description: Vertical measure in centimeters of distance from base to top
+      required:
+      - id
+      - size
+      - weight
+    TooManyRequest:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+      - message
+    Recipient:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    ItemSizeEnum:
+      enum:
+      - xs
+      - s
+      - m
+      - l
+      - xl
+      - xxl
+      - unknown
+      - '-'
+      type: string
+    Embedded:
+      type: object
+      description: 'Serializer for EmbeddedDocuments.
+
+
+        Skips id field and uniqueness validation.
+
+        When saving, skips calling instance.save'
+      properties:
+        amount:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+      required:
+      - amount
+      - currency
+    LocationCountryEnum:
+      enum:
+      - MEX
+      - COL
+      - CHL
+      - PER
+      type: string
+    StatusNameEnum:
+      enum:
+      - SHIPMENT_TO_BE_CONFIRMED
+      - CONFIRMED
+      - ON_ROAD_TO_PICKUP
+      - COLLECTED
+      - UNSUCCESSFUL_PICKUP
+      - STORED
+      - ON_LINEHAUL
+      - ON_ROAD_TO_DELIVERY
+      - DELIVERED
+      - UNSUCCESSFUL_DELIVERY
+      - ON_ROAD_TO_RETURN
+      - RETURNED
+      - UNSUCCESSFUL_RETURN
+      - IN_CORRECTION
+      - CORRECTED
+      - STOLEN
+      - CANCELLED
+      - DAMAGED
+      type: string
+    StatusCodeEnum:
+      enum:
+      - '1001'
+      - '1002'
+      - '2002'
+      - '2003'
+      - '2101'
+      - '3001'
+      - '3004'
+      - '4001'
+      - '4002'
+      - '4101'
+      - '5001'
+      - '5002'
+      - '5101'
+      - '7101'
+      - '7102'
+      - '8001'
+      - '8003'
+      - '8004'
+      type: string
+    ShipmentUpdate:
+      type: object
+      description: 'Update shipment serializer.
+
+        Only the origin and destination fields can be updated.
+
+        The deliveryType is not in read only fields because
+
+        is required for the covered'
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        origin:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        payments:
+          $ref: '#/components/schemas/Payment'
+        options:
+          $ref: '#/components/schemas/Option'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id:
+          type: string
+          readOnly: true
+        internalKey:
+          type: string
+          readOnly: true
+          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType2faEnum'
+        trackingId:
+          type: integer
+          readOnly: true
+        apiVersion:
+          type: integer
+          default: 3
+      required:
+      - deliveryType
+      - destination
+      - id
+      - internalKey
+      - items
+      - options
+      - origin
+      - recipient
+      - sender
+      - trackingId
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

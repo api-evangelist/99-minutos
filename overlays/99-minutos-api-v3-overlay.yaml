@@ -1,0 +1,18 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for 99minutos API v3
+  version: 1.0.0
+extends: openapi/99minutos-api-v3-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enrichment:
+        harvested: '2026-07-17'
+        source: https://developers.99minutos.com/ (Stoplight OpenAPI served per-operation)
+        auth: oauth2 client-credentials -> bearer JWT
+        rate_limit: max 8 req/s on tracking pull endpoints
+        webhooks: asyncapi/99-minutos-webhooks.yml
+        trust_center: https://security.99minutos.com/ (ISO 27001)
+  - target: $.info
+    update:
+      x-agentic-access-profile: agentic-access/99-minutos-agentic-access.yml

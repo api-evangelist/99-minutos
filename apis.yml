@@ -1,25 +1,317 @@
 aid: 99-minutos
 name: 99 Minutos
-description: 99 Minutos is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  99minutos (99 Minutos) is a Latin American last-mile logistics and delivery
+  platform serving ecommerce businesses across Mexico, Chile, Colombia and Peru.
+  It offers express parcel delivery (envios99), full-truck-load and drayage
+  freight (freight99), fulfillment and warehousing (fulfill99) and custom
+  logistics operations (tailor99), backed by a network of pickup/delivery points
+  (Punto99). Its public REST API v3 lets developers resolve addresses to reusable
+  location ids, quote shipping rates and coverage, create/confirm orders
+  (including multibox), print PDF and ZPL labels, track shipments and subscribe to
+  real-time status webhooks. Authentication is OAuth2 client-credentials that
+  returns a bearer JWT. Surfaced as a 500 Global portfolio company and enriched by
+  the API Evangelist pipeline from the provider's own developer portal.
 url: https://raw.githubusercontent.com/api-evangelist/99-minutos/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.99minutos.com/_next/static/media/logo_99minutos.230a642b.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
-apis: []
+- Logistics
+- Last Mile Delivery
+- Shipping
+- Ecommerce
+- Fulfillment
+- Freight
+- Tracking
+- Webhooks
+- Latin America
+- Mexico
+apis:
+- aid: 99-minutos:99-minutos-coverage-api
+  name: 99 Minutos coverage API
+  description: The coverage API from 99 Minutos — 1 operation(s) for coverage.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - coverage
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-coverage-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-documents-api
+  name: 99 Minutos documents API
+  description: The documents API from 99 Minutos — 2 operation(s) for documents.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - documents
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-documents-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-locations-api
+  name: 99 Minutos locations API
+  description: The locations API from 99 Minutos — 3 operation(s) for locations.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - locations
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-locations-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-oauth-api
+  name: 99 Minutos oauth API
+  description: The oauth API from 99 Minutos — 1 operation(s) for oauth.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-oauth-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-orders-api
+  name: 99 Minutos Orders API
+  description: The Orders API from 99 Minutos — 5 operation(s) for orders.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-orders-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-shipments-api
+  name: 99 Minutos shipments API
+  description: The shipments API from 99 Minutos — 3 operation(s) for shipments.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - shipments
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-shipments-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-shipping-rates-api
+  name: 99 Minutos shipping-rates API
+  description: The shipping-rates API from 99 Minutos — 5 operation(s) for shipping-rates.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - shipping-rates
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-shipping-rates-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-super-geocoding-api
+  name: 99 Minutos super-geocoding API
+  description: The super-geocoding API from 99 Minutos — 1 operation(s) for super-geocoding.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - super-geocoding
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-super-geocoding-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-webhooks-api
+  name: 99 Minutos webhooks API
+  description: The webhooks API from 99 Minutos — 3 operation(s) for webhooks.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-webhooks-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://developers.99minutos.com/
+- type: Documentation
+  url: https://developers.99minutos.com/
+- type: APIReference
+  url: https://developers.99minutos.com/reference/
+- type: GettingStarted
+  url: https://developers.99minutos.com/recipes/autenticarse-login
+- type: Support
+  url: https://www.99minutos.com/preguntas-frecuentes/
+- type: Blog
+  url: https://www.99minutos.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/99minutos
+- type: SignUp
+  url: https://envios.99minutos.com/developers
+- type: TermsOfService
+  url: https://www.99minutos.com/terminos-y-condiciones
+- type: PrivacyPolicy
+  url: https://www.99minutos.com/politicas-de-privacidad
+- type: Compliance
+  url: https://security.99minutos.com/
+- type: TrustCenter
+  url: security/99-minutos-trust-center.yml
+- type: DomainSecurity
+  url: security/99-minutos-domain-security.yml
+- type: Authentication
+  url: authentication/99-minutos-authentication.yml
+- type: Conventions
+  url: conventions/99-minutos-conventions.yml
+- type: ErrorCatalog
+  url: errors/99-minutos-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/99-minutos-lifecycle.yml
+- type: Sandbox
+  url: sandbox/99-minutos-sandbox.yml
+- type: Webhooks
+  url: asyncapi/99-minutos-webhooks.yml
+- type: MCPServer
+  url: mcp/99-minutos-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/99-minutos-packages.yml
+- type: Conformance
+  url: conformance/99-minutos-conformance.yml
+- type: DataModel
+  url: data-model/99-minutos-data-model.yml
+- type: Overlay
+  url: overlays/99-minutos-api-v3-overlay.yaml
+- type: LLMsTxt
+  url: llms/99-minutos-llms.txt
+- type: WellKnown
+  url: well-known/99-minutos-well-known.yml
+- type: AgenticAccess
+  url: agentic-access/99-minutos-agentic-access.yml
 - type: Website
   url: https://99minutos.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

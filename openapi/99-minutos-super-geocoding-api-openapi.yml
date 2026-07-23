@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage super-geocoding API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: super-geocoding
+paths:
+  /api/v3/super-geocoding:
+    post:
+      tags:
+      - super-geocoding
+      summary: super geocoding
+      operationId: validate_address_validate_address_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressValidationRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressValidationResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AddressValidationRequest:
+      properties:
+        address_lines:
+          items:
+            type: string
+          type: array
+          title: Address Lines
+          example:
+          - Calle Masaryk 29
+          - Anzures
+        region_code:
+          type: string
+          enum:
+          - MX
+          - US
+          - CO
+          - PE
+          - CL
+          title: Region Code
+          example: MX
+        algorithm:
+          anyOf:
+          - type: string
+            enum:
+            - FAST
+            - EXPENSIVE
+          title: Algorithm
+          default: FAST
+          example: FAST
+      type: object
+      required:
+      - address_lines
+      - region_code
+      title: AddressValidationRequest
+    AddressValidationResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          example: VALID
+        address:
+          type: string
+          title: Address
+          example: Calle Masaryk 29, Anzures, Miguel Hidalgo, 11590 CDMX, México
+        components:
+          items:
+            $ref: '#/components/schemas/AddressComponent'
+          type: array
+          title: Components
+          example:
+          - confidence: CONFIRMED
+            name: Calle Masaryk
+            type: street
+          - confidence: CONFIRMED
+            name: '29'
+            type: street_number
+          - confidence: CONFIRMED
+            name: Anzures
+            type: neighborhood
+        location:
+          type: object
+          title: Location
+          example:
+            latitude: 19.4356382
+            longitude: -99.181854
+        uncertainty_in_meters:
+          type: number
+          title: Uncertainty In Meters
+          default: 0
+          example: 10.539512
+        place_id:
+          type: string
+          title: Place Id
+          example: ChIJczyrNaz40YUR2CgG_IrhgkQ
+        plus_code:
+          type: object
+          title: Plus Code
+          example: XXXXX
+        place_types:
+          items:
+            type: string
+          type: array
+          title: Place Types
+          example:
+          - premise
+        unconfirmed_component_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          title: Unconfirmed Component Types
+          default: []
+          example:
+          - street_number
+        algorithm:
+          type: string
+          title: Algorithm
+          example: FAST
+        credits:
+          type: integer
+          title: Credits
+          example: 1
+      type: object
+      required:
+      - status
+      - address
+      - components
+      - location
+      - place_id
+      - plus_code
+      - place_types
+      - algorithm
+      - credits
+      title: AddressValidationResponse
+    AddressComponent:
+      properties:
+        name:
+          type: string
+          title: Name
+          example: Calle Masaryk
+        type:
+          type: string
+          title: Type
+          example: street
+        confidence:
+          type: string
+          title: Confidence
+          example: CONFIRMED
+      type: object
+      required:
+      - name
+      - type
+      - confidence
+      title: AddressComponent
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

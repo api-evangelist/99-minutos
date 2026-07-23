@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: coverage
+paths:
+  /api/v3/coverage/zipcodes/{country}:
+    get:
+      operationId: GetZipCodesByCountry
+      description: Return list of postal codes by country paginated
+      tags:
+      - coverage
+      parameters:
+      - in: path
+        name: country
+        schema:
+          type: string
+          enum:
+          - MEX
+        description: Filter for search postal codes
+        required: true
+      - in: query
+        name: deliveryType
+        schema:
+          type: string
+          enum:
+          - RET
+          - NXD
+        description: delivery types with postal codes
+        required: true
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Limit of codes by page
+        required: true
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  codes:
+                    type: array
+                    items:
+                      type: string
+                      description: ''
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: string
+                        description: ''
+                      limit:
+                        type: string
+                        description: ''
+                      totalPages:
+                        type: string
+                        description: ''
+              examples:
+                ReturnGuidesResponse:
+                  value:
+                    codes:
+                    - '546783'
+                    - '1234323'
+                    metadata:
+                      page: '1'
+                      limit: '2'
+                      totalPages: '760'
+                  summary: return postal codes response
+                  description: return postal codes
+          description: ''
+components:
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

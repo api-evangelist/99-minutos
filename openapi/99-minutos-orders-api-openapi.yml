@@ -1,0 +1,1650 @@
+openapi: 3.0.3
+info:
+  title: API Version 3 coverage Orders API
+  version: 3.0.0
+  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+servers:
+- url: https://delivery.99minutos.com
+  description: Produccion
+- url: https://sandbox.99minutos.com
+  description: Sandbox Environment
+tags:
+- name: Orders
+paths:
+  /api/v1/orders/multibox:
+    post:
+      tags:
+      - Orders
+      summary: Create multibox orders
+      description: 'Create multibox orders. N child shipments will be created plus the master shipment. The number of child shipments is determined by the `packages` field, and by default, always 1 master shipment is created.
+
+        '
+      operationId: createMultiboxOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiboxOrderRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/BadRequestResponse1'
+                - $ref: '#/components/schemas/BadRequestResponse2'
+                - $ref: '#/components/schemas/BadRequestResponse3'
+  /api/v3/orders/{orderid}/confirm:
+    parameters:
+    - schema:
+        type: string
+      name: orderid
+      in: path
+      required: true
+      description: orderId of the order that will be confirmed
+    post:
+      operationId: orders_confirm_create
+      description: Confirm change the value draft to False for the given order id
+      tags:
+      - Orders
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traceId:
+                    type: string
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties: {}
+                  errors:
+                    type: object
+                    properties: {}
+                x-examples:
+                  Example 1:
+                    traceId: 5f57e3c6-5933-4e1b-a9dc-f77495604a59
+                    message: order confirmed successfully
+                    data: {}
+                    errors: {}
+              examples:
+                Order confirmed:
+                  value:
+                    traceId: 5f57e3c6-5933-4e1b-a9dc-f77495604a59
+                    message: order confirmed successfully
+                    data: {}
+                    errors: {}
+  /api/v3/orders/{id}:
+    parameters:
+    - schema:
+        type: string
+      name: id
+      in: path
+      required: true
+      description: Database identifier order id
+    get:
+      operationId: orders_retrieve
+      description: 'Return a order given an encoded order id.
+
+        The order id must be MongoDB identifier'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Orders
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                Retrieve order id:
+                  value:
+                    traceId: 7d4253dc-0785-468f-9d21-402d0797caac
+                    message: OK
+                    data:
+                    - id: aG0yvr3yDwQin97ZRjyyyVkGi4NrNEob
+                      shipments:
+                      - sender:
+                          firstName: Esteban
+                          lastName: Ramirez
+                          phone: '+52999999999'
+                          email: esteban@gmail.com
+                        recipient:
+                          firstName: Carlos
+                          lastName: Gonzalez
+                          phone: '+52999999999'
+                          email: esteban@gmail.com
+                        origin:
+                          lat: 19.413574
+                          lng: -99.11359
+                          address: Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México
+                          country: MEX
+                          type: private
+                          reference: Primer Piso
+                          zipcode: '15900'
+                        destination:
+                          lat: 19.041694
+                          lng: -98.2035678
+                          address: Av 9 Pte 308, Centro histórico de Puebla, Puebla, Pue., México
+                          country: MEX
+                          type: private
+                          reference: Torre 3 Apartamente 905
+                          zipcode: '72000'
+                        payments:
+                          paymentMethod: ''
+                          cashOnDelivery:
+                            amount: 100
+                            currency: MXN
+                        options:
+                          pickUpAfter: '2023-05-09T22:59:17.448000'
+                          deliveryBetween:
+                            start: '2023-01-01T08:00:00'
+                            end: '2023-01-20T08:00:00'
+                          notes: '**Information to be printed on the label**'
+                        items:
+                        - id: 6107173d-536c-4351-92ee-82a6402f19ee
+                          size: l
+                          description: This is the description
+                          weight: 1000
+                          length: 50
+                          width: 30
+                          height: 20
+                        id: aG0yvr3yDwQin97ZRjyyyVkGi4NrNEoa
+                        internalKey: 2aa0b908-edb1-4688-afe5-34489ecf8b53
+                        deliveryType: SPT
+                        trackingId: 2098099475
+                        apiVersion: 3
+                      account:
+                        client_id: ''
+                        apikey: ''
+                      draft: false
+                      createdAt: '2023-05-09T22:59:51.521000'
+                      expiresAt: '2023-07-08T22:59:51.521000'
+                    errors: []
+          description: ''
+  /api/v3/orders:
+    get:
+      operationId: orders_list
+      description: Get the list of active orders.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Orders
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedOrderList'
+          description: ''
+    post:
+      operationId: orders_create
+      description: Create orders.
+      tags:
+      - Orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+            examples:
+              CreateOrderCoords-based:
+                value:
+                  shipments:
+                  - internalKey: ''
+                    deliveryType: SPT
+                    sender:
+                      firstName: Esteban
+                      lastName: Ramirez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    recipient:
+                      firstName: Carlos
+                      lastName: Gonzalez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    origin:
+                      lat: 19.413574
+                      lng: -99.11359
+                      address: Av. del Taller 451, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México
+                      country: MEX
+                      reference: Primer Piso
+                      city: Ciudad de México
+                      zipcode: '15900'
+                    destination:
+                      lat: 19.041694
+                      lng: -98.2035678
+                      address: Av 9 Pte 308, Centro histórico de Puebla, Puebla, Pue., México
+                      city: Ciudad de México
+                      reference: Torre 3 Apartamente 905
+                      country: MEX
+                      zipcode: '72000'
+                    payments:
+                      paymentMethod: cash
+                      cashOnDelivery:
+                        amount: 100
+                        currency: MXN
+                    options:
+                      pickUpAfter: '2022-02-01T08:00:00.000Z'
+                      requiresIdentification: false
+                      requiresSignature: false
+                      twoFactorAuth: false
+                      notes: '**Information to be printed on the label**'
+                    items:
+                    - size: s
+                      description: lorem ipsum
+                      weight: 1000
+                      length: 50
+                      width: 30
+                      height: 20
+                  draft: true
+                summary: Create order Coords-based
+                description: It is the option with the best precision to define an origin or destination. Latitude and longitude are taken to define the location
+              CreateOrderLocationId-based:
+                value:
+                  shipments:
+                  - internalKey: ''
+                    deliveryType: SPT
+                    sender:
+                      firstName: Esteban
+                      lastName: Ramirez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    recipient:
+                      firstName: Carlos
+                      lastName: Gonzalez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    origin:
+                      locationId: 1d9dc137-137a-4966-897b-75b5f837d319
+                    destination:
+                      locationId: 441a79d4-0682-4bca-a2d6-1fff4c2c86fb
+                    payments:
+                      paymentMethod: cash
+                      cashOnDelivery:
+                        amount: 100
+                        currency: MXN
+                    options:
+                      pickUpAfter: '2022-02-01T08:00:00.000Z'
+                      requiresIdentification: false
+                      requiresSignature: false
+                      twoFactorAuth: false
+                      notes: '**Information to be printed on the label**'
+                    items:
+                    - size: s
+                      description: lorem ipsum
+                      weight: 1000
+                      length: 50
+                      width: 30
+                      height: 20
+                  draft: true
+                summary: Create order LocationId-based
+                description: A LocationId is a uuid that identifies a single geographic point. The locationId is generated by this API (check out the Get Location id request in Locations folder). By using locationId, no further data needs to be passed. It is useful when you have the same point in several shipments since you can reuse the locationId.
+              CreateOrderAddressString-based:
+                value:
+                  shipments:
+                  - internalKey: ''
+                    deliveryType: SPT
+                    sender:
+                      firstName: Esteban
+                      lastName: Ramirez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    recipient:
+                      firstName: Carlos
+                      lastName: Gonzalez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    origin:
+                      address: C. de Venustiano, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX, México
+                      country: MEX
+                      city: Ciudad de México
+                      reference: Piso 1
+                      zipcode: '06000'
+                    destination:
+                      address: Calz. del Peñón 139, Azteca, Venustiano Carranza, 15320 Ciudad de México, CDMX, México
+                      country: MEX
+                      city: Ciudad de México
+                      zipcode: '15320'
+                    payments:
+                      paymentMethod: cash
+                      cashOnDelivery:
+                        amount: 100
+                        currency: MXN
+                    options:
+                      pickUpAfter: '2022-02-01T08:00:00.000Z'
+                      requiresIdentification: false
+                      requiresSignature: false
+                      twoFactorAuth: false
+                      notes: '**Information to be printed on the label**'
+                    items:
+                    - size: s
+                      description: lorem ipsum
+                      weight: 1000
+                      length: 50
+                      width: 30
+                      height: 20
+                  draft: true
+                summary: Create order Address string-based
+                description: In this option the client sends only the address. We will process the address to obtain the other data. However, if the address does not contain information necessary to locate it, the system will return a 400 error and the order will not be created, so you must handle the error. It is important to emphasize that in the two previous flows there is no possibility to reject an order for the location
+              CreateOrderWithDeliveryDateRange:
+                value:
+                  shipments:
+                  - internalKey: ''
+                    deliveryType: SPT
+                    sender:
+                      firstName: Esteban
+                      lastName: Ramirez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    recipient:
+                      firstName: Carlos
+                      lastName: Gonzalez
+                      phone: '+52999999999'
+                      email: esteban@gmail.com
+                    origin:
+                      address: C. de Venustiano, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX, México
+                      country: MEX
+                      reference: Piso 1
+                      zipcode: '06000'
+                    destination:
+                      address: Calz. del Peñón 139, Azteca, Venustiano Carranza, 15320 Ciudad de México, CDMX, México
+                      country: MEX
+                      zipcode: '15320'
+                    payments:
+                      paymentMethod: cash
+                      cashOnDelivery:
+                        amount: 100
+                        currency: MXN
+                    options:
+                      pickUpAfter: '2022-02-01T08:00:00.000Z'
+                      deliveryBetween:
+                        start: '2022-02-02T12:00:00.000Z'
+                        end: '2022-02-02T20:00:00.000Z'
+                      requiresIdentification: false
+                      requiresSignature: false
+                      twoFactorAuth: false
+                      notes: '**Information to be printed on the label**'
+                    items:
+                    - size: s
+                      description: lorem ipsum
+                      weight: 1000
+                      length: 50
+                      width: 30
+                      height: 20
+                  draft: true
+                summary: Create order with delivery date range
+                description: In the options field you can set a delivery date range. Start and end keys represent date on which the package can be delivered
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      security:
+      - AuthJWT: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                OrderSuccessfullyCreated:
+                  value:
+                    traceId: fdecb33d-2769-458d-b319-835b1c73d8f6
+                    message: order created successfully
+                    data:
+                      id: aFr0bwewwEm3EDChXLs2J5xbsbe3hEP5
+                      shipments:
+                      - sender:
+                          firstName: Jorge benito
+                          lastName: Ramon
+                          phone: '+52999797429'
+                          email: jorge@gmail.com
+                        recipient:
+                          firstName: Carlos
+                          lastName: Gonzalez
+                          phone: '+52999999'
+                          email: esteban@gmail.com
+                        origin:
+                          lat: 19.413574
+                          lng: -99.11359
+                          address: Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México
+                          country: MEX
+                          type: private
+                          reference: Primer Piso
+                          zipcode: '15900'
+                        destination:
+                          lat: 19.041694
+                          lng: -98.2035678
+                          address: Av 9 Pte 308, Centro histórico de Puebla, Puebla, Pue., México
+                          country: MEX
+                          type: private
+                          reference: Torre 3 Apartamente 905
+                          zipcode: '72000'
+                        payments:
+                          paymentMethod: ''
+                          cashOnDelivery:
+                            amount: 100
+                            currency: MXN
+                        options:
+                          pickUpAfter: '2022-11-15T06:33:26.166575'
+                          deliveryBetween:
+                            start: '2022-02-02T12:00:00.000Z'
+                            end: '2022-02-02T20:00:00.000Z'
+                          notes: '**Information to be printed on the label**'
+                        items:
+                        - id: e0f954b2-d7fe-48e6-963f-d377149944d7
+                          size: l
+                          description: This is the description
+                          weight: 1000
+                          length: 50
+                          width: 30
+                          height: 20
+                        id: aFr0bwewwEm3EDChXLs2J5xbsbe3hEP4
+                        internalKey: 394e84ef-6837-48cd-b9af-9e2cf039d642
+                        deliveryType: SPT
+                        trackingId: 3186136841
+                      account:
+                        client_id: 57c38a44-d056-4f06-8d26-1ce40d0f7f05
+                        apikey: 7cef77a8-70e1-4649-a104-c913e5d9f5b8
+                      draft: false
+                      createdAt: '2022-11-15T06:33:26.921806'
+                      expiresAt: '2023-01-14T06:33:26.921806'
+                    errors: {}
+                  summary: Order successfully created
+                  description: Order successfully created response
+          description: ''
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traceId:
+                    type: string
+                    example: 248607db-e0c8-4b2c-816b-3ef0ab0ec06f
+                    description: ID de traza para el seguimiento interno.
+                  message:
+                    type: string
+                    example: Internal key already exists for the client.
+                    description: Mensaje descriptivo del error.
+                  data:
+                    type: array
+                    items: {}
+                    description: Datos adicionales relacionados con el error.
+                  errors:
+                    type: object
+                    description: Objeto que contiene detalles específicos del error.
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traceId:
+                    type: string
+                    example: 1861d6cc-11bc-4b8c-b881-c9341eedc5df
+                    description: ID de traza para el seguimiento interno.
+                  message:
+                    type: string
+                    example: The body data is invalid. Please check the docs
+                    description: Mensaje descriptivo del error.
+                  data:
+                    type: array
+                    items: {}
+                    example: []
+                    description: Datos adicionales relacionados con el error.
+                  errors:
+                    type: object
+                    properties:
+                      shipments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            destination:
+                              type: object
+                              properties:
+                                address:
+                                  type: array
+                                  items:
+                                    type: string
+                                  example:
+                                  - You must provide an address.
+                              description: Detalles de los errores relacionados con la dirección de destino.
+                        description: Objeto que contiene detalles específicos del error para los envíos.
+                    description: Objeto que contiene detalles específicos del error.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseJWT'
+              examples:
+                ExampleErrorTokenResponse:
+                  value:
+                    message: Jwt is expired
+                    code: 401
+          description: ''
+        '412':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traceId:
+                    type: string
+                    example: 5896c0d9-bccf-4b5d-a8fa-b8859a2fa9e2
+                    description: ID de traza para el seguimiento interno.
+                  message:
+                    type: string
+                    example: There is no coverage for the selected origin and destination. If you wish to validate our coverage in advance, please go to the /coverage endpoints
+                    description: Mensaje descriptivo del error.
+                  data:
+                    type: array
+                    items: {}
+                    example: []
+                    description: Datos adicionales relacionados con el error.
+                  errors:
+                    type: object
+                    description: Objeto que contiene detalles específicos del error.
+          description: ''
+  /api/v3/orders/multibox:
+    post:
+      operationId: orders_multibox_create
+      description: 'Create a multibox order that groups multiple packages (children) under a single parent order (master). All children share the same origin, destination, sender and recipient. Useful when a single shipment contains multiple parcels that must travel together.
+
+
+        Minimum 1 child, maximum 20 children per order.
+
+
+        '
+      tags:
+      - Orders
+      security:
+      - AuthJWT: []
+      - {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiboxRequest'
+            examples:
+              MultiboxOrderExample:
+                value:
+                  deliveryType: SMD
+                  packageSize: xs
+                  destination:
+                    address: Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580
+                    country: MEX
+                    zipcode: '11580'
+                    lat: 0
+                    lng: 0
+                  origin:
+                    address: C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO
+                    country: MEX
+                    zipcode: '14390'
+                    lat: 0
+                    lng: 0
+                  options:
+                    notes: Dejar en puerta
+                  sender:
+                    firstName: Cecilia
+                    lastName: Magana
+                    email: cecilia@99minutos.com
+                    phone: '+525555555544'
+                  recipient:
+                    firstName: Laura
+                    lastName: Flores
+                    email: laura@99minutos.com
+                    phone: '+525533668777'
+                  internalKey: test123-1234567890123-0123456789
+                  children:
+                  - internalKey: test123-1234567-1
+                    items:
+                    - weight: 300
+                      height: 10
+                      width: 10
+                      length: 10
+                      size: xs
+                summary: Create multibox order
+                description: Example payload for creating a multibox order with one child package
+      responses:
+        '200':
+          description: Multibox order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiboxResponse'
+              examples:
+                MultiboxSuccessResponse:
+                  value:
+                    traceId: abc123def456
+                    message: Multibox order received successfully
+                    data:
+                      master: 99M-XXXXXXXXXX
+                      children:
+                      - tracking_id: 99M-YYYYYYYYYY
+                        internal_key: test123-1234567-1
+                        client_id: client-id-123
+                    errors: []
+                  summary: Multibox order created
+                  description: Successful multibox order creation response
+        '400':
+          description: Invalid request body. The JSON payload could not be parsed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiboxErrorResponse'
+              examples:
+                InvalidRequestBody:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: GENERIC_INVALID_PARAMETERS
+                      message: Invalid request body
+        '401':
+          description: Authentication error. JWT is missing, malformed, or expired.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiboxErrorResponse'
+              examples:
+                JWTExpired:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: JWT_EXPIRED
+                      message: JWT token has expired
+                JWTMissing:
+                  value:
+                    error: Missing or invalid JWT token
+                    code: '401'
+        '422':
+          description: Validation or business rule error. The request fields do not meet the required validations or a business rule was not satisfied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiboxErrorResponse'
+              examples:
+                ValidationError:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: GENERIC_INVALID_PARAMETERS
+                      message: origin.address must be between 10 and 300 characters
+                      field: origin.address
+                CustomerInactive:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: CUSTOMER_INACTIVE
+                      message: Customer is not active
+                InternalKeyAlreadyExists:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: INTERNAL_KEY_ALREADY_EXISTS
+                      message: internalKey 'test123' already exists
+                DeliveryTypeNotActive:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE
+                      message: Delivery type SMD is not active for the customer
+        '500':
+          description: Internal server error. An unexpected error occurred during order processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiboxErrorResponse'
+              examples:
+                GeocodingError:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: GEOCODING_SERVICE_ERROR
+                      message: Geocoding service returned empty response
+                StateMachineError:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: STATE_MACHINE_ERROR_RESPONSE
+                      message: 'state machine returned status code: 500'
+                GenericError:
+                  value:
+                    traceId: abc123def456
+                    errors:
+                    - code: GENERIC_500_ERROR
+                      message: Internal server error
+components:
+  schemas:
+    Destination:
+      type: object
+      properties:
+        receiver:
+          type: string
+          example: David Ludueña
+        nameReceiver:
+          type: string
+          example: David
+        lastNameReceiver:
+          type: string
+          example: Ludueña
+        emailReceiver:
+          type: string
+          example: ''
+        phoneReceiver:
+          type: string
+          example: '11111111'
+        addressDestination:
+          type: string
+          example: Calle Prol. Melchor, Miguel de la Madrid, Iztapalapa, 09698 Ciudad de México, CDMX
+        numberDestination:
+          type: string
+          example: s/r
+        codePostalDestination:
+          type: string
+          example: 09698
+        country:
+          type: string
+          enum:
+          - MEX
+          - CHL
+          - PER
+          - COL
+          example: MEX
+    CurrencyEnum:
+      enum:
+      - COP
+      - MXN
+      - CLP
+      - PEN
+      - ARP
+      type: string
+    MultiboxLocation:
+      type: object
+      description: Location for origin or destination of a multibox order.
+      properties:
+        address:
+          type: string
+          description: Full address. Minimum 10 characters, maximum 300.
+          minLength: 10
+          maxLength: 300
+        country:
+          type: string
+          description: Country code in ISO 3-letter format.
+          enum:
+          - MEX
+          - CHL
+          - COL
+          - PER
+        zipcode:
+          type: string
+          description: Postal code.
+        lat:
+          type: number
+          format: double
+          description: Latitude. If 0.0, the system will geocode the address automatically.
+        lng:
+          type: number
+          format: double
+          description: Longitude. If 0.0, the system will geocode the address automatically.
+        locationId:
+          type: string
+          description: Previously registered location identifier.
+        references:
+          type: string
+          description: Additional address references.
+      required:
+      - address
+      - country
+    BadRequestResponse2:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - Delivery type (nedxtday) not allowed
+        traceId: 0b5b0d10-9fd8-43f7-bcd5-cc301c470f7c
+        code: 400
+    Shipment:
+      type: object
+      description: Array of shipments that belong to the order. sss
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        origin:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        payments:
+          $ref: '#/components/schemas/Payment'
+        options:
+          $ref: '#/components/schemas/Option'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id:
+          type: string
+          readOnly: true
+        internalKey:
+          type: string
+          nullable: true
+          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
+          maxLength: 200
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType5c6Enum'
+        trackingId:
+          type: integer
+          readOnly: true
+      required:
+      - deliveryType
+      - destination
+      - id
+      - items
+      - options
+      - origin
+      - recipient
+      - sender
+      - trackingId
+    Option:
+      type: object
+      description: Options to customize the shipment.
+      properties:
+        pickUpAfter:
+          type: string
+          format: date-time
+          description: Date time from which the shipment is available for pickup
+        deliveryBetween:
+          type: object
+          additionalProperties:
+            type: string
+            format: date-time
+        requiresIdentification:
+          type: boolean
+        requiresSignature:
+          type: boolean
+        twoFactorAuth:
+          type: boolean
+          description: Code is required to mark the order as delivered. Needs to be activated previously
+        notes:
+          type: string
+          description: Notes that will be displayed on the label
+    Payment:
+      type: object
+      description: Payment options are included in this section
+      properties:
+        insured:
+          type: boolean
+        insuredValue:
+          type: number
+          format: double
+          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
+        cashOnDelivery:
+          allOf:
+          - $ref: '#/components/schemas/Embedded'
+          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
+    Sender:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    BadRequestResponse1:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - Error on CustomerProfileService
+        traceId: 5e011b32-000f-4896-8aaf-34d7a8f85960
+        code: 400
+    MultiboxErrorItem:
+      type: object
+      description: 'Individual error item returned by the multibox endpoint.
+
+
+        Possible error codes:
+
+        - GENERIC_INVALID_PARAMETERS (422): Validation error on request fields
+
+        - INTERNAL_KEY_ALREADY_EXISTS (422): The internalKey was already used
+
+        - CUSTOMER_INACTIVE (422): Customer is not active
+
+        - ORGANIZATION_INACTIVE (422): Customer organization is not active
+
+        - CUSTOMER_HAS_NO_CREDIT (422): Customer has no credit available
+
+        - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE (422): Delivery type not enabled for the customer
+
+        - GEOCODING_SERVICE_ERROR (500): Geocoding service failure
+
+        - COVERAGE_SERVICE_ERROR (500): Coverage validation failure
+
+        - SHIPPING_RATES_SERVICE_ERROR (varies): Shipping rates service error
+
+        - TRACKING_ID_SERVICE_ERROR (500): Tracking ID generation failure
+
+        - STATE_MACHINE_ERROR_RESPONSE (500/varies): State machine processing error
+
+        - CUSTOMERS_V3_SERVICE_ERROR (500): Customer service error
+
+        - FAILED_TO_CREATE_REQUEST (500): Could not build internal HTTP request
+
+        - FAILED_TO_SEND_REQUEST (500): Internal HTTP request failed
+
+        - FAILED_TO_DECODE_RESPONSE (500): Could not decode internal service response
+
+        - JWT_EXPIRED (401): JWT token has expired
+
+        - FAILED_TO_RETRIEVE_USER_DATA (500): Could not extract user data from JWT
+
+        - GENERIC_500_ERROR (500): Uncategorized internal server error'
+      properties:
+        code:
+          type: string
+          description: Error code identifier.
+          enum:
+          - GENERIC_INVALID_PARAMETERS
+          - INTERNAL_KEY_ALREADY_EXISTS
+          - CUSTOMER_INACTIVE
+          - ORGANIZATION_INACTIVE
+          - CUSTOMER_HAS_NO_CREDIT
+          - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE
+          - GEOCODING_SERVICE_ERROR
+          - COVERAGE_SERVICE_ERROR
+          - SHIPPING_RATES_SERVICE_ERROR
+          - TRACKING_ID_SERVICE_ERROR
+          - STATE_MACHINE_ERROR_RESPONSE
+          - CUSTOMERS_V3_SERVICE_ERROR
+          - FAILED_TO_CREATE_REQUEST
+          - FAILED_TO_SEND_REQUEST
+          - FAILED_TO_DECODE_RESPONSE
+          - JWT_EXPIRED
+          - FAILED_TO_RETRIEVE_USER_DATA
+          - GENERIC_500_ERROR
+        message:
+          type: string
+          description: Human-readable error description.
+        field:
+          type: string
+          description: Field name that caused the error (only present for validation errors).
+      required:
+      - code
+      - message
+    MigratedByEnum:
+      enum:
+      - stream
+      - batch
+      type: string
+    Location:
+      type: object
+      description: 'Location where the package is picked up.
+
+        Depending on the flow you choose,
+
+        you must send different parameters.
+
+
+        A location is a geographical point that can be taken as the origin and/or destination of a shipment.
+
+
+        There are 3 ways in which you can define a location, feel free to choose the one that best suits your business rules.
+
+        Each one is described below.
+
+
+        1. Coords-based
+
+        It is the option with the best precision to define an origin or destination.
+
+        Latitude and longitude are taken to define the location
+
+
+        2. LocationId-based
+
+        A LocationId is a uuid that identifies a single geographic point.
+
+        The locationId is generated by this API (check out the Get Location id request in Locations folder).
+
+        By using locationId, no further data needs to be passed.
+
+        It is useful when you have the same point in several shipments since you can reuse the locationId.
+
+
+        3. Address string-based
+
+        In this option the client sends only the address. We will process the address to obtain the other data.
+
+
+        However, if the address does not contain information necessary to locate it,
+
+        the system will return a 400 error and the order will not be created, so you must handle the error.
+
+
+        It is important to emphasize that in the two previous flows there is no possibility to reject an order for the location'
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: LocationId is a uuid that identifies a single geographic point.
+        lat:
+          type: number
+          format: double
+          maximum: 90
+          minimum: -90
+          description: Longitude coordinates
+        lng:
+          type: number
+          format: double
+          maximum: 180
+          minimum: -180
+          description: Lattitude coordinates
+        address:
+          type: string
+          description: Text sentence that references the location. This address will be printed on the labels.
+        country:
+          allOf:
+          - $ref: '#/components/schemas/LocationCountryEnum'
+        reference:
+          type: string
+          description: Any other text that enrich the address of the location such apartment, Suite, Box number, Tower, etc.
+        zipcode:
+          type: string
+          description: Location zipcode. If it is not included we will try to extract the zipcode from the address. So if your address does not include zipcode, you must include it in this field
+          nullable: true
+        city:
+          type: string
+          description: Text that reference the city of the location
+    Item:
+      type: object
+      description: Array of items/packages to send.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        size:
+          $ref: '#/components/schemas/ItemSizeEnum'
+        description:
+          type: string
+        weight:
+          type: integer
+          minimum: 1
+          description: Measurement in grams of weight
+        length:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
+        width:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
+        height:
+          type: integer
+          minimum: 1
+          description: Vertical measure in centimeters of distance from base to top
+      required:
+      - id
+      - size
+      - weight
+    MultiboxErrorResponse:
+      type: object
+      description: Error response for multibox endpoint. Contains a trace ID and an array of error items.
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging.
+        errors:
+          type: array
+          description: List of errors.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    MultiboxChild:
+      type: object
+      description: A child package within a multibox order.
+      properties:
+        internalKey:
+          type: string
+          description: Internal key to individually identify the child package.
+        items:
+          type: array
+          description: Items contained in the child package.
+          items:
+            $ref: '#/components/schemas/MultiboxItem'
+      required:
+      - items
+    Recipient:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    ItemSizeEnum:
+      enum:
+      - xs
+      - s
+      - m
+      - l
+      - xl
+      - xxl
+      - unknown
+      - '-'
+      type: string
+    Embedded:
+      type: object
+      description: 'Serializer for EmbeddedDocuments.
+
+
+        Skips id field and uniqueness validation.
+
+        When saving, skips calling instance.save'
+      properties:
+        amount:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+      required:
+      - amount
+      - currency
+    MultiboxOrderRequest:
+      type: object
+      properties:
+        apikey:
+          type: string
+          description: API key for authentication
+          example: 15b6d64efc25c4755633332233443308f39c5931
+        deliveryType:
+          type: string
+          description: Type of delivery
+          enum:
+          - taylormade
+          - sameday
+          - nextday
+          - nxd
+          - spt
+          - tlm
+          - smd
+          example: nextday
+        packageSize:
+          type: string
+          description: Size of the package
+          enum:
+          - xs
+          - s
+          - m
+          - l
+          - xl
+          example: l
+        notes:
+          type: string
+          description: Additional notes
+          example: ' s/r'
+        packages:
+          type: integer
+          description: Number of packages
+          example: 1
+        cashOnDelivery:
+          type: boolean
+          description: Whether cash on delivery is enabled
+          example: false
+        amountCash:
+          type: number
+          format: float
+          description: Amount for cash on delivery
+          example: 0
+        SecurePackage:
+          type: boolean
+          description: Whether secure package is enabled
+          example: false
+        amountSecure:
+          type: number
+          format: float
+          description: Amount for secure package
+          example: 0
+        receivedId:
+          type: string
+          description: Identifier for the received order
+          example: orders/microservice.local.05.03.24
+        origin:
+          $ref: '#/components/schemas/Origin'
+        destination:
+          $ref: '#/components/schemas/Destination'
+    DeliveryType5c6Enum:
+      type: string
+      description: Indicate the Delivery Type which can be SameDay(SMD), Sprint (SPT), 99minutos(99M), Co2Free (CO2F), Reverse(RET) Tailor made (TLM), PuntoaPunto (P2P). Be careful submitting accepted abbreviations.
+      enum:
+      - SMD
+      - SPT
+      - 99M
+      - CO2F
+      - RET
+      - NAL
+      - TLM
+      - P2P
+    MultiboxChildResponse:
+      type: object
+      description: Response data for a created child package.
+      properties:
+        tracking_id:
+          type: string
+          description: Unique tracking ID of the child package.
+        internal_key:
+          type: string
+          description: Internal key associated with the child package (same as sent in the request).
+        client_id:
+          type: string
+          description: Client identifier that owns the order.
+    PaginatedOrderList:
+      type: object
+      properties:
+        traceId:
+          type: string
+          format: uuid
+          example: 361be31e-943d-46be-96e2-83676cd98d6d
+        message:
+          type: string
+          example: orders retrieved successfully
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: https://sandbox.99minutos.com/api/v3/orders?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: https://sandbox.99minutos.com/api/v3/orders?page=2
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        errors:
+          type: object
+          example: {}
+    LocationCountryEnum:
+      enum:
+      - MEX
+      - COL
+      - CHL
+      - PER
+      type: string
+    Origin:
+      type: object
+      properties:
+        sender:
+          type: string
+          example: Food House
+        nameSender:
+          type: string
+          example: Food
+        lastNameSender:
+          type: string
+          example: House
+        emailSender:
+          type: string
+          example: correo@h.com
+        phoneSender:
+          type: string
+          example: '11111111'
+        addressOrigin:
+          type: string
+          example: AV. JESUS REYES HEROLES NO. 6 ESQ.
+        numberOrigin:
+          type: string
+          example: AV. MARAVILLAS COL. EL ROSARIO CEYLAN
+        codePostalOrigin:
+          type: string
+          example: '54092'
+        country:
+          type: string
+          enum:
+          - MEX
+          - CHL
+          - PER
+          - COL
+          example: MEX
+    MultiboxOptions:
+      type: object
+      description: Additional delivery options.
+      properties:
+        notes:
+          type: string
+          description: Special instructions or notes for the delivery.
+    MultiboxRequest:
+      type: object
+      description: Request payload for creating a multibox order. A multibox order groups multiple packages (children) under a single parent order (master), sharing origin, destination, sender and recipient.
+      properties:
+        deliveryType:
+          type: string
+          description: 'Delivery type code. Supported values: SMD (SameDay), NXD (NextDay), SPT (Sprint, auto-converted to NXD), 99M, CO2, RET, ECO, P2P, NAL, XBD.'
+          enum:
+          - SMD
+          - NXD
+          - SPT
+          - 99M
+          - CO2
+          - RET
+          - ECO
+          - P2P
+          - NAL
+          - XBD
+        packageSize:
+          type: string
+          description: General package size for the order.
+          enum:
+          - xs
+          - s
+          - m
+          - l
+          - xl
+          - xxl
+        origin:
+          $ref: '#/components/schemas/MultiboxLocation'
+        destination:
+          $ref: '#/components/schemas/MultiboxLocation'
+        sender:
+          $ref: '#/components/schemas/MultiboxPerson'
+        recipient:
+          $ref: '#/components/schemas/MultiboxPerson'
+        options:
+          $ref: '#/components/schemas/MultiboxOptions'
+        internalKey:
+          type: string
+          description: Unique internal key for the order. If already used, the error INTERNAL_KEY_ALREADY_EXISTS is returned.
+        children:
+          type: array
+          description: Array of child packages. Minimum 1, maximum 20.
+          minItems: 1
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/MultiboxChild'
+      required:
+      - deliveryType
+      - children
+    MultiboxResponse:
+      type: object
+      description: Successful response for multibox order creation.
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging.
+        message:
+          type: string
+          description: Descriptive result message.
+        data:
+          type: object
+          properties:
+            master:
+              type: string
+              description: Tracking ID of the parent (master) order.
+            children:
+              type: array
+              description: List of created child packages.
+              items:
+                $ref: '#/components/schemas/MultiboxChildResponse'
+        errors:
+          type: array
+          description: Empty array on success.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    ResponseJWT:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          description: jwt expires in seconds
+    Order:
+      type: object
+      description: Order serializer
+      properties:
+        id:
+          type: string
+          readOnly: true
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        account:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+        billId:
+          type: integer
+          readOnly: true
+        transactionId:
+          type: integer
+          readOnly: true
+        channelId:
+          type: integer
+          readOnly: true
+        draft:
+          type: boolean
+          description: Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.
+        deactivated:
+          type: boolean
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        expiresAt:
+          type: string
+          format: date-time
+          readOnly: true
+        migratedBy:
+          allOf:
+          - $ref: '#/components/schemas/MigratedByEnum'
+          readOnly: true
+      required:
+      - account
+      - billId
+      - channelId
+      - createdAt
+      - deactivated
+      - expiresAt
+      - id
+      - migratedBy
+      - shipments
+      - transactionId
+    BadRequestResponse3:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - ShippingRatesService, out of coverage error
+        traceId: d4a3a4b0-216a-4ef7-b8e9-61f1079c43a8
+        code: 400
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 201
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              counter:
+                type: integer
+              trackingid:
+                type: string
+              clienid:
+                type: string
+              receivedId:
+                type: string
+              created:
+                type: string
+                format: date-time
+        trace_id:
+          type: string
+          example: 72aea272-ce53-41fe-b03f-413e77356c5b
+    MultiboxItem:
+      type: object
+      description: An item within a child package.
+      properties:
+        weight:
+          type: number
+          description: Weight in grams.
+        height:
+          type: number
+          description: Height in centimeters.
+        width:
+          type: number
+          description: Width in centimeters.
+        length:
+          type: number
+          description: Length/depth in centimeters.
+        size:
+          type: string
+          description: Package size category. Use the endpoint GET /api/v3/shipping/rates/sizes to calculate it from dimensions.
+          enum:
+          - xs
+          - s
+          - m
+          - l
+          - xl
+          - xxl
+      required:
+      - weight
+      - size
+    MultiboxPerson:
+      type: object
+      description: Person information for sender or recipient.
+      properties:
+        firstName:
+          type: string
+          description: First name.
+        lastName:
+          type: string
+          description: Last name.
+        email:
+          type: string
+          format: email
+          description: Email address. Must be a valid email.
+        phone:
+          type: string
+          description: Phone number including country code (e.g. +525555555544).
+      required:
+      - firstName
+      - lastName
+      - email
+      - phone
+  securitySchemes:
+    AuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

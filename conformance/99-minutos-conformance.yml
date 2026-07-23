@@ -1,0 +1,32 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/99minutos-api-v3-openapi.json
+notes: >-
+  Standards conformance derived from the harvested OpenAPI v3 and the trust
+  center. ISO/IEC 27001 is a published organizational certification (see
+  security/99-minutos-trust-center.yml), not an API protocol conformance claim.
+standards:
+  - id: oauth2-client-credentials
+    conforms: partial
+    evidence: >-
+      Token endpoint /api/v3/oauth/token exchanges client_id/client_secret for a
+      JWT, but the OpenAPI declares the applied scheme as http bearer (AuthJWT),
+      not an oauth2 securityScheme with declared flows/scopes.
+  - id: jwt-bearer
+    conforms: true
+    evidence: securityScheme AuthJWT type http, scheme bearer, bearerFormat JWT
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Error responses use application/json, not application/problem+json.
+  - id: webhooks
+    conforms: true
+    evidence: Documented webhook configuration + delivery surface (/api/v3/webhooks).
+  - id: pagination
+    conforms: true
+    evidence: Paginated coverage/zipcodes and orders list endpoints.
+  - id: openapi-3.0
+    conforms: true
+    evidence: Published as OpenAPI 3.0.3 (Stoplight-authored, served per-operation).
+  - id: iso-27001
+    conforms: true
+    evidence: ISO/IEC 27001 certification published at security.99minutos.com.

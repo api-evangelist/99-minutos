@@ -1,0 +1,29 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/reference/oauth_token_create
+notes: >-
+  99minutos publishes a fully separate sandbox environment with independent
+  credentials. Test credentials are self-generated in the developer console;
+  no fixed magic test values are published.
+environments:
+  - name: sandbox
+    website: https://delivery-git-sandbox-99minutos.vercel.app/
+    api_base_url: https://sandbox.99minutos.com
+    credentials: independent
+  - name: production
+    website: https://envios.99minutos.com/developers
+    api_base_url: https://delivery.99minutos.com
+    credentials: independent
+onboarding:
+  steps:
+    - Create an account on the sandbox website.
+    - Open the Developers section.
+    - In "API Keys V3", click "Generar".
+    - Copy the displayed client_id and client_secret.
+    - Exchange them at POST /api/v3/oauth/token for a bearer JWT.
+  note: Each environment has an independent set of credentials; repeat the flow in production.
+test_values:
+  published: false
+  note: >-
+    No fixed test card / test tracking-id fixtures are published; sandbox uses
+    live-shaped data against self-generated sandbox credentials.
