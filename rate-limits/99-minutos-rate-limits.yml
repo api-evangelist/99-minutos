@@ -1,0 +1,14 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/reference/shipments_tracking_retrieve
+description: >-
+  99minutos documents a polling rate limit on the shipment tracking endpoints and
+  recommends its real-time webhook notification system instead of recurring pulls.
+rate_limits:
+  - name: shipment-tracking-poll
+    limit_count: 8
+    period: second
+    scope: tracking endpoints (/api/v3/shipments/tracking and /api/v3/shipments/tracking/batch)
+    guidance: >-
+      Requests must be limited to a maximum of 8 per second when polling tracking.
+      99minutos recommends subscribing to webhooks for status changes rather than polling.

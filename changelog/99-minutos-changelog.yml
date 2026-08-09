@@ -1,0 +1,11 @@
+generated: '2026-07-17'
+method: searched
+source: https://developers.99minutos.com/release-notes
+scheme: uri-path (v3)
+current_version: v3
+changelog_url: https://developers.99minutos.com/release-notes
+entries: []
+notes: >-
+  99minutos maintains a dated Release Notes page in its developer portal. Individual
+  entries were not machine-captured at enrichment time (portal pages are bot-guarded);
+  the changelog_url is the source of truth for the recent window.

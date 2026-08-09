@@ -1,17 +1,14 @@
 aid: 99-minutos
 name: 99 Minutos
-description: >-
-  99minutos (99 Minutos) is a Latin American last-mile logistics and delivery
-  platform serving ecommerce businesses across Mexico, Chile, Colombia and Peru.
-  It offers express parcel delivery (envios99), full-truck-load and drayage
-  freight (freight99), fulfillment and warehousing (fulfill99) and custom
-  logistics operations (tailor99), backed by a network of pickup/delivery points
-  (Punto99). Its public REST API v3 lets developers resolve addresses to reusable
-  location ids, quote shipping rates and coverage, create/confirm orders
-  (including multibox), print PDF and ZPL labels, track shipments and subscribe to
-  real-time status webhooks. Authentication is OAuth2 client-credentials that
-  returns a bearer JWT. Surfaced as a 500 Global portfolio company and enriched by
-  the API Evangelist pipeline from the provider's own developer portal.
+description: 99minutos (99 Minutos) is a Latin American last-mile logistics and delivery platform serving
+  ecommerce businesses across Mexico, Chile, Colombia and Peru. It offers express parcel delivery (envios99),
+  full-truck-load and drayage freight (freight99), fulfillment and warehousing (fulfill99) and custom
+  logistics operations (tailor99), backed by a network of pickup/delivery points (Punto99). Its public
+  REST API v3 lets developers resolve addresses to reusable location ids, quote shipping rates and coverage,
+  create/confirm orders (including multibox), print PDF and ZPL labels, track shipments and subscribe
+  to real-time status webhooks. Authentication is OAuth2 client-credentials that returns a bearer JWT.
+  Surfaced as a 500 Global portfolio company and enriched by the API Evangelist pipeline from the provider's
+  own developer portal.
 url: https://raw.githubusercontent.com/api-evangelist/99-minutos/refs/heads/main/apis.yml
 accessModel:
   pricing: unknown
@@ -34,7 +31,7 @@ x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-08-08'
 tags:
 - Company
 - Logistics
@@ -310,8 +307,16 @@ common:
   url: agentic-access/99-minutos-agentic-access.yml
 - type: Website
   url: https://99minutos.com
+- type: RateLimits
+  url: rate-limits/99-minutos-rate-limits.yml
+- type: ChangeLog
+  url: https://developers.99minutos.com/release-notes
+- type: Login
+  url: https://auth.99minutos.com/
 x-enrichment:
   date: '2026-07-19'
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+x-merged-from:
+- 99minutos
