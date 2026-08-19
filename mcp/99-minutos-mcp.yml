@@ -101,3 +101,9 @@ tools:
 - name: createMultiboxOrder
   description: Create multibox orders
   source_operation: openapi/99minutos-api-v3-openapi.json#createMultiboxOrder
+deployment:
+  mode: none
+  verified: derived
+  tools: 29
+  checked: '2026-08-12'
+  source: catalog MCP census

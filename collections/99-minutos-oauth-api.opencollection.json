@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage oauth API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oauth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "oauth_token_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request an access token sending the client credentials."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

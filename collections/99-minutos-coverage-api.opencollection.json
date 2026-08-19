@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "coverage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GetZipCodesByCountry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/coverage/zipcodes/:country",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Filter for search postal codes"
+              },
+              {
+                "name": "deliveryType",
+                "value": "",
+                "type": "query",
+                "description": "delivery types with postal codes"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit of codes by page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page"
+              }
+            ]
+          },
+          "docs": "Return list of postal codes by country paginated"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

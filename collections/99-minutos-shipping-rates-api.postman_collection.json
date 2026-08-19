@@ -1,0 +1,897 @@
+{
+  "item": [
+    {
+      "id": "0c224d89-7f16-4eaf-8dae-d0843ecc9e58",
+      "name": "shipping-rates",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07f38da4-0084-424e-91bc-d3412d965295",
+          "name": "calculate shipping rates",
+          "request": {
+            "name": "calculate shipping rates",
+            "description": {
+              "content": "Estimate shipping cost and validate coverage based on origin and destination, package dimensions, and weight. If the country is different from Mexico, the zipcode must be empty, and validation will be done using coordinates only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipping",
+                "rates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"withTaxes\": \"<boolean>\",\n  \"validateOnlyCoordinates\": \"<boolean>\",\n  \"origin\": {\n    \"country\": \"<string>\",\n    \"codePostal\": \"<string>\"\n  },\n  \"destination\": {\n    \"country\": \"<string>\",\n    \"codePostal\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"weight\": \"<integer>\",\n      \"depth\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"size\": \"<string>\"\n    },\n    {\n      \"weight\": \"<integer>\",\n      \"depth\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"size\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "510f6297-f0da-4f63-a200-5ae08287b038",
+              "name": "Returns shipping cost and available service levels.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"withTaxes\": true,\n  \"validateOnlyCoordinates\": false,\n  \"origin\": {\n    \"codePostal\": 8100,\n    \"country\": \"MEX\"\n  },\n  \"destination\": {\n    \"codePostal\": \"32616\",\n    \"country\": \"MEX\"\n  },\n  \"items\": [\n    {\n      \"weight\": 2500,\n      \"depth\": 1,\n      \"width\": 1,\n      \"height\": 1,\n      \"size\": \"s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"12345abcde\",\n  \"message\": \"Shipping cost calculated successfully.\",\n  \"data\": {\n    \"totalCost\": 150,\n    \"serviceLevels\": [\n      \"Standard\",\n      \"Express\"\n    ]\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62397d4b-145a-40d1-8ba7-b8cb8da70d75",
+              "name": "Invalid request payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"withTaxes\": true,\n  \"validateOnlyCoordinates\": false,\n  \"origin\": {\n    \"codePostal\": 8100,\n    \"country\": \"MEX\"\n  },\n  \"destination\": {\n    \"codePostal\": \"32616\",\n    \"country\": \"MEX\"\n  },\n  \"items\": [\n    {\n      \"weight\": 2500,\n      \"depth\": 1,\n      \"width\": 1,\n      \"height\": 1,\n      \"size\": \"s\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"error-67890\",\n  \"message\": \"Zipcode must be empty for non-Mexico countries and validateOnlyCoordinates must be true.\",\n  \"errors\": {\n    \"origin\": \"Invalid zipcode for country\",\n    \"destination\": \"Invalid zipcode for country\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b20f7ca0-1eec-4898-84e5-105466d84d0e",
+          "name": "Rates by Address",
+          "request": {
+            "name": "Rates by Address",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipping",
+                "rates",
+                "addresses",
+                ":origin_country",
+                ":origin_address",
+                ":destination_country",
+                ":destination_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cash_on_delivery",
+                  "value": "<number>",
+                  "description": "Cash on delivery amount"
+                },
+                {
+                  "disabled": false,
+                  "key": "delivery_type",
+                  "value": "<string>",
+                  "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+                },
+                {
+                  "disabled": false,
+                  "key": "insurance",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "Package size"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_address",
+                  "description": "(Required) Destination address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_country",
+                  "description": "(Required) Country of destination address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_address",
+                  "description": "(Required) Origin address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_country",
+                  "description": "(Required) Country of origin address"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f977377a-a0df-437f-b036-588594ea07aa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates",
+                    "addresses",
+                    ":origin_country",
+                    ":origin_address",
+                    ":destination_country",
+                    ":destination_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cash_on_delivery",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "delivery_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "insurance",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_address",
+                      "description": "(Required) Destination address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_country",
+                      "description": "(Required) Country of destination address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_address",
+                      "description": "(Required) Origin address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_country",
+                      "description": "(Required) Country of origin address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab2bcd07-6b7d-4e06-a76e-51cecaf4096c",
+          "name": "Rates by Coordinates",
+          "request": {
+            "name": "Rates by Coordinates",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipping",
+                "rates",
+                "coordinates",
+                ":origin_country",
+                ":origin_lat",
+                ":origin_lng",
+                ":destination_country",
+                ":destination_lat",
+                ":destination_lng"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cash_on_delivery",
+                  "value": "<number>",
+                  "description": "Cash on delivery amount"
+                },
+                {
+                  "disabled": false,
+                  "key": "delivery_type",
+                  "value": "<string>",
+                  "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+                },
+                {
+                  "disabled": false,
+                  "key": "insurance",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "Package size"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_country",
+                  "description": "(Required) Country of origin address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_lat",
+                  "description": "(Required) Latitude is taken to define the origin location"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_lng",
+                  "description": "(Required) Longitude is taken to define the origin location"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_country",
+                  "description": "(Required) Country of destination address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_lat",
+                  "description": "(Required) Latitude is taken to define the destination location"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_lng",
+                  "description": "(Required) Longitude is taken to define the destination location"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c7094ee7-e178-428a-a7ae-c4192cf82db0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates",
+                    "coordinates",
+                    ":origin_country",
+                    ":origin_lat",
+                    ":origin_lng",
+                    ":destination_country",
+                    ":destination_lat",
+                    ":destination_lng"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cash_on_delivery",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "delivery_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "insurance",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_country",
+                      "description": "(Required) Country of origin address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_lat",
+                      "description": "(Required) Latitude is taken to define the origin location"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_lng",
+                      "description": "(Required) Longitude is taken to define the origin location"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_country",
+                      "description": "(Required) Country of destination address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_lat",
+                      "description": "(Required) Latitude is taken to define the destination location"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_lng",
+                      "description": "(Required) Longitude is taken to define the destination location"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d228220-ffea-4770-90a8-7c9132d7ce1d",
+          "name": "Get package size by dimensions",
+          "request": {
+            "name": "Get package size by dimensions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipping",
+                "rates",
+                "sizes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "depth",
+                  "value": "<double>",
+                  "description": "(Required) Package depth"
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<double>",
+                  "description": "(Required) Package height"
+                },
+                {
+                  "disabled": false,
+                  "key": "weight",
+                  "value": "<double>",
+                  "description": "(Required) Package weight"
+                },
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<double>",
+                  "description": "(Required) Package width"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1c234f7-0930-4936-ab71-1cf89dae380d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates",
+                    "sizes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "depth",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "weight",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "width",
+                      "value": "<double>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "921313f0-7810-4f68-ae9c-cd2bd7f1995a",
+          "name": "Rates by Zipcodes",
+          "request": {
+            "name": "Rates by Zipcodes",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipping",
+                "rates",
+                "zipcodes",
+                ":origin_country",
+                ":origin_zipcode",
+                ":destination_country",
+                ":destination_zipcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cash_on_delivery",
+                  "value": "<number>",
+                  "description": "Cash on delivery amount"
+                },
+                {
+                  "disabled": false,
+                  "key": "delivery_type",
+                  "value": "<string>",
+                  "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+                },
+                {
+                  "disabled": false,
+                  "key": "insurance",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<string>",
+                  "description": "Package size"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_country",
+                  "description": "(Required) Country of destination address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "destination_zipcode",
+                  "description": "(Required) Zipcode of destination address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_country",
+                  "description": "(Required) Country of origin address"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "origin_zipcode",
+                  "description": "(Required) Zipcode of origin address"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a7c72e9e-26c5-4572-82f1-adb74caea275",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipping",
+                    "rates",
+                    "zipcodes",
+                    ":origin_country",
+                    ":origin_zipcode",
+                    ":destination_country",
+                    ":destination_zipcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cash_on_delivery",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "delivery_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "insurance",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_country",
+                      "description": "(Required) Country of destination address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "destination_zipcode",
+                      "description": "(Required) Zipcode of destination address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_country",
+                      "description": "(Required) Country of origin address"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "origin_zipcode",
+                      "description": "(Required) Zipcode of origin address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6b1a0e68-fe91-4499-bbc2-51fac11a1b61",
+    "name": "API Version 3 coverage shipping-rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

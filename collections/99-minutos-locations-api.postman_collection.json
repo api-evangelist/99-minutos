@@ -1,0 +1,486 @@
+{
+  "item": [
+    {
+      "id": "86aab13c-c49e-46c6-a78a-9f0322114fad",
+      "name": "locations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b975701-0c24-4755-8c5c-a883ba7f0248",
+          "name": "locations create",
+          "request": {
+            "name": "locations create",
+            "description": {
+              "content": "Get the location id of a given address Through this endpoint you can exchange an address for a location id. The purpose of this exchange is that later, in a second request, you can include the location id as origin or destination to create an order. Using this flow you won't need to include any more information and you can always reuse the location id for that point.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5ac13c7-8d50-4d29-b015-230f654805c5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "addresses",
+                      "value": "Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "addresses",
+                      "value": "Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"ec1d12ad-48dc-4628-99a5-0db1cc8b2bba\",\n  \"message\": \"OK\",\n  \"data\": [\n    {\n      \"address\": \"Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, Mexico\",\n      \"latitude\": \"19.417688\",\n      \"longitude\": \"-99.118484\",\n      \"locationId\": \"3aefcb54-698f-43e9-9b1f-252ac72f6cfd\",\n      \"locationType\": \"private\",\n      \"geoType\": \"ROOFTOP\"\n    },\n    {\n      \"address\": \"Calle del Correo Mayor 112, Centro Histórico de la Cdad. de México, Centro, Cuauhtémoc, 06090 Ciudad de México, CDMX, Mexico\",\n      \"latitude\": \"19.427275\",\n      \"longitude\": \"-99.13072\",\n      \"locationId\": \"04639da9-63f4-40ab-a8c3-8fff2f2509e3\",\n      \"locationType\": \"private\",\n      \"geoType\": \"ROOFTOP\"\n    }\n  ],\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2be86c0e-8d4d-47a3-be59-ad1fbf96ee8e",
+          "name": "locations all retrieve",
+          "request": {
+            "name": "locations all retrieve",
+            "description": {
+              "content": "Location viewset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "locations",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page of the response."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d73d1b87-fbc6-4c56-9804-7ae89e010eba",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "locations",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"1c9eb6f1-9f7d-477d-9032-fd531e713e14\",\n  \"message\": \"All locations retrieved succesfully.\",\n  \"data\": [\n    {\n      \"description\": null,\n      \"address\": \"Novedades Montecarlo, S.A. De C.V., Calle Avena, Granjas México, Ciudad de México, CDMX, México\",\n      \"latitude\": \"19.4013975\",\n      \"longitude\": \"-99.0949735\",\n      \"locationId\": \"59ce70e8-4ba9-47b9-8e88-a3796560198a\",\n      \"country\": \"MEX\",\n      \"schedule\": {\n        \"friday\": {\n          \"opens\": \"07:30\",\n          \"closed\": false,\n          \"closes\": \"17:00\"\n        },\n        \"monday\": {\n          \"opens\": \"01:02\",\n          \"closed\": false,\n          \"closes\": \"17:00\"\n        },\n        \"sunday\": {\n          \"opens\": \"08:00\",\n          \"closed\": true,\n          \"closes\": \"19:00\"\n        },\n        \"tuesday\": {\n          \"opens\": \"07:30\",\n          \"closed\": false,\n          \"closes\": \"17:00\"\n        },\n        \"saturday\": {\n          \"opens\": \"08:00\",\n          \"closed\": false,\n          \"closes\": \"14:00\"\n        },\n        \"thursday\": {\n          \"opens\": \"07:30\",\n          \"closed\": false,\n          \"closes\": \"17:00\"\n        },\n        \"time_zone\": \"America/Mexico_City\",\n        \"wednesday\": {\n          \"opens\": \"07:30\",\n          \"closed\": false,\n          \"closes\": \"17:00\"\n        }\n      },\n      \"zipcode\": 8400,\n      \"locationType\": \"p99\"\n    },\n    {\n      \"description\": \"Masaryk 29\",\n      \"address\": \"Avenida Presidente Masaryk 29, Polanco, Polanco V Sección, Ciudad de México, CDMX, México\",\n      \"latitude\": \"19.4315008\",\n      \"longitude\": \"-99.1823602\",\n      \"locationId\": \"013c75b6-a027-4595-b405-10d82250aa0b\",\n      \"country\": \"MEX\",\n      \"schedule\": {\n        \"friday\": {\n          \"opens\": \"09:00\",\n          \"closed\": false,\n          \"closes\": \"18:00\"\n        },\n        \"monday\": {\n          \"opens\": \"09:00\",\n          \"closed\": false,\n          \"closes\": \"18:00\"\n        },\n        \"sunday\": {\n          \"opens\": \"08:00\",\n          \"closed\": true,\n          \"closes\": \"19:00\"\n        },\n        \"tuesday\": {\n          \"opens\": \"09:00\",\n          \"closed\": false,\n          \"closes\": \"18:00\"\n        },\n        \"saturday\": {\n          \"opens\": \"08:00\",\n          \"closed\": true,\n          \"closes\": \"19:00\"\n        },\n        \"thursday\": {\n          \"opens\": \"09:00\",\n          \"closed\": false,\n          \"closes\": \"18:00\"\n        },\n        \"time_zone\": \"America/Mexico_City\",\n        \"wednesday\": {\n          \"opens\": \"09:00\",\n          \"closed\": false,\n          \"closes\": \"18:00\"\n        }\n      },\n      \"zipcode\": \"11560\",\n      \"locationType\": \"p99\"\n    }\n  ],\n  \"next\": \"https://sandbox.99minutos.com/api/v3/locations/all?page=2\",\n  \"previous\": null,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0238dbd0-da7c-4667-b004-0a07ea2bfba0",
+          "name": "locations nearest create",
+          "request": {
+            "name": "locations nearest create",
+            "description": {
+              "content": "Location viewset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "locations",
+                "nearest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "address",
+                  "value": "<string>",
+                  "description": "(Required) String address of the location"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>",
+                  "description": "(Required) City of the address"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Country of the address"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeP99",
+                  "value": "<boolean>",
+                  "description": "p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address."
+                },
+                {
+                  "disabled": false,
+                  "key": "distance",
+                  "value": "5000",
+                  "description": "Maximum distance in meters between the given direction and the nearest p99"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "03dbaa40-cad8-41a1-aad3-0993dd42ea7a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "locations",
+                    "nearest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) String address of the location",
+                        "type": "text/plain"
+                      },
+                      "key": "address",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) City of the address",
+                        "type": "text/plain"
+                      },
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Country of the address",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.",
+                        "type": "text/plain"
+                      },
+                      "key": "includeP99",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Maximum distance in meters between the given direction and the nearest p99",
+                        "type": "text/plain"
+                      },
+                      "key": "distance",
+                      "value": "5000"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"3e724f8a-70e4-4c59-bad6-bf19c228c85a\",\n  \"message\": \"Nearest location to the given point retrieved successfully.\",\n  \"data\": [\n    {\n      \"description\": \"Venta de abarrotes\",\n      \"latitude:\": 19.4717429,\n      \"longitude\": -99.1406644,\n      \"distance\": 3964.2093,\n      \"address\": \"Albéniz 4443, Guadalupe Victoria, 07790 Ciudad de México, CDMX, México\",\n      \"locationId\": \"67427e39-638d-4f18-a53a-e4802f351d41\",\n      \"locationType\": \"p99\",\n      \"zipcode\": 7790\n    },\n    {\n      \"description\": \"Oficina  de suplementos\",\n      \"latitude:\": 19.4008331,\n      \"longitude\": -99.1344385,\n      \"distance\": 4033.1268,\n      \"address\": \"Calle José Antonio Torres 812, Viaducto Piedad, Ciudad de México, CDMX, México\",\n      \"locationId\": \"90ca79c2-d8ca-4df3-94e7-524a657979e9\",\n      \"locationType\": \"p99\",\n      \"zipcode\": 8200\n    }\n  ],\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7e53458e-4d09-4c61-b4ba-c4169efe73ca",
+    "name": "API Version 3 coverage locations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

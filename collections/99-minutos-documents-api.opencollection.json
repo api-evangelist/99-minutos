@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage documents API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "documents_guides_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/documents/guides",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a list of pdf guides for the given identifiers.\n\nAllowed sizes\n\n| Value | Description |\n| --- | --- |\n| letter | Document size of 9 x 11 |\n| zebra | Document size of 4 x 6 |\n| small | Document size of 4 x 3 |\n\nAll sizes are inches"
+        },
+        {
+          "info": {
+            "name": "documents_zpl_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/documents/zpl",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ZPL returns a list of ZPL based on the received identifiers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

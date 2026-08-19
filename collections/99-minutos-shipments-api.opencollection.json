@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage shipments API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "shipments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get-api-v3-shipments-id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "trackingId or internalKey"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a shipment given an trackingId or internalKey"
+        },
+        {
+          "info": {
+            "name": "shipments_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://delivery.99minutos.com/api/v3/shipments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "trackingId or internalKey"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the destination address of a shipment. The shipment must be in one of the following statuses:\n\nDRAFT\nCONFIRMED\nUNSUCCESSFULLPICKUP\nONROADTOPICKUP\nCOLLECTED\nSTORED"
+        },
+        {
+          "info": {
+            "name": "delete-api-v3-shipments-id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://delivery.99minutos.com/api/v3/shipments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "trackingId or internalKey"
+              },
+              {
+                "name": "by",
+                "value": "",
+                "type": "query",
+                "description": "specifies whether the order is to be searched by trackingId or internalKey"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels an order by trackingId or internalKey."
+        },
+        {
+          "info": {
+            "name": "shipments_tracking_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipments/tracking",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query",
+                "description": "The identifier represent a internalKey or trackingId of one shipment."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Track a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get every change in the status of the shipments, which is more efficient than pulling. For more information go to the webhooks section**\n\n| **STATUS CODE** | **STATUS"
+        },
+        {
+          "info": {
+            "name": "shipments_tracking_batch_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipments/tracking/batch",
+            "params": [
+              {
+                "name": "identifiers",
+                "value": "",
+                "type": "query",
+                "description": "The identifier represent a internalKey or trackingId of one shipment."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Batch tracking can add multiple identifiers of the following format -->  `/api/v3/shipments/tracking/batch?identifiers={trackingId}&identifiers={trackingId}`\n\nTrack a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get eve"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

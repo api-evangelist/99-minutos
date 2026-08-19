@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage locations API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "locations_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the location id of a given address Through this endpoint you can exchange an address for a location id. The purpose of this exchange is that later, in a second request, you can include the location id as origin or destination to create an order. Using this flow you won't need to include any more information and you can always reuse the location id for that point."
+        },
+        {
+          "info": {
+            "name": "locations_all_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/locations/all",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of the response."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Location viewset."
+        },
+        {
+          "info": {
+            "name": "locations_nearest_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/locations/nearest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Location viewset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

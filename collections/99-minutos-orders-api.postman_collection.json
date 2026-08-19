@@ -1,0 +1,1279 @@
+{
+  "item": [
+    {
+      "id": "630ec018-90be-42e1-94ab-553fa8ee2b12",
+      "name": "Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94c8a9ae-0497-4830-be65-1d7344802120",
+          "name": "Create multibox orders",
+          "request": {
+            "name": "Create multibox orders",
+            "description": {
+              "content": "Create multibox orders. N child shipments will be created plus the master shipment. The number of child shipments is determined by the `packages` field, and by default, always 1 master shipment is created.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "orders",
+                "multibox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apikey\": \"<string>\",\n  \"deliveryType\": \"<string>\",\n  \"packageSize\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"packages\": \"<integer>\",\n  \"cashOnDelivery\": \"<boolean>\",\n  \"amountCash\": \"<float>\",\n  \"SecurePackage\": \"<boolean>\",\n  \"amountSecure\": \"<float>\",\n  \"receivedId\": \"<string>\",\n  \"origin\": {\n    \"sender\": \"<string>\",\n    \"nameSender\": \"<string>\",\n    \"lastNameSender\": \"<string>\",\n    \"emailSender\": \"<string>\",\n    \"phoneSender\": \"<string>\",\n    \"addressOrigin\": \"<string>\",\n    \"numberOrigin\": \"<string>\",\n    \"codePostalOrigin\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"destination\": {\n    \"receiver\": \"<string>\",\n    \"nameReceiver\": \"<string>\",\n    \"lastNameReceiver\": \"<string>\",\n    \"emailReceiver\": \"<string>\",\n    \"phoneReceiver\": \"<string>\",\n    \"addressDestination\": \"<string>\",\n    \"numberDestination\": \"<string>\",\n    \"codePostalDestination\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa674e86-a95d-48ee-82e8-41bd56d477c0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apikey\": \"15b6d64efc25c4755633332233443308f39c5931\",\n  \"deliveryType\": \"nextday\",\n  \"packageSize\": \"l\",\n  \"notes\": \" s/r\",\n  \"packages\": 1,\n  \"cashOnDelivery\": false,\n  \"amountCash\": 0,\n  \"SecurePackage\": false,\n  \"amountSecure\": 0,\n  \"receivedId\": \"orders/microservice.local.05.03.24\",\n  \"origin\": {\n    \"sender\": \"Food House\",\n    \"nameSender\": \"Food\",\n    \"lastNameSender\": \"House\",\n    \"emailSender\": \"correo@h.com\",\n    \"phoneSender\": \"11111111\",\n    \"addressOrigin\": \"AV. JESUS REYES HEROLES NO. 6 ESQ.\",\n    \"numberOrigin\": \"AV. MARAVILLAS COL. EL ROSARIO CEYLAN\",\n    \"codePostalOrigin\": \"54092\",\n    \"country\": \"MEX\"\n  },\n  \"destination\": {\n    \"receiver\": \"David Ludueña\",\n    \"nameReceiver\": \"David\",\n    \"lastNameReceiver\": \"Ludueña\",\n    \"emailReceiver\": \"\",\n    \"phoneReceiver\": \"11111111\",\n    \"addressDestination\": \"Calle Prol. Melchor, Miguel de la Madrid, Iztapalapa, 09698 Ciudad de México, CDMX\",\n    \"numberDestination\": \"s/r\",\n    \"codePostalDestination\": \"<string>\",\n    \"country\": \"MEX\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 201,\n  \"data\": [\n    {\n      \"counter\": 5680,\n      \"trackingid\": \"string\",\n      \"clienid\": \"string\",\n      \"receivedId\": \"string\",\n      \"created\": \"1969-02-05T09:48:11.678Z\"\n    },\n    {\n      \"counter\": 7672,\n      \"trackingid\": \"string\",\n      \"clienid\": \"string\",\n      \"receivedId\": \"string\",\n      \"created\": \"2013-10-01T15:51:14.379Z\"\n    }\n  ],\n  \"trace_id\": \"72aea272-ce53-41fe-b03f-413e77356c5b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a521c29e-59a8-4975-a5f0-25f9eef5b81a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apikey\": \"15b6d64efc25c4755633332233443308f39c5931\",\n  \"deliveryType\": \"nextday\",\n  \"packageSize\": \"l\",\n  \"notes\": \" s/r\",\n  \"packages\": 1,\n  \"cashOnDelivery\": false,\n  \"amountCash\": 0,\n  \"SecurePackage\": false,\n  \"amountSecure\": 0,\n  \"receivedId\": \"orders/microservice.local.05.03.24\",\n  \"origin\": {\n    \"sender\": \"Food House\",\n    \"nameSender\": \"Food\",\n    \"lastNameSender\": \"House\",\n    \"emailSender\": \"correo@h.com\",\n    \"phoneSender\": \"11111111\",\n    \"addressOrigin\": \"AV. JESUS REYES HEROLES NO. 6 ESQ.\",\n    \"numberOrigin\": \"AV. MARAVILLAS COL. EL ROSARIO CEYLAN\",\n    \"codePostalOrigin\": \"54092\",\n    \"country\": \"MEX\"\n  },\n  \"destination\": {\n    \"receiver\": \"David Ludueña\",\n    \"nameReceiver\": \"David\",\n    \"lastNameReceiver\": \"Ludueña\",\n    \"emailReceiver\": \"\",\n    \"phoneReceiver\": \"11111111\",\n    \"addressDestination\": \"Calle Prol. Melchor, Miguel de la Madrid, Iztapalapa, 09698 Ciudad de México, CDMX\",\n    \"numberDestination\": \"s/r\",\n    \"codePostalDestination\": \"<string>\",\n    \"country\": \"MEX\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Error on CustomerProfileService\"\n  ],\n  \"traceId\": \"5e011b32-000f-4896-8aaf-34d7a8f85960\",\n  \"code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "214c61c9-e272-4329-a0fd-cb0b8a290eb0",
+          "name": "orders confirm create",
+          "request": {
+            "name": "orders confirm create",
+            "description": {
+              "content": "Confirm change the value draft to False for the given order id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "orders",
+                ":orderid",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderid",
+                  "description": "(Required) orderId of the order that will be confirmed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "50c48129-a50b-446f-a870-6369c3dabce6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    ":orderid",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderid",
+                      "description": "(Required) orderId of the order that will be confirmed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"5f57e3c6-5933-4e1b-a9dc-f77495604a59\",\n  \"message\": \"order confirmed successfully\",\n  \"data\": {},\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83775022-1013-4952-85a7-ae27b2d0303c",
+          "name": "orders retrieve",
+          "request": {
+            "name": "orders retrieve",
+            "description": {
+              "content": "Return a order given an encoded order id.\nThe order id must be MongoDB identifier",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Database identifier order id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "19d625ea-016c-4451-9cd9-99e6c8818b52",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Database identifier order id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"7d4253dc-0785-468f-9d21-402d0797caac\",\n  \"message\": \"OK\",\n  \"data\": [\n    {\n      \"id\": \"aG0yvr3yDwQin97ZRjyyyVkGi4NrNEob\",\n      \"shipments\": [\n        {\n          \"sender\": {\n            \"firstName\": \"Esteban\",\n            \"lastName\": \"Ramirez\",\n            \"phone\": \"+52999999999\",\n            \"email\": \"esteban@gmail.com\"\n          },\n          \"recipient\": {\n            \"firstName\": \"Carlos\",\n            \"lastName\": \"Gonzalez\",\n            \"phone\": \"+52999999999\",\n            \"email\": \"esteban@gmail.com\"\n          },\n          \"origin\": {\n            \"lat\": 19.413574,\n            \"lng\": -99.11359,\n            \"address\": \"Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México\",\n            \"country\": \"MEX\",\n            \"type\": \"private\",\n            \"reference\": \"Primer Piso\",\n            \"zipcode\": \"15900\"\n          },\n          \"destination\": {\n            \"lat\": 19.041694,\n            \"lng\": -98.2035678,\n            \"address\": \"Av 9 Pte 308, Centro histórico de Puebla, Puebla, Pue., México\",\n            \"country\": \"MEX\",\n            \"type\": \"private\",\n            \"reference\": \"Torre 3 Apartamente 905\",\n            \"zipcode\": \"72000\"\n          },\n          \"payments\": {\n            \"paymentMethod\": \"\",\n            \"cashOnDelivery\": {\n              \"amount\": 100,\n              \"currency\": \"MXN\"\n            }\n          },\n          \"options\": {\n            \"pickUpAfter\": \"2023-05-09T22:59:17.448000\",\n            \"deliveryBetween\": {\n              \"start\": \"2023-01-01T08:00:00\",\n              \"end\": \"2023-01-20T08:00:00\"\n            },\n            \"notes\": \"**Information to be printed on the label**\"\n          },\n          \"items\": [\n            {\n              \"id\": \"6107173d-536c-4351-92ee-82a6402f19ee\",\n              \"size\": \"l\",\n              \"description\": \"This is the description\",\n              \"weight\": 1000,\n              \"length\": 50,\n              \"width\": 30,\n              \"height\": 20\n            }\n          ],\n          \"id\": \"aG0yvr3yDwQin97ZRjyyyVkGi4NrNEoa\",\n          \"internalKey\": \"2aa0b908-edb1-4688-afe5-34489ecf8b53\",\n          \"deliveryType\": \"SPT\",\n          \"trackingId\": 2098099475,\n          \"apiVersion\": 3\n        }\n      ],\n      \"account\": {\n        \"client_id\": \"\",\n        \"apikey\": \"\"\n      },\n      \"draft\": false,\n      \"createdAt\": \"2023-05-09T22:59:51.521000\",\n      \"expiresAt\": \"2023-07-08T22:59:51.521000\"\n    }\n  ],\n  \"errors\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d0bf930-b8a1-4e29-a5c4-9186af42500b",
+          "name": "orders list",
+          "request": {
+            "name": "orders list",
+            "description": {
+              "content": "Get the list of active orders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83f3ec60-7091-45e4-9f9a-6e810c255707",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"361be31e-943d-46be-96e2-83676cd98d6d\",\n  \"message\": \"orders retrieved successfully\",\n  \"next\": \"https://sandbox.99minutos.com/api/v3/orders?page=4\",\n  \"previous\": \"https://sandbox.99minutos.com/api/v3/orders?page=2\",\n  \"data\": [\n    {\n      \"account\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"billId\": 1397,\n      \"channelId\": 789,\n      \"createdAt\": \"1989-06-01T14:17:29.646Z\",\n      \"deactivated\": true,\n      \"expiresAt\": \"2020-05-12T16:58:37.296Z\",\n      \"id\": \"string\",\n      \"migratedBy\": \"stream\",\n      \"shipments\": [\n        {\n          \"deliveryType\": \"TLM\",\n          \"destination\": {\n            \"locationId\": \"f66377de-8624-c38a-464c-5649f235e6d4\",\n            \"lat\": 5.256875583743707,\n            \"lng\": 162.3961754393606,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"id\": \"string\",\n          \"items\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"options\": {\n            \"pickUpAfter\": \"2014-12-12T13:07:24.687Z\",\n            \"deliveryBetween\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"requiresIdentification\": false,\n            \"requiresSignature\": false,\n            \"twoFactorAuth\": true,\n            \"notes\": \"string\"\n          },\n          \"origin\": {\n            \"locationId\": \"7c47ae53-d10d-86aa-a90c-a12280f5d456\",\n            \"lat\": -30.982744420966803,\n            \"lng\": -11.010546011555874,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"recipient\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"gKaXGtO0G@WlqNbDdmY.hmq\"\n          },\n          \"sender\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"UHW@FvSNfTeQHnGPjTZ.bac\"\n          },\n          \"trackingId\": 4637,\n          \"payments\": {\n            \"insured\": true,\n            \"insuredValue\": 4586.9287517792345,\n            \"cashOnDelivery\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"internalKey\": \"string\"\n        },\n        {\n          \"deliveryType\": \"SMD\",\n          \"destination\": {\n            \"locationId\": \"5ef9f954-07ee-f0ea-8bcb-91f3dce8b719\",\n            \"lat\": -31.797685383979868,\n            \"lng\": 68.48011452420155,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"id\": \"string\",\n          \"items\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"options\": {\n            \"pickUpAfter\": \"2022-09-25T14:03:14.483Z\",\n            \"deliveryBetween\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"requiresIdentification\": false,\n            \"requiresSignature\": true,\n            \"twoFactorAuth\": false,\n            \"notes\": \"string\"\n          },\n          \"origin\": {\n            \"locationId\": \"1929f3df-8c86-5205-ca1c-a42590d597ee\",\n            \"lat\": 64.94151596851137,\n            \"lng\": -10.934476733256844,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"recipient\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"B4bX0BbfFC4iW@zDjrXIAqdmSkMse.ke\"\n          },\n          \"sender\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"AsPkvFazR@EBaQyAVsYkNhNYqmPsIHUJRmKhwJoje.mes\"\n          },\n          \"trackingId\": 113,\n          \"payments\": {\n            \"insured\": false,\n            \"insuredValue\": 24.058580748745896,\n            \"cashOnDelivery\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"internalKey\": \"string\"\n        }\n      ],\n      \"transactionId\": 2130,\n      \"draft\": false\n    },\n    {\n      \"account\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"billId\": 2839,\n      \"channelId\": 5748,\n      \"createdAt\": \"2013-06-12T04:55:43.393Z\",\n      \"deactivated\": false,\n      \"expiresAt\": \"1988-07-31T10:18:15.144Z\",\n      \"id\": \"string\",\n      \"migratedBy\": \"batch\",\n      \"shipments\": [\n        {\n          \"deliveryType\": \"RET\",\n          \"destination\": {\n            \"locationId\": \"171a87b0-1ad1-f69c-5275-37b1e99ada20\",\n            \"lat\": -19.01674488694374,\n            \"lng\": 3.033142887082903,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"id\": \"string\",\n          \"items\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"options\": {\n            \"pickUpAfter\": \"1987-03-28T13:25:17.447Z\",\n            \"deliveryBetween\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"requiresIdentification\": true,\n            \"requiresSignature\": false,\n            \"twoFactorAuth\": true,\n            \"notes\": \"string\"\n          },\n          \"origin\": {\n            \"locationId\": \"f7c1f2d5-1ded-f0ec-bddf-1bae318a88cb\",\n            \"lat\": -74.10417740332299,\n            \"lng\": 89.58276370848444,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"recipient\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"rzz4ipL5b@AmieZyenciAUuljBQbg.bu\"\n          },\n          \"sender\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"WYGvEghmBQ6x@yORmtw.aw\"\n          },\n          \"trackingId\": 5652,\n          \"payments\": {\n            \"insured\": true,\n            \"insuredValue\": 1639.5631897720698,\n            \"cashOnDelivery\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"internalKey\": \"string\"\n        },\n        {\n          \"deliveryType\": \"99M\",\n          \"destination\": {\n            \"locationId\": \"4bf8aa01-15f6-1d48-676d-ca529e559c0f\",\n            \"lat\": 3.5627116498217646,\n            \"lng\": -143.1407479246962,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"id\": \"string\",\n          \"items\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"weight\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"length\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"width\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"height\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"options\": {\n            \"pickUpAfter\": \"1970-03-25T21:58:12.467Z\",\n            \"deliveryBetween\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"requiresIdentification\": true,\n            \"requiresSignature\": false,\n            \"twoFactorAuth\": true,\n            \"notes\": \"string\"\n          },\n          \"origin\": {\n            \"locationId\": \"b8e78cad-b30f-7211-e565-46ba2d83a314\",\n            \"lat\": 76.07113641870461,\n            \"lng\": 118.18362817590548,\n            \"address\": \"string\",\n            \"country\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"reference\": \"string\",\n            \"zipcode\": \"string\",\n            \"city\": \"string\"\n          },\n          \"recipient\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"7V9p@bvLqnVxtSydKKFKrXRrKIJSS.hrz\"\n          },\n          \"sender\": {\n            \"firstName\": \"string\",\n            \"lastName\": \"string\",\n            \"phone\": \"+525547596221\",\n            \"email\": \"8wUAkgYS3D9eNtH@hkHRrEmAEY.fadt\"\n          },\n          \"trackingId\": 7888,\n          \"payments\": {\n            \"insured\": false,\n            \"insuredValue\": 9104.972840769944,\n            \"cashOnDelivery\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"internalKey\": \"string\"\n        }\n      ],\n      \"transactionId\": 219,\n      \"draft\": false\n    }\n  ],\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53e45b53-2b9d-4600-9cf3-50a3cddd19e2",
+          "name": "orders create",
+          "request": {
+            "name": "orders create",
+            "description": {
+              "content": "Create orders.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "shipments",
+                  "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"<string>\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"<string>\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "shipments",
+                  "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"<string>\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"<string>\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "draft",
+                  "value": "<boolean>",
+                  "description": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0d3fd66e-d3b1-4633-875b-1a9673565732",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\",\"key_2\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.",
+                        "type": "text/plain"
+                      },
+                      "key": "draft",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"fdecb33d-2769-458d-b319-835b1c73d8f6\",\n  \"message\": \"order created successfully\",\n  \"data\": {\n    \"id\": \"aFr0bwewwEm3EDChXLs2J5xbsbe3hEP5\",\n    \"shipments\": [\n      {\n        \"sender\": {\n          \"firstName\": \"Jorge benito\",\n          \"lastName\": \"Ramon\",\n          \"phone\": \"+52999797429\",\n          \"email\": \"jorge@gmail.com\"\n        },\n        \"recipient\": {\n          \"firstName\": \"Carlos\",\n          \"lastName\": \"Gonzalez\",\n          \"phone\": \"+52999999\",\n          \"email\": \"esteban@gmail.com\"\n        },\n        \"origin\": {\n          \"lat\": 19.413574,\n          \"lng\": -99.11359,\n          \"address\": \"Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México\",\n          \"country\": \"MEX\",\n          \"type\": \"private\",\n          \"reference\": \"Primer Piso\",\n          \"zipcode\": \"15900\"\n        },\n        \"destination\": {\n          \"lat\": 19.041694,\n          \"lng\": -98.2035678,\n          \"address\": \"Av 9 Pte 308, Centro histórico de Puebla, Puebla, Pue., México\",\n          \"country\": \"MEX\",\n          \"type\": \"private\",\n          \"reference\": \"Torre 3 Apartamente 905\",\n          \"zipcode\": \"72000\"\n        },\n        \"payments\": {\n          \"paymentMethod\": \"\",\n          \"cashOnDelivery\": {\n            \"amount\": 100,\n            \"currency\": \"MXN\"\n          }\n        },\n        \"options\": {\n          \"pickUpAfter\": \"2022-11-15T06:33:26.166575\",\n          \"deliveryBetween\": {\n            \"start\": \"2022-02-02T12:00:00.000Z\",\n            \"end\": \"2022-02-02T20:00:00.000Z\"\n          },\n          \"notes\": \"**Information to be printed on the label**\"\n        },\n        \"items\": [\n          {\n            \"id\": \"e0f954b2-d7fe-48e6-963f-d377149944d7\",\n            \"size\": \"l\",\n            \"description\": \"This is the description\",\n            \"weight\": 1000,\n            \"length\": 50,\n            \"width\": 30,\n            \"height\": 20\n          }\n        ],\n        \"id\": \"aFr0bwewwEm3EDChXLs2J5xbsbe3hEP4\",\n        \"internalKey\": \"394e84ef-6837-48cd-b9af-9e2cf039d642\",\n        \"deliveryType\": \"SPT\",\n        \"trackingId\": 3186136841\n      }\n    ],\n    \"account\": {\n      \"client_id\": \"57c38a44-d056-4f06-8d26-1ce40d0f7f05\",\n      \"apikey\": \"7cef77a8-70e1-4649-a104-c913e5d9f5b8\"\n    },\n    \"draft\": false,\n    \"createdAt\": \"2022-11-15T06:33:26.921806\",\n    \"expiresAt\": \"2023-01-14T06:33:26.921806\"\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5377336c-30c0-47fd-b15d-9cddaae82da0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\",\"key_2\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.",
+                        "type": "text/plain"
+                      },
+                      "key": "draft",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"248607db-e0c8-4b2c-816b-3ef0ab0ec06f\",\n  \"message\": \"Internal key already exists for the client.\",\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4999e88-a271-4398-bd0a-5872188cff42",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\",\"key_2\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.",
+                        "type": "text/plain"
+                      },
+                      "key": "draft",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"1861d6cc-11bc-4b8c-b881-c9341eedc5df\",\n  \"message\": \"The body data is invalid. Please check the docs\",\n  \"errors\": {\n    \"shipments\": [\n      {\n        \"destination\": {\n          \"address\": [\n            \"You must provide an address.\"\n          ]\n        }\n      },\n      {\n        \"destination\": {\n          \"address\": [\n            \"You must provide an address.\"\n          ]\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57e445eb-2d7b-43b5-8e8f-4cd7dc0ee06e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\",\"key_2\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.",
+                        "type": "text/plain"
+                      },
+                      "key": "draft",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Jwt is expired\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a84f153e-f82b-4d1c-8d53-864526880a88",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\",\"key_1\":\"<dateTime>\",\"key_2\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "shipments",
+                      "value": "{\"deliveryType\":\"<string>\",\"destination\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"items\":[{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"},{\"size\":\"<string>\",\"weight\":\"<integer>\",\"description\":\"<string>\",\"length\":\"<integer>\",\"width\":\"<integer>\",\"height\":\"<integer>\"}],\"options\":{\"pickUpAfter\":\"<dateTime>\",\"deliveryBetween\":{\"key_0\":\"<dateTime>\"},\"requiresIdentification\":\"<boolean>\",\"requiresSignature\":\"<boolean>\",\"twoFactorAuth\":\"<boolean>\",\"notes\":\"<string>\"},\"origin\":{\"locationId\":\"<uuid>\",\"lat\":\"<double>\",\"lng\":\"<double>\",\"address\":\"<string>\",\"country\":\"<string>\",\"reference\":\"<string>\",\"zipcode\":\"<string>\",\"city\":\"<string>\"},\"recipient\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"sender\":{\"firstName\":\"<string>\",\"lastName\":\"<string>\",\"phone\":\"+525547596221\",\"email\":\"<email>\"},\"payments\":{\"insured\":\"<boolean>\",\"insuredValue\":\"<double>\",\"cashOnDelivery\":{\"amount\":\"<double>\",\"currency\":{\"value\":\"<Error: Too many levels of nesting to fake this schema>\"}}},\"internalKey\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.",
+                        "type": "text/plain"
+                      },
+                      "key": "draft",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"5896c0d9-bccf-4b5d-a8fa-b8859a2fa9e2\",\n  \"message\": \"There is no coverage for the selected origin and destination. If you wish to validate our coverage in advance, please go to the /coverage endpoints\",\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f50d5e57-7258-4295-a3f1-7f9f77f0e522",
+          "name": "orders multibox create",
+          "request": {
+            "name": "orders multibox create",
+            "description": {
+              "content": "Create a multibox order that groups multiple packages (children) under a single parent order (master). All children share the same origin, destination, sender and recipient. Useful when a single shipment contains multiple parcels that must travel together.\n\nMinimum 1 child, maximum 20 children per order.\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "orders",
+                "multibox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryType\": \"<string>\",\n  \"children\": [\n    {\n      \"items\": [\n        {\n          \"weight\": \"<number>\",\n          \"size\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"length\": \"<number>\"\n        },\n        {\n          \"weight\": \"<number>\",\n          \"size\": \"<string>\",\n          \"height\": \"<number>\",\n          \"width\": \"<number>\",\n          \"length\": \"<number>\"\n        }\n      ],\n      \"internalKey\": \"<string>\"\n    }\n  ],\n  \"packageSize\": \"<string>\",\n  \"origin\": {\n    \"address\": \"<string>\",\n    \"country\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"locationId\": \"<string>\",\n    \"references\": \"<string>\"\n  },\n  \"destination\": {\n    \"address\": \"<string>\",\n    \"country\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"locationId\": \"<string>\",\n    \"references\": \"<string>\"\n  },\n  \"sender\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"recipient\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"options\": {\n    \"notes\": \"<string>\"\n  },\n  \"internalKey\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4831becc-2530-465d-9351-d36fd587dc40",
+              "name": "Multibox order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deliveryType\": \"SMD\",\n  \"packageSize\": \"xs\",\n  \"destination\": {\n    \"address\": \"Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"11580\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"origin\": {\n    \"address\": \"C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"14390\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"options\": {\n    \"notes\": \"Dejar en puerta\"\n  },\n  \"sender\": {\n    \"firstName\": \"Cecilia\",\n    \"lastName\": \"Magana\",\n    \"email\": \"cecilia@99minutos.com\",\n    \"phone\": \"+525555555544\"\n  },\n  \"recipient\": {\n    \"firstName\": \"Laura\",\n    \"lastName\": \"Flores\",\n    \"email\": \"laura@99minutos.com\",\n    \"phone\": \"+525533668777\"\n  },\n  \"internalKey\": \"test123-1234567890123-0123456789\",\n  \"children\": [\n    {\n      \"internalKey\": \"test123-1234567-1\",\n      \"items\": [\n        {\n          \"weight\": 300,\n          \"height\": 10,\n          \"width\": 10,\n          \"length\": 10,\n          \"size\": \"xs\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"abc123def456\",\n  \"message\": \"Multibox order received successfully\",\n  \"data\": {\n    \"master\": \"99M-XXXXXXXXXX\",\n    \"children\": [\n      {\n        \"tracking_id\": \"99M-YYYYYYYYYY\",\n        \"internal_key\": \"test123-1234567-1\",\n        \"client_id\": \"client-id-123\"\n      }\n    ]\n  },\n  \"errors\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b01092c-9876-4cc2-86a8-63e6f60c3410",
+              "name": "Invalid request body. The JSON payload could not be parsed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deliveryType\": \"SMD\",\n  \"packageSize\": \"xs\",\n  \"destination\": {\n    \"address\": \"Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"11580\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"origin\": {\n    \"address\": \"C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"14390\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"options\": {\n    \"notes\": \"Dejar en puerta\"\n  },\n  \"sender\": {\n    \"firstName\": \"Cecilia\",\n    \"lastName\": \"Magana\",\n    \"email\": \"cecilia@99minutos.com\",\n    \"phone\": \"+525555555544\"\n  },\n  \"recipient\": {\n    \"firstName\": \"Laura\",\n    \"lastName\": \"Flores\",\n    \"email\": \"laura@99minutos.com\",\n    \"phone\": \"+525533668777\"\n  },\n  \"internalKey\": \"test123-1234567890123-0123456789\",\n  \"children\": [\n    {\n      \"internalKey\": \"test123-1234567-1\",\n      \"items\": [\n        {\n          \"weight\": 300,\n          \"height\": 10,\n          \"width\": 10,\n          \"length\": 10,\n          \"size\": \"xs\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"abc123def456\",\n  \"errors\": [\n    {\n      \"code\": \"GENERIC_INVALID_PARAMETERS\",\n      \"message\": \"Invalid request body\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbf4153e-b78d-4ae5-8cba-5808f1946f63",
+              "name": "Authentication error. JWT is missing, malformed, or expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deliveryType\": \"SMD\",\n  \"packageSize\": \"xs\",\n  \"destination\": {\n    \"address\": \"Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"11580\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"origin\": {\n    \"address\": \"C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"14390\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"options\": {\n    \"notes\": \"Dejar en puerta\"\n  },\n  \"sender\": {\n    \"firstName\": \"Cecilia\",\n    \"lastName\": \"Magana\",\n    \"email\": \"cecilia@99minutos.com\",\n    \"phone\": \"+525555555544\"\n  },\n  \"recipient\": {\n    \"firstName\": \"Laura\",\n    \"lastName\": \"Flores\",\n    \"email\": \"laura@99minutos.com\",\n    \"phone\": \"+525533668777\"\n  },\n  \"internalKey\": \"test123-1234567890123-0123456789\",\n  \"children\": [\n    {\n      \"internalKey\": \"test123-1234567-1\",\n      \"items\": [\n        {\n          \"weight\": 300,\n          \"height\": 10,\n          \"width\": 10,\n          \"length\": 10,\n          \"size\": \"xs\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"abc123def456\",\n  \"errors\": [\n    {\n      \"code\": \"JWT_EXPIRED\",\n      \"message\": \"JWT token has expired\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc19c788-2e74-4c7c-a6d5-cd18fa31a008",
+              "name": "Validation or business rule error. The request fields do not meet the required validations or a business rule was not satisfied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deliveryType\": \"SMD\",\n  \"packageSize\": \"xs\",\n  \"destination\": {\n    \"address\": \"Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"11580\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"origin\": {\n    \"address\": \"C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"14390\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"options\": {\n    \"notes\": \"Dejar en puerta\"\n  },\n  \"sender\": {\n    \"firstName\": \"Cecilia\",\n    \"lastName\": \"Magana\",\n    \"email\": \"cecilia@99minutos.com\",\n    \"phone\": \"+525555555544\"\n  },\n  \"recipient\": {\n    \"firstName\": \"Laura\",\n    \"lastName\": \"Flores\",\n    \"email\": \"laura@99minutos.com\",\n    \"phone\": \"+525533668777\"\n  },\n  \"internalKey\": \"test123-1234567890123-0123456789\",\n  \"children\": [\n    {\n      \"internalKey\": \"test123-1234567-1\",\n      \"items\": [\n        {\n          \"weight\": 300,\n          \"height\": 10,\n          \"width\": 10,\n          \"length\": 10,\n          \"size\": \"xs\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"abc123def456\",\n  \"errors\": [\n    {\n      \"code\": \"GENERIC_INVALID_PARAMETERS\",\n      \"message\": \"origin.address must be between 10 and 300 characters\",\n      \"field\": \"origin.address\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3edf80cd-6ee1-46f9-9abb-b282e78bfd76",
+              "name": "Internal server error. An unexpected error occurred during order processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "orders",
+                    "multibox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deliveryType\": \"SMD\",\n  \"packageSize\": \"xs\",\n  \"destination\": {\n    \"address\": \"Calz. Gral. Mariano Escobedo 595, Ciudad de Mexico, Miguel Hidalgo, Bosque de Chapultepec I Secc, 11580\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"11580\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"origin\": {\n    \"address\": \"C. PUENTE 186 S/N COAPA TLALPAN CD DE MEXICO\",\n    \"country\": \"MEX\",\n    \"zipcode\": \"14390\",\n    \"lat\": 0,\n    \"lng\": 0\n  },\n  \"options\": {\n    \"notes\": \"Dejar en puerta\"\n  },\n  \"sender\": {\n    \"firstName\": \"Cecilia\",\n    \"lastName\": \"Magana\",\n    \"email\": \"cecilia@99minutos.com\",\n    \"phone\": \"+525555555544\"\n  },\n  \"recipient\": {\n    \"firstName\": \"Laura\",\n    \"lastName\": \"Flores\",\n    \"email\": \"laura@99minutos.com\",\n    \"phone\": \"+525533668777\"\n  },\n  \"internalKey\": \"test123-1234567890123-0123456789\",\n  \"children\": [\n    {\n      \"internalKey\": \"test123-1234567-1\",\n      \"items\": [\n        {\n          \"weight\": 300,\n          \"height\": 10,\n          \"width\": 10,\n          \"length\": 10,\n          \"size\": \"xs\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"abc123def456\",\n  \"errors\": [\n    {\n      \"code\": \"GEOCODING_SERVICE_ERROR\",\n      \"message\": \"Geocoding service returned empty response\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5fcfe2c2-be6f-4f6d-b107-25edcf3014c5",
+    "name": "API Version 3 coverage Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

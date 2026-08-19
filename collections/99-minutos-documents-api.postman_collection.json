@@ -1,0 +1,300 @@
+{
+  "item": [
+    {
+      "id": "07304056-e287-495e-a747-975931be4ab0",
+      "name": "documents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b401732a-4cbc-4f30-a1f3-1f035df2e6bd",
+          "name": "documents guides create",
+          "request": {
+            "name": "documents guides create",
+            "description": {
+              "content": "Return a list of pdf guides for the given identifiers.\n\nAllowed sizes\n\n| Value | Description |\n| --- | --- |\n| letter | Document size of 9 x 11 |\n| zebra | Document size of 4 x 6 |\n| small | Document size of 4 x 3 |\n\nAll sizes are inches",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "documents",
+                "guides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "guides",
+                  "value": "{\"identifier\":\"<string>\",\"size\":\"<string>\"}",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "guides",
+                  "value": "{\"identifier\":\"<string>\",\"size\":\"<string>\"}",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eacfc939-02c1-41c6-8854-da555ea32947",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "documents",
+                    "guides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "guides",
+                      "value": "{\"identifier\":\"<string>\",\"size\":\"<string>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "guides",
+                      "value": "{\"identifier\":\"<string>\",\"size\":\"<string>\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"4dca8e6b-104e-4376-a5ab-ea0690cc0233\",\n  \"message\": \"Successful pdf guides.\",\n  \"data\": [\n    {\n      \"id\": \"B345SN3IS2\",\n      \"pdf\": \"JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEd\"\n    },\n    {\n      \"id\": \"648cb66d-2f81-49b9-ab91-eb3937aecc0b\",\n      \"pdf\": \"unknown shipment\"\n    }\n  ],\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df07061-4376-4a99-9755-44e7ab4380a7",
+          "name": "documents zpl create",
+          "request": {
+            "name": "documents zpl create",
+            "description": {
+              "content": "ZPL returns a list of ZPL based on the received identifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "documents",
+                "zpl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "identifiers",
+                  "value": "<string>",
+                  "description": "(Required) The identifier represent a internalKey or trackingId of one shipment."
+                },
+                {
+                  "disabled": false,
+                  "key": "identifiers",
+                  "value": "<string>",
+                  "description": "(Required) The identifier represent a internalKey or trackingId of one shipment."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3480b2f4-1506-4ba1-a8e3-6c962d246562",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "documents",
+                    "zpl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The identifier represent a internalKey or trackingId of one shipment.",
+                        "type": "text/plain"
+                      },
+                      "key": "identifiers",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The identifier represent a internalKey or trackingId of one shipment.",
+                        "type": "text/plain"
+                      },
+                      "key": "identifiers",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"061876eb-d0ec-431a-aceb-215ca0039ad0\",\n  \"message\": \"Successful ZPL.\",\n  \"data\": [\n    {\n      \"id\": \"648cb66d-2f81-49b9-ab91-eb3937aecc0b\",\n      \"zpl\": \"^XA\\n                                        ^FO600,20^GB150,120,3^FS\\n                                        ^CFA,14\\n                                        ^FO610,60^FD Sprint  ^FS\\n                                        ^CFA,12\\n                                        ^FO610,90^FD Envio de entrega ^FS\\n                                        ^FO610,100^FD dia siguiente ^FS\\n                                        ^FO 20,20^GFA,1300,1300,13,,:Y018,Y054,Y032,g098,Y080C,X0D003,R018J03I08,T08,N03K03J02002,N0C6O03001,M082CK0880030048,M0EN07K064,L06004L018J014,L08K0108102J019,K01069EK04084J048,L018EL01702001,J03621N0C00124004,J0240CN0880661004,J0819O01I04A008,I01014P01J0C08,L08S0208,I04S018C00E04,J084T02I0C,J024T020098,J09T06101B,00218T02I06,00302T010404,003V0524,008V02,I0CV0C9,0289V061,I04W01,0414V0A1,002J01CK01CJ0208,0028001FFEI01FFEJ028,013I03IF8003IF8I022,011I07IFC00JFCJ02,08J0JFE01JFE00116,026001KF01KF00108,166003FFBFF83FF3FF80108,004003FC07F83FC07F80081,204007F803FC7F803F8008,2J07F001FC7F003FC,3J07F001FC7F001FC,004007F001FC7F001FC00228,104007F001FE7F001FCI03,K07F001FE7F001FE001,K07F001FE7F001FE,K07F803FE7F803FE,K03FC07FE7FC07FE,K03FF1FFE3FF1FFE,1J01KFE3KFE,1J01KFE1KFC,1K0KFC0KFC004,6K07JFC07JFC0021,61J01JFC01JFC0021,2L03E1FC003E3FC002,2N03FCJ03FC002,204L03FCJ03F8J08,204L07F8J07F8,004L07F8J07F8,04M0FFK0FFJ04,2A4I0103FF00103FFJ04,L03IFE003IFEJ05,04J07IFC007IFCJ01,041I0JFC00JFC002,001001JF801JFI0202,001I0IFEI0IFE,0014003FF8I03FF8I01,0408V09,0401V088,0205U01808,0124U0221,01208V01,J08T010A,00C82T0904,00481S018,I082S0246,I0604R0823,I0616Q01002,I08V04,I05404P07064,I02083R088,L038O0317,M04M0183,J01001M06B,K028018L0381,K01R0A,K06K0C0DJ08,K01L02J03,L046N01C,L031N0F,V04,,N07I02038,O0107FE8,Q01,,^FS\\n                                        ^CF0,40\\n                                        ^FO120,70^FDminutos.com^FS\\n                                        ^CFA,18\\n                                        ^FO20,150^FD No. De Guia : 939888484  ^FS\\n                                        ^FO20,180^FD Fecha de creado : 2021-04-30  ^FS\\n                                        ^FO400,130^GB80,80,3^FS\\n                                        ^CFA,14\\n                                        ^FO380,110^FD Zonificacion ^FS\\n                                        ^CFA,13\\n                                        ^FO425,170^FD ^FS\\n                                        ^CF0,24\\n                                        ^FO20,250^FD Origen ^FS\\n                                        ^CFA,13\\n                                        ^FO20,300^FD Direccion : Viena 4837, Villa Verde, Verde, 80184 Cu - ^FS\\n                                        ^CFA,13\\n                                        ^FO20,335^FD liacán Rosales, Sin., México,,80184,mex  ^FS\\n                                        ^FO20,365^FD   ^FS\\n                                        ^CFA,14\\n                                        ^FO20,400^FD Remitente : Alfonso  ^FS\\n                                        ^CF0,24\\n                                        ^FO20,450^FD Destino ^FS\\n                                        ^CFA,13\\n                                        ^FO20,490^FD Direccion : C.Monte Camerun 145, Lomas de Chapultepe -  ^FS\\n                                        ^FO20,520^FD c, Miguel Hidalgo, 11000 Ciudad de Méxic  ^FS\\n                                        ^FO20,560^FD éxico,,11000,MEX  ^FS\\n                                        ^CFA,14\\n                                        ^FO20,590^FD Destinatario :  ^FS\\n                                        ^FO20,620^FD  Pedro Salas  ^FS\\n                                        ^CF0,24\\n                                        ^FO390,250^FD Informacion del pedido ^FS\\n                                        ^CFA,18\\n                                         ^CI28\\n                                        ^FO390,300^FD Tamaño : dia siguiente  ^FS\\n                                        ^FO390,340^FD Modalidad : Sprint  ^FS\\n                                        ^CF0,24\\n                                        ^FO390,450^FD Especificaciones ^FS\\n                                        ^CFA,18\\n                                        ^FO390,490^FD Cobro : No  ^FS\\n                                        ^FO390,520^FD Recolecta : Alfonso  ^FS\\n                                        ^FO390,570^FD Notas : #id | Cobro: No |  Recibe: Pedro Salas | Recolecta con: Alfo  ^FS\\n                                        ^CFA,13\\n                                        ^FO390,600^FD  nso | Orden de prueb  ^FS\\n                                        ^FO390,620^FD  acking  ^FS\\n                                        ^FO390,640^FD    ^FS\\n                                        ^FX\\n                                        ^FO50,690^GB700,250,3^FS\\n                                        ^FO400,690^GB1,230,3^FS\\n                                        ^CF0,40\\n                                        ^FO150,750^BQ,2,6^FDLA 939888484 ^FS\\n                                        ^CF0,190\\n                                        ^FO470,955^FD\\n                                        ^BY2,1,150\\n                                        ^FO430,720^BC^FD 939888484 ^FS\\n                                        ^FS\\n                                        ^XZ\"\n    },\n    {\n      \"id\": \"4fcccf64-82ba-40c0-b6b9-943b7869c2bf\",\n      \"zpl\": \"^XA\\n                                        ^FO600,20^GB150,120,3^FS\\n                                        ^CFA,14\\n                                        ^FO610,60^FD Sprint  ^FS\\n                                        ^CFA,12\\n                                        ^FO610,90^FD Envio de entrega ^FS\\n                                        ^FO610,100^FD dia siguiente ^FS\\n                                        ^FO 20,20^GFA,1300,1300,13,,:Y018,Y054,Y032,g098,Y080C,X0D003,R018J03I08,T08,N03K03J02002,N0C6O03001,M082CK0880030048,M0EN07K064,L06004L018J014,L08K0108102J019,K01069EK04084J048,L018EL01702001,J03621N0C00124004,J0240CN0880661004,J0819O01I04A008,I01014P01J0C08,L08S0208,I04S018C00E04,J084T02I0C,J024T020098,J09T06101B,00218T02I06,00302T010404,003V0524,008V02,I0CV0C9,0289V061,I04W01,0414V0A1,002J01CK01CJ0208,0028001FFEI01FFEJ028,013I03IF8003IF8I022,011I07IFC00JFCJ02,08J0JFE01JFE00116,026001KF01KF00108,166003FFBFF83FF3FF80108,004003FC07F83FC07F80081,204007F803FC7F803F8008,2J07F001FC7F003FC,3J07F001FC7F001FC,004007F001FC7F001FC00228,104007F001FE7F001FCI03,K07F001FE7F001FE001,K07F001FE7F001FE,K07F803FE7F803FE,K03FC07FE7FC07FE,K03FF1FFE3FF1FFE,1J01KFE3KFE,1J01KFE1KFC,1K0KFC0KFC004,6K07JFC07JFC0021,61J01JFC01JFC0021,2L03E1FC003E3FC002,2N03FCJ03FC002,204L03FCJ03F8J08,204L07F8J07F8,004L07F8J07F8,04M0FFK0FFJ04,2A4I0103FF00103FFJ04,L03IFE003IFEJ05,04J07IFC007IFCJ01,041I0JFC00JFC002,001001JF801JFI0202,001I0IFEI0IFE,0014003FF8I03FF8I01,0408V09,0401V088,0205U01808,0124U0221,01208V01,J08T010A,00C82T0904,00481S018,I082S0246,I0604R0823,I0616Q01002,I08V04,I05404P07064,I02083R088,L038O0317,M04M0183,J01001M06B,K028018L0381,K01R0A,K06K0C0DJ08,K01L02J03,L046N01C,L031N0F,V04,,N07I02038,O0107FE8,Q01,,^FS\\n                                        ^CF0,40\\n                                        ^FO120,70^FDminutos.com^FS\\n                                        ^CFA,18\\n                                        ^FO20,150^FD No. De Guia : 939888484  ^FS\\n                                        ^FO20,180^FD Fecha de creado : 2021-04-30  ^FS\\n                                        ^FO400,130^GB80,80,3^FS\\n                                        ^CFA,14\\n                                        ^FO380,110^FD Zonificacion ^FS\\n                                        ^CFA,13\\n                                        ^FO425,170^FD ^FS\\n                                        ^CF0,24\\n                                        ^FO20,250^FD Origen ^FS\\n                                        ^CFA,13\\n                                        ^FO20,300^FD Direccion : Viena 4837, Villa Verde, Verde, 80184 Cu - ^FS\\n                                        ^CFA,13\\n                                        ^FO20,335^FD liacán Rosales, Sin., México,,80184,mex  ^FS\\n                                        ^FO20,365^FD   ^FS\\n                                        ^CFA,14\\n                                        ^FO20,400^FD Remitente : Alfonso  ^FS\\n                                        ^CF0,24\\n                                        ^FO20,450^FD Destino ^FS\\n                                        ^CFA,13\\n                                        ^FO20,490^FD Direccion : C.Monte Camerun 145, Lomas de Chapultepe -  ^FS\\n                                        ^FO20,520^FD c, Miguel Hidalgo, 11000 Ciudad de Méxic  ^FS\\n                                        ^FO20,560^FD éxico,,11000,MEX  ^FS\\n                                        ^CFA,14\\n                                        ^FO20,590^FD Destinatario :  ^FS\\n                                        ^FO20,620^FD  Pedro Salas  ^FS\\n                                        ^CF0,24\\n                                        ^FO390,250^FD Informacion del pedido ^FS\\n                                        ^CFA,18\\n                                         ^CI28\\n                                        ^FO390,300^FD Tamaño : dia siguiente  ^FS\\n                                        ^FO390,340^FD Modalidad : Sprint  ^FS\\n                                        ^CF0,24\\n                                        ^FO390,450^FD Especificaciones ^FS\\n                                        ^CFA,18\\n                                        ^FO390,490^FD Cobro : No  ^FS\\n                                        ^FO390,520^FD Recolecta : Alfonso  ^FS\\n                                        ^FO390,570^FD Notas : #id | Cobro: No |  Recibe: Pedro Salas | Recolecta con: Alfo  ^FS\\n                                        ^CFA,13\\n                                        ^FO390,600^FD  nso | Orden de prueb  ^FS\\n                                        ^FO390,620^FD  acking  ^FS\\n                                        ^FO390,640^FD    ^FS\\n                                        ^FX\\n                                        ^FO50,690^GB700,250,3^FS\\n                                        ^FO400,690^GB1,230,3^FS\\n                                        ^CF0,40\\n                                        ^FO150,750^BQ,2,6^FDLA 939888484 ^FS\\n                                        ^CF0,190\\n                                        ^FO470,955^FD\\n                                        ^BY2,1,150\\n                                        ^FO430,720^BC^FD 939888484 ^FS\\n                                        ^FS\\n                                        ^XZ\"\n    }\n  ],\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "97ca68f3-3b6d-46b8-853f-dd8943e33ec2",
+    "name": "API Version 3 coverage documents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "item": [
+    {
+      "id": "cb3ea25d-046c-49f1-b734-09dcca4102e4",
+      "name": "coverage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83d4eb74-63cf-4e27-8b52-63b16c5c4c3e",
+          "name": "Get Zip Codes By Country",
+          "request": {
+            "name": "Get Zip Codes By Country",
+            "description": {
+              "content": "Return list of postal codes by country paginated",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "coverage",
+                "zipcodes",
+                ":country"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deliveryType",
+                  "value": "<string>",
+                  "description": "(Required) delivery types with postal codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "(Required) Limit of codes by page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "(Required) Page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Filter for search postal codes"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2492d0ec-69a6-44d0-ac64-c078aa9c0bee",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "coverage",
+                    "zipcodes",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deliveryType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter for search postal codes"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"codes\": [\n    \"546783\",\n    \"1234323\"\n  ],\n  \"metadata\": {\n    \"page\": \"1\",\n    \"limit\": \"2\",\n    \"totalPages\": \"760\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87e0111a-9b61-4085-a720-073c2f1344d2",
+    "name": "API Version 3 coverage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

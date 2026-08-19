@@ -1,0 +1,169 @@
+{
+  "item": [
+    {
+      "id": "d3516c02-46f7-41d3-a7c0-0eb5bf5a5edc",
+      "name": "super-geocoding",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "daa8a73d-0a56-4d57-9493-990f7b1de734",
+          "name": "super geocoding",
+          "request": {
+            "name": "super geocoding",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "super-geocoding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address_lines\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"region_code\": \"<string>\",\n  \"algorithm\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d895c30-a547-448e-93b0-98aa50ea5d3c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "super-geocoding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_lines\": [\n    \"Calle Masaryk 29\",\n    \"Anzures\"\n  ],\n  \"region_code\": \"MX\",\n  \"algorithm\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"VALID\",\n  \"address\": \"Calle Masaryk 29, Anzures, Miguel Hidalgo, 11590 CDMX, México\",\n  \"components\": [\n    {\n      \"confidence\": \"CONFIRMED\",\n      \"name\": \"Calle Masaryk\",\n      \"type\": \"street\"\n    },\n    {\n      \"confidence\": \"CONFIRMED\",\n      \"name\": \"29\",\n      \"type\": \"street_number\"\n    },\n    {\n      \"confidence\": \"CONFIRMED\",\n      \"name\": \"Anzures\",\n      \"type\": \"neighborhood\"\n    }\n  ],\n  \"location\": {\n    \"latitude\": 19.4356382,\n    \"longitude\": -99.181854\n  },\n  \"place_id\": \"ChIJczyrNaz40YUR2CgG_IrhgkQ\",\n  \"plus_code\": {},\n  \"place_types\": [\n    \"premise\"\n  ],\n  \"algorithm\": \"FAST\",\n  \"credits\": 1,\n  \"uncertainty_in_meters\": 10.539512,\n  \"unconfirmed_component_types\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79a385a1-a1a1-4588-9817-e176a5794db8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "super-geocoding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address_lines\": [\n    \"Calle Masaryk 29\",\n    \"Anzures\"\n  ],\n  \"region_code\": \"MX\",\n  \"algorithm\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7ae7c966-a0f7-46f9-8a37-ced79ef17780",
+    "name": "API Version 3 coverage super-geocoding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}

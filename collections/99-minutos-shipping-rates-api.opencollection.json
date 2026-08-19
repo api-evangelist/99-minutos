@@ -1,0 +1,278 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage shipping-rates API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "shipping-rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "calculate_shipping_rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/shipping/rates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Estimate shipping cost and validate coverage based on origin and destination, package dimensions, and weight. If the country is different from Mexico, the zipcode must be empty, and validation will be done using coordinates only."
+        },
+        {
+          "info": {
+            "name": "Rates by Address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipping/rates/addresses/:origin_country/:origin_address/:destination_country/:destination_address",
+            "params": [
+              {
+                "name": "destination_address",
+                "value": "",
+                "type": "path",
+                "description": "Destination address"
+              },
+              {
+                "name": "destination_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of destination address"
+              },
+              {
+                "name": "origin_address",
+                "value": "",
+                "type": "path",
+                "description": "Origin address"
+              },
+              {
+                "name": "origin_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of origin address"
+              },
+              {
+                "name": "cash_on_delivery",
+                "value": "",
+                "type": "query",
+                "description": "Cash on delivery amount"
+              },
+              {
+                "name": "delivery_type",
+                "value": "",
+                "type": "query",
+                "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+              },
+              {
+                "name": "insurance",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Package size"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rates by Address"
+        },
+        {
+          "info": {
+            "name": "Rates by Coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipping/rates/coordinates/:origin_country/:origin_lat/:origin_lng/:destination_country/:destination_lat/:destination_lng",
+            "params": [
+              {
+                "name": "origin_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of origin address"
+              },
+              {
+                "name": "origin_lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude is taken to define the origin location"
+              },
+              {
+                "name": "origin_lng",
+                "value": "",
+                "type": "path",
+                "description": "Longitude is taken to define the origin location"
+              },
+              {
+                "name": "destination_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of destination address"
+              },
+              {
+                "name": "destination_lat",
+                "value": "",
+                "type": "path",
+                "description": "Latitude is taken to define the destination location"
+              },
+              {
+                "name": "destination_lng",
+                "value": "",
+                "type": "path",
+                "description": "Longitude is taken to define the destination location"
+              },
+              {
+                "name": "cash_on_delivery",
+                "value": "",
+                "type": "query",
+                "description": "Cash on delivery amount"
+              },
+              {
+                "name": "delivery_type",
+                "value": "",
+                "type": "query",
+                "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+              },
+              {
+                "name": "insurance",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Package size"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rates by Coordinates"
+        },
+        {
+          "info": {
+            "name": "Get package size by dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipping/rates/sizes",
+            "params": [
+              {
+                "name": "depth",
+                "value": "",
+                "type": "query",
+                "description": "Package depth"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Package height"
+              },
+              {
+                "name": "weight",
+                "value": "",
+                "type": "query",
+                "description": "Package weight"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Package width"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get package size by dimensions"
+        },
+        {
+          "info": {
+            "name": "Rates by Zipcodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/shipping/rates/zipcodes/:origin_country/:origin_zipcode/:destination_country/:destination_zipcode",
+            "params": [
+              {
+                "name": "origin_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of origin address"
+              },
+              {
+                "name": "origin_zipcode",
+                "value": "",
+                "type": "path",
+                "description": "Zipcode of origin address"
+              },
+              {
+                "name": "destination_country",
+                "value": "",
+                "type": "path",
+                "description": "Country of destination address"
+              },
+              {
+                "name": "destination_zipcode",
+                "value": "",
+                "type": "path",
+                "description": "Zipcode of destination address"
+              },
+              {
+                "name": "cash_on_delivery",
+                "value": "",
+                "type": "query",
+                "description": "Cash on delivery amount"
+              },
+              {
+                "name": "delivery_type",
+                "value": "",
+                "type": "query",
+                "description": "DeliveryType of the shipments. Refers to allowed values in the shipment schema detailed above."
+              },
+              {
+                "name": "insurance",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Package size"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rates by Zipcodes"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

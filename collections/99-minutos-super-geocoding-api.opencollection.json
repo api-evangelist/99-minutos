@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage super-geocoding API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "super-geocoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "super geocoding",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/super-geocoding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "super geocoding"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

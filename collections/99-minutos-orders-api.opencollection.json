@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Version 3 coverage Orders API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create multibox orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v1/orders/multibox",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multibox orders. N child shipments will be created plus the master shipment. The number of child shipments is determined by the `packages` field, and by default, always 1 master shipment is created.\n"
+        },
+        {
+          "info": {
+            "name": "orders_confirm_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/orders/:orderid/confirm",
+            "params": [
+              {
+                "name": "orderid",
+                "value": "",
+                "type": "path",
+                "description": "orderId of the order that will be confirmed"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Confirm change the value draft to False for the given order id"
+        },
+        {
+          "info": {
+            "name": "orders_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Database identifier order id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a order given an encoded order id.\nThe order id must be MongoDB identifier"
+        },
+        {
+          "info": {
+            "name": "orders_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://delivery.99minutos.com/api/v3/orders",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the list of active orders."
+        },
+        {
+          "info": {
+            "name": "orders_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create orders."
+        },
+        {
+          "info": {
+            "name": "orders_multibox_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://delivery.99minutos.com/api/v3/orders/multibox",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a multibox order that groups multiple packages (children) under a single parent order (master). All children share the same origin, destination, sender and recipient. Useful when a single shipment contains multiple parcels that must travel together.\n\nMinimum 1 child, maximum 20 children per order.\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

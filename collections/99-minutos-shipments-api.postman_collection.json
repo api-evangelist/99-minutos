@@ -1,0 +1,698 @@
+{
+  "item": [
+    {
+      "id": "6d28e6bd-5727-4a04-a611-e8f6b54c03d3",
+      "name": "shipments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "354bcd52-811b-496a-a717-56a8e800ca5b",
+          "name": "get-api-v3-shipments-id",
+          "request": {
+            "name": "get-api-v3-shipments-id",
+            "description": {
+              "content": "Return a shipment given an trackingId or internalKey",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) trackingId or internalKey"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b0df0804-9463-4cca-b181-002d6fccb9b6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) trackingId or internalKey"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "caa47faa-ab5e-4429-be77-0348903b79db",
+          "name": "shipments partial update",
+          "request": {
+            "name": "shipments partial update",
+            "description": {
+              "content": "Update the destination address of a shipment. The shipment must be in one of the following statuses:\n\nDRAFT\nCONFIRMED\nUNSUCCESSFULLPICKUP\nONROADTOPICKUP\nCOLLECTED\nSTORED",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) trackingId or internalKey"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": {\n    \"locationId\": \"<uuid>\",\n    \"lat\": \"<double>\",\n    \"lng\": \"<double>\",\n    \"address\": \"<string>\",\n    \"country\": \"<string>\",\n    \"reference\": \"<string>\",\n    \"zipcode\": \"<string>\",\n    \"city\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e859247e-1cae-48de-a4f3-941b1989c25d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) trackingId or internalKey"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destination\": {\n    \"address\": \"Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico\",\n    \"country\": \"MEX\",\n    \"reference\": \"Torre 3 Apartamente 905\",\n    \"zipcode\": \"15900\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"ad050ab1-9344-4753-b2ce-d5a218de14f8\",\n  \"message\": \"OK\",\n  \"data\": {\n    \"sender\": {\n      \"firstName\": \"Esteban\",\n      \"lastName\": \"Ramirez\",\n      \"phone\": \"+52999999999\",\n      \"email\": \"esteban@gmail.com\"\n    },\n    \"recipient\": {\n      \"firstName\": \"Carlos\",\n      \"lastName\": \"Gonzalez\",\n      \"phone\": \"+52999999999\",\n      \"email\": \"esteban@gmail.com\"\n    },\n    \"origin\": {\n      \"locationId\": \"2753165a-c300-4710-ad69-a7a766a939c2\",\n      \"lat\": 19.410353,\n      \"lng\": -99.09836,\n      \"address\": \"Av. del Taller 452, Jardín Balbuena, Álvaro Obregón, 15900 Ciudad de México, CDMX, México\",\n      \"country\": \"MEX\",\n      \"type\": \"private\",\n      \"reference\": \"Primer Piso\",\n      \"zipcode\": \"15900\"\n    },\n    \"destination\": {\n      \"locationId\": \"d20f80ab-ce65-4424-a359-04b9ba6b48f5\",\n      \"lat\": 19.425213,\n      \"lng\": -99.153984,\n      \"address\": \"Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico\",\n      \"country\": \"MEX\",\n      \"type\": \"private\",\n      \"reference\": \"Torre 3 Apartamente 905\",\n      \"zipcode\": \"15900\"\n    },\n    \"payments\": {\n      \"paymentMethod\": \"cash\",\n      \"cashOnDelivery\": {\n        \"amount\": 100,\n        \"currency\": \"MXN\"\n      }\n    },\n    \"options\": {\n      \"pickUpAfter\": \"2022-10-24T23:22:51.057000\",\n      \"deliveryBetween\": {},\n      \"notes\": \"**Information to be printed on the label**\"\n    },\n    \"items\": [\n      {\n        \"id\": \"e034e8e4-4f35-4156-be4b-7b9cac4e4224\",\n        \"size\": \"l\",\n        \"description\": \"This is the description\",\n        \"weight\": 1000,\n        \"length\": 50,\n        \"width\": 30,\n        \"height\": 20\n      }\n    ],\n    \"id\": \"aFqvmecyn29mAJ182qnS6vo1kLDtoKYi\",\n    \"internalKey\": \"1f5907e6-ae32-4c98-98e7-6f5bc8d2da82\",\n    \"deliveryType\": \"SPT\",\n    \"trackingId\": 2753512370,\n    \"deactivated\": false\n  },\n  \"errors\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ef92801-681a-4d9f-aeba-ef64ea20d712",
+          "name": "delete-api-v3-shipments-id",
+          "request": {
+            "name": "delete-api-v3-shipments-id",
+            "description": {
+              "content": "Cancels an order by trackingId or internalKey.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "by",
+                  "value": "<string>",
+                  "description": "specifies whether the order is to be searched by trackingId or internalKey"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) trackingId or internalKey"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef568cca-c38e-4dbc-b243-460cab8e093f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "by",
+                      "value": "trackingId"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) trackingId or internalKey"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"El cliente canceló\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d346bb37-8214-4454-ac70-d1f9e9695588",
+          "name": "shipments tracking retrieve",
+          "request": {
+            "name": "shipments tracking retrieve",
+            "description": {
+              "content": "Track a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get every change in the status of the shipments, which is more efficient than pulling. For more information go to the webhooks section**\n\n| **STATUS CODE** | **STATUS NAME** | **DESCRIPTION** |\n| --- | --- | --- |\n| 1001 | DRAFT | It is the first status when the shipment is created `in draft mode`. It means that the shipment is not yet ready by the client and its flow will not start until it is confirmed. Note that the draft value is passed when creating the order and defaults to false. Therefore, this status is only passed through if the draft was previously set to true when creating the order. |\n| 1002 | CONFIRMED | The shipment has been confirmed. It is the first status to trigger the logistics operation. It is the first default state when creating an order (false draft) or when confirming a shipment that was previously created as a draft. |\n| 2002 | ON_ROAD_TO_PICKUP | The shipment is on its way to be picked up. So a driver is heading to the point of origin. *`Does not apply to p99`* |\n| 2003 | COLLECTED | The shipment has been collected and is in the domain of an associated driver of 99minutos. |\n| 2101 | UNSUCCESSFUL_PICKUP | The shipment could not be collected. Within the response object, the attempt attribute is added with the number of collection attempts. `See examples` |\n| 3001 | STORED | The shipment is stored in a wharehouse for 99minutos. |\n| 3004 | ON_LINEHAUL | The shipment is in transit between stations for 99minutos `Not all shipments go through this state.` |\n| 4001 | ON_ROAD_TO_DELIVERY | The shipment has left the network of 99minutos stations to the final destination |\n| 4002 | DELIVERED | The shipment has been successfully delivered to its recipient |\n| 4101 | UNSUCCESSFUL_DELIVERY | The shipment could not be delivered. Inside the response object, the attempt attribute is added with the number of delivery attempts. `See examples` |\n| 5001 | ON_ROAD_TO_RETURN | Shipping on the way to return. The return occurs when it is not possible to deliver the package to the recipient and it is returned to the origin |\n| 5002 | RETURNED | The shipment has been returned to the origin successfully |\n| 5101 | UNSUCCESSFUL_RETURN | The shipment could not be returned. Inside the response object, the attempt attribute is added with the number of return attempts. `See examples` |\n| 7101 | IN_CORRECTION | In some cases the information of origin, destination, etc. may not be precise enough to make the shipment. Therefore, this status indicates that some information of the shipment must be corrected. |\n| 7102 | CORRECTED | If the shipment required correction, it indicates that this has already been done. |\n| 8001 | STOLEN | In extremely rare cases for reasons other than 99minutos the shipment is stolen. `This is extremely rare.` |\n| 8003 | CANCELLED | The shipment has been canceled via API by the client |\n| 8004 | DAMAGED | The shipment was damaged during delivery. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipments",
+                "tracking"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "identifier",
+                  "value": "<long>",
+                  "description": "The identifier represent a internalKey or trackingId of one shipment."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1e1839b-7529-4c55-8cfc-dea73f781219",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identifier",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"73801b36-15d9-4bc2-9874-06772578ad95\",\n  \"message\": \"Shipment found.\",\n  \"data\": {\n    \"events\": [\n      {\n        \"statusCode\": \"1002\",\n        \"statusName\": \"CONFIRMED\",\n        \"data\": {},\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-20 07:30:23\"\n      },\n      {\n        \"statusCode\": \"2003\",\n        \"statusName\": \"COLLECTED\",\n        \"data\": {\n          \"comment\": \"Recolectada por el veloz Don veloz Base dd9932d\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-20 11:03:58\"\n      },\n      {\n        \"statusCode\": \"3001\",\n        \"statusName\": \"STORED\",\n        \"data\": {\n          \"comment\": \"En estación MX2 por módulo de inducción\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-20 16:10:41\"\n      },\n      {\n        \"statusCode\": \"3004\",\n        \"statusName\": \"ON_LINEHAUL\",\n        \"data\": {\n          \"milleSegment\": \"middle\",\n          \"comment\": \"En camino a estación Toluca desde estación Tultitlán por operarios.tultitlan el número de orden 2727370887\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-20 16:36:01\"\n      },\n      {\n        \"statusCode\": \"3001\",\n        \"statusName\": \"STORED\",\n        \"data\": {\n          \"location\": \"station\",\n          \"milleSegment\": \"first\",\n          \"comment\": \"Cambiado a la estación por jose.delgado el número de orden 2727370887\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-21 08:12:21\"\n      },\n      {\n        \"statusCode\": \"3001\",\n        \"statusName\": \"STORED\",\n        \"data\": {\n          \"location\": \"station\",\n          \"milleSegment\": \"first\",\n          \"comment\": \"Cambiado a la estación por jose.delgado el número de orden 2727370887\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-21 08:13:48\"\n      },\n      {\n        \"statusCode\": \"4001\",\n        \"statusName\": \"ON_ROAD_TO_DELIVERY\",\n        \"data\": {\n          \"attempt\": 1,\n          \"comment\": \"Auto-rea-asignada por el veloz Don veloz GUI TOL 65829\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-21 08:25:59\"\n      },\n      {\n        \"statusCode\": \"4001\",\n        \"statusName\": \"ON_ROAD_TO_DELIVERY\",\n        \"data\": {\n          \"attempt\": 1,\n          \"comment\": \"Auto-rea-asignada por el veloz Don veloz GUI TOL 65829\"\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-21 08:34:29\"\n      },\n      {\n        \"statusCode\": \"4002\",\n        \"statusName\": \"DELIVERED\",\n        \"data\": {\n          \"attempt\": 1,\n          \"comment\": \"Titular | alejandro castillo,\",\n          \"evidence\": [\n            \"https://xxxxxx\"\n          ]\n        },\n        \"metadata\": {},\n        \"createdAt\": \"2021-12-21 14:32:42\"\n      }\n    ]\n  },\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e23a9911-cc15-4b88-a36d-e3c55f11d99d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    "tracking"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identifier",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"HTTP/1.1 429 Too Many RequestsContent-type: text/htmlRetry-After: 3600\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "494d4a81-81f0-4718-812f-7b8da15836dd",
+          "name": "shipments tracking batch retrieve",
+          "request": {
+            "name": "shipments tracking batch retrieve",
+            "description": {
+              "content": "Batch tracking can add multiple identifiers of the following format -->  `/api/v3/shipments/tracking/batch?identifiers={trackingId}&identifiers={trackingId}`\n\nTrack a shipment by the given identifier. Get all information about the shipments with the related events and data. **Remember that if you are thinking of implementing a recurring pull system on this endpoint, you must limit requests to a maximum of 8 per second. However, we also offer a real-time webhook notification system so you get every change in the status of the shipments, which is more efficient than pulling. For more information go to the webhooks section**\n\n| **STATUS CODE** | **STATUS NAME** | **DESCRIPTION** |\n| --- | --- | --- |\n| 1001 | DRAFT | It is the first status when the shipment is created `in draft mode`. It means that the shipment is not yet ready by the client and its flow will not start until it is confirmed. Note that the draft value is passed when creating the order and defaults to false. Therefore, this status is only passed through if the draft was previously set to true when creating the order. |\n| 1002 | CONFIRMED | The shipment has been confirmed. It is the first status to trigger the logistics operation. It is the first default state when creating an order (false draft) or when confirming a shipment that was previously created as a draft. |\n| 2002 | ON_ROAD_TO_PICKUP | The shipment is on its way to be picked up. So a driver is heading to the point of origin. *`Does not apply to p99`* |\n| 2003 | COLLECTED | The shipment has been collected and is in the domain of an associated driver of 99minutos. |\n| 2101 | UNSUCCESSFUL_PICKUP | The shipment could not be collected. Within the response object, the attempt attribute is added with the number of collection attempts. `See examples` |\n| 3001 | STORED | The shipment is stored in a wharehouse for 99minutos. |\n| 3004 | ON_LINEHAUL | The shipment is in transit between stations for 99minutos `Not all shipments go through this state.` |\n| 4001 | ON_ROAD_TO_DELIVERY | The shipment has left the network of 99minutos stations to the final destination |\n| 4002 | DELIVERED | The shipment has been successfully delivered to its recipient |\n| 4101 | UNSUCCESSFUL_DELIVERY | The shipment could not be delivered. Inside the response object, the attempt attribute is added with the number of delivery attempts. `See examples` |\n| 5001 | ON_ROAD_TO_RETURN | Shipping on the way to return. The return occurs when it is not possible to deliver the package to the recipient and it is returned to the origin |\n| 5002 | RETURNED | The shipment has been returned to the origin successfully |\n| 5101 | UNSUCCESSFUL_RETURN | The shipment could not be returned. Inside the response object, the attempt attribute is added with the number of return attempts. `See examples` |\n| 7101 | IN_CORRECTION | In some cases the information of origin, destination, etc. may not be precise enough to make the shipment. Therefore, this status indicates that some information of the shipment must be corrected. |\n| 7102 | CORRECTED | If the shipment required correction, it indicates that this has already been done. |\n| 8001 | STOLEN | In extremely rare cases for reasons other than 99minutos the shipment is stolen. `This is extremely rare.` |\n| 8003 | CANCELLED | The shipment has been canceled via API by the client |\n| 8004 | DAMAGED | The shipment was damaged during delivery. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "shipments",
+                "tracking",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "identifiers",
+                  "value": "<long>",
+                  "description": "The identifier represent a internalKey or trackingId of one shipment."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3c572ae9-bc61-47c9-9bc6-5c95961dd707",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    "tracking",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identifiers",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"traceId\": \"c0510fb7-0e73-4cc1-8f0b-f1ae632d2bd6\",\n  \"message\": \"OK\",\n  \"data\": [\n    {\n      \"trackingId\": \"2763022166\",\n      \"events\": [\n        {\n          \"statusCode\": \"8003\",\n          \"statusName\": \"CANCELLED\",\n          \"data\": {\n            \"comment\": \"\"\n          },\n          \"metadata\": {},\n          \"createdAt\": \"2023-08-21T23:18:23.979000-05:00\"\n        },\n        {\n          \"statusCode\": \"8003\",\n          \"statusName\": \"CANCELLED\",\n          \"data\": {\n            \"comment\": \"\"\n          },\n          \"metadata\": {},\n          \"createdAt\": \"2023-08-21T23:18:23.979000-05:00\"\n        }\n      ]\n    },\n    {\n      \"trackingId\": \"2763022166\",\n      \"events\": [\n        {\n          \"statusCode\": \"8003\",\n          \"statusName\": \"CANCELLED\",\n          \"data\": {\n            \"comment\": \"\"\n          },\n          \"metadata\": {},\n          \"createdAt\": \"2023-08-21T23:18:23.979000-05:00\"\n        },\n        {\n          \"statusCode\": \"8003\",\n          \"statusName\": \"CANCELLED\",\n          \"data\": {\n            \"comment\": \"\"\n          },\n          \"metadata\": {},\n          \"createdAt\": \"2023-08-21T23:18:23.979000-05:00\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d221e1c-0301-4f91-8347-2abd52b27fd0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "shipments",
+                    "tracking",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "identifiers",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"HTTP/1.1 429 Too Many RequestsContent-type: text/htmlRetry-After: 3600\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://delivery.99minutos.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dbead475-25f7-46a9-a6a6-7974d2ea0af2",
+    "name": "API Version 3 coverage shipments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`",
+      "type": "text/plain"
+    }
+  }
+}
