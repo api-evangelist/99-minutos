@@ -37,6 +37,18 @@ tags:
 - Logistics
 - Last Mile Delivery
 - Shipping
+- E-Commerce
+- Fulfillment
+- Freight
+- Tracking
+- Webhook
+- Latin America
+- Mexico
+tags_raw:
+- Company
+- Logistics
+- Last Mile Delivery
+- Shipping
 - Ecommerce
 - Fulfillment
 - Freight
@@ -51,6 +63,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Coverage
+  tags_raw:
   - coverage
   properties:
   - type: OpenAPI
@@ -73,6 +87,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Documents
+  tags_raw:
   - documents
   properties:
   - type: OpenAPI
@@ -95,6 +111,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Locations
+  tags_raw:
   - locations
   properties:
   - type: OpenAPI
@@ -117,6 +135,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
@@ -139,6 +159,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -161,6 +183,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Shipments
+  tags_raw:
   - shipments
   properties:
   - type: OpenAPI
@@ -227,6 +251,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Webhook
+  tags_raw:
   - webhooks
   properties:
   - type: OpenAPI
