@@ -10,6 +10,18 @@ description: 99minutos (99 Minutos) is a Latin American last-mile logistics and 
   Surfaced as a 500 Global portfolio company and enriched by the API Evangelist pipeline from the provider's
   own developer portal.
 url: https://raw.githubusercontent.com/api-evangelist/99-minutos/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
