@@ -1,0 +1,36 @@
+slug: 99-minutos
+provider: 99 Minutos
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: shipments
+  spec_file: 99-minutos-shipments-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.78
+  evidence: 'GET /api/v3/shipments/tracking  shipments_tracking_retrieve ; GET /api/v3/shipments/tracking/batch
+    ; schemas: TrackingResponse, Event, StatusNameEnum'
+  reason: Retrieval of shipment status and tracking events, singly and in batch, is shipment tracking/visibility.
+    The tag also permits update and delete of a shipment, but tracking dominates the surface.
+- tag: shipping-rates
+  spec_file: 99-minutos-shipping-rates-api-openapi.yml
+  capability_id: BC-2520.50
+  capability_id_l1: BC-2520
+  capability_name: Rating Engine Operations Management
+  confidence: 0.7
+  evidence: POST /api/v3/shipping/rates  calculate_shipping_rates ; GET /api/v3/shipping/rates/zipcodes/{origin_country}/{origin_zipcode}/...  Rates
+    by Zipcodes
+  reason: Calculates freight/parcel charges from origin-destination and package dimensions — operation
+    of the carrier's rating engine. Alternative reading as shipper quotation exists, but the vendor is
+    the carrier pricing its own service.

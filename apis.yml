@@ -287,6 +287,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/99-minutos-capability-edges.yml
+  name: 99 Minutos Business Capability Map
 - type: DeveloperPortal
   url: https://developers.99minutos.com/
 - type: Documentation
