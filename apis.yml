@@ -75,7 +75,7 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
-  - Coverage
+  - coverage
   tags_raw:
   - coverage
   properties:
@@ -195,7 +195,7 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
-  - Shipments
+  - shipments
   tags_raw:
   - shipments
   properties:
