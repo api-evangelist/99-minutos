@@ -144,30 +144,6 @@ apis:
     url: data-model/99-minutos-data-model.yml
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
-- aid: 99-minutos:99-minutos-oauth-api
-  name: 99 Minutos oauth API
-  description: The oauth API from 99 Minutos — 1 operation(s) for oauth.
-  humanURL: https://developers.99minutos.com/
-  baseURL: https://delivery.99minutos.com
-  tags:
-  - Authentication
-  tags_raw:
-  - oauth
-  properties:
-  - type: OpenAPI
-    url: openapi/99-minutos-oauth-api-openapi.yml
-  - type: Conventions
-    url: conventions/99-minutos-conventions.yml
-  - type: ErrorCatalog
-    url: errors/99-minutos-problem-types.yml
-  - type: Lifecycle
-    url: lifecycle/99-minutos-lifecycle.yml
-  - type: Sandbox
-    url: sandbox/99-minutos-sandbox.yml
-  - type: DataModel
-    url: data-model/99-minutos-data-model.yml
-  - type: Webhooks
-    url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-orders-api
   name: 99 Minutos Orders API
   description: The Orders API from 99 Minutos — 5 operation(s) for orders.
@@ -272,6 +248,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/99-minutos-webhooks-api-openapi.yml
+  - type: Conventions
+    url: conventions/99-minutos-conventions.yml
+  - type: ErrorCatalog
+    url: errors/99-minutos-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/99-minutos-lifecycle.yml
+  - type: Sandbox
+    url: sandbox/99-minutos-sandbox.yml
+  - type: DataModel
+    url: data-model/99-minutos-data-model.yml
+  - type: Webhooks
+    url: asyncapi/99-minutos-webhooks.yml
+- aid: 99-minutos:99-minutos-oauth-api
+  name: 99 Minutos OAUTH API
+  description: The oauth API from 99 Minutos — 1 operation(s) for oauth.
+  humanURL: https://developers.99minutos.com/
+  baseURL: https://delivery.99minutos.com
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/99-minutos-oauth-api-openapi.yml
   - type: Conventions
     url: conventions/99-minutos-conventions.yml
   - type: ErrorCatalog
