@@ -47,6 +47,9 @@ x-tier-reason: portfolio-lead
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-08'
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - Logistics
@@ -126,7 +129,7 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
-  - Locations
+  - Location
   tags_raw:
   - locations
   properties:
@@ -266,6 +269,8 @@ apis:
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
