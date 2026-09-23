@@ -1,22 +1,22 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: API Version 3 coverage shipping-rates API
+  title: Version 3 Shipping Rates API
   version: 3.0.0
-  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+  description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:
 - url: https://delivery.99minutos.com
   description: Produccion
 - url: https://sandbox.99minutos.com
   description: Sandbox Environment
 tags:
-- name: shipping-rates
+- name: Shipping Rates
 paths:
   /api/v3/shipping/rates:
     post:
       operationId: calculate_shipping_rates
       description: Estimate shipping cost and validate coverage based on origin and destination, package dimensions, and weight. If the country is different from Mexico, the zipcode must be empty, and validation will be done using coordinates only.
       tags:
-      - shipping-rates
+      - Shipping Rates
       requestBody:
         required: true
         content:
@@ -164,10 +164,12 @@ paths:
                     errors:
                       origin: Invalid zipcode for country
                       destination: Invalid zipcode for country
+      summary: Calculate shipping rates
+      x-summary-source: derived
   /api/v3/shipping/rates/addresses/{origin_country}/{origin_address}/{destination_country}/{destination_address}:
     get:
       tags:
-      - shipping-rates
+      - Shipping Rates
       summary: Rates by Address
       security:
       - AuthJWT: []
@@ -177,28 +179,24 @@ paths:
         required: true
         schema:
           type: string
-          nullable: false
         description: Destination address
       - name: destination_country
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Country of destination address
       - name: origin_address
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Origin address
       - name: origin_country
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Country of origin address
       - name: cash_on_delivery
         in: query
@@ -230,10 +228,12 @@ paths:
       responses:
         '200':
           description: OK
+      operationId: getApiV3ShippingRatesAddressesByOriginCountryByOriginAddressByDestinationCountryByDestinationAddress
+      x-operation-id-source: derived
   ? /api/v3/shipping/rates/coordinates/{origin_country}/{origin_lat}/{origin_lng}/{destination_country}/{destination_lat}/{destination_lng}
   : get:
       tags:
-      - shipping-rates
+      - Shipping Rates
       summary: Rates by Coordinates
       security:
       - AuthJWT: []
@@ -304,10 +304,12 @@ paths:
       responses:
         '200':
           description: OK
+      operationId: getApiV3ShippingRatesCoordinatesByOriginCountryByOriginLatByOriginLngByDestinationCountryByDestinationLatByDestinationLng
+      x-operation-id-source: derived
   /api/v3/shipping/rates/sizes:
     get:
       tags:
-      - shipping-rates
+      - Shipping Rates
       summary: Get package size by dimensions
       security:
       - AuthJWT: []
@@ -318,7 +320,6 @@ paths:
         schema:
           format: double
           type: number
-          nullable: false
         description: Package depth
       - name: height
         in: query
@@ -326,7 +327,6 @@ paths:
         schema:
           format: double
           type: number
-          nullable: false
         description: Package height
       - name: weight
         in: query
@@ -334,7 +334,6 @@ paths:
         schema:
           format: double
           type: number
-          nullable: false
         description: Package weight
       - name: width
         in: query
@@ -342,11 +341,12 @@ paths:
         schema:
           format: double
           type: number
-          nullable: false
         description: Package width
       responses:
         '200':
           description: OK
+      operationId: getApiV3ShippingRatesSizes
+      x-operation-id-source: derived
   /api/v3/shipping/rates/zipcodes/{origin_country}/{origin_zipcode}/{destination_country}/{destination_zipcode}:
     parameters:
     - schema:
@@ -375,7 +375,7 @@ paths:
       description: Zipcode of destination address
     get:
       tags:
-      - shipping-rates
+      - Shipping Rates
       summary: Rates by Zipcodes
       security:
       - AuthJWT: []
@@ -385,28 +385,24 @@ paths:
         required: true
         schema:
           type: string
-          nullable: false
         description: Country of destination address
       - name: destination_zipcode
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Zipcode of destination address
       - name: origin_country
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Country of origin address
       - name: origin_zipcode
         in: path
         required: true
         schema:
           type: string
-          nullable: false
         description: Zipcode of origin address
       - name: cash_on_delivery
         in: query
@@ -439,6 +435,8 @@ paths:
         '200':
           description: OK
       description: ''
+      operationId: getApiV3ShippingRatesZipcodesByOriginCountryByOriginZipcodeByDestinationCountryByDestinationZipcode
+      x-operation-id-source: derived
 components:
   securitySchemes:
     AuthJWT:

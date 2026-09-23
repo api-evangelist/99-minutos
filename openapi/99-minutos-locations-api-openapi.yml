@@ -1,22 +1,22 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: API Version 3 coverage locations API
+  title: Version 3 Locations API
   version: 3.0.0
-  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+  description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:
 - url: https://delivery.99minutos.com
   description: Produccion
 - url: https://sandbox.99minutos.com
   description: Sandbox Environment
 tags:
-- name: locations
+- name: Locations
 paths:
   /api/v3/locations:
     post:
       operationId: locations_create
       description: Get the location id of a given address Through this endpoint you can exchange an address for a location id. The purpose of this exchange is that later, in a second request, you can include the location id as origin or destination to create an order. Using this flow you won't need to include any more information and you can always reuse the location id for that point.
       tags:
-      - locations
+      - Locations
       requestBody:
         content:
           application/json:
@@ -70,6 +70,8 @@ paths:
                   summary: Location response
                   description: Location response
           description: ''
+      summary: Locations create
+      x-summary-source: derived
   /api/v3/locations/all:
     get:
       operationId: locations_all_retrieve
@@ -84,10 +86,9 @@ paths:
         name: page
         schema:
           type: integer
-          exclusiveMaximum: true
         description: Page of the response.
       tags:
-      - locations
+      - Locations
       security:
       - AuthJWT: []
       - {}
@@ -185,12 +186,14 @@ paths:
                   summary: All locations response
                   description: All locations response
           description: ''
+      summary: Locations all retrieve
+      x-summary-source: derived
   /api/v3/locations/nearest:
     post:
       operationId: locations_nearest_create
       description: Location viewset.
       tags:
-      - locations
+      - Locations
       requestBody:
         content:
           application/json:
@@ -248,40 +251,43 @@ paths:
                   summary: Nearest response
                   description: Nearest response
           description: ''
+      summary: Locations nearest create
+      x-summary-source: derived
 components:
   schemas:
-    NearestRequest:
+    LocationsResponse:
       type: object
       properties:
-        address:
+        message:
           type: string
-          description: String address of the location
-        includeP99:
-          type: boolean
-          description: p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.
-        distance:
-          type: integer
-          maximum: 20000
-          minimum: 0
-          default: 5000
-          description: Maximum distance in meters between the given direction and the nearest p99
-        city:
+        traceId:
           type: string
-          description: City of the address
-        country:
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationsList'
+        next:
           type: string
-          description: Country of the address
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
       required:
-      - address
-      - city
-      - country
-      x-examples:
-        example-1:
-          address: string
-          includeP99: true
-          distance: 5000
-          city: string
-          country: string
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    LocationTypeEnum:
+      enum:
+      - p99_network
+      - private
+      type: string
     NearestList:
       type: object
       properties:
@@ -320,105 +326,149 @@ components:
       - locationType
       - distance
       - zipcode
-    LocationSchedule:
+    NearestResponse:
       type: object
-      x-examples:
-        Example Location Schedule:
-          friday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          monday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          sunday:
-            opens: 08:00
-            closed: true
-            closes: '19:00'
-          tuesday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          saturday:
-            opens: 08:00
-            closed: true
-            closes: '13:00'
-          thursday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          time_zone: America/Mexico_City
-          wednesday:
-            opens: 08:00
-            closed: false
-            closes: '18:00'
       properties:
-        friday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        monday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        sunday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        tuesday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        saturday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        thursday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        time_zone:
+        message:
           type: string
-        wednesday:
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NearestList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
           type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    LocationsList:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+          description: p99_network if the location belongs to our network of points 99 or private if is a private address outside of p99_network.
+        geoType:
+          type: string
+      required:
+      - address
+      - geoType
+      - latitude
+      - locationId
+      - locationType
+      - longitude
+    NearestRequest:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        includeP99:
+          type: boolean
+          description: p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.
+        distance:
+          type: integer
+          maximum: 20000
+          minimum: 0
+          default: 5000
+          description: Maximum distance in meters between the given direction and the nearest p99
+        city:
+          type: string
+          description: City of the address
+        country:
+          type: string
+          description: Country of the address
+      required:
+      - address
+      - city
+      - country
+      x-examples:
+        example-1:
+          address: string
+          includeP99: true
+          distance: 5000
+          city: string
+          country: string
+    AllLocationList:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+        country:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/LocationSchedule'
+        zipcode:
+          type: string
+          description: Zipcode address
+      required:
+      - description
+      - address
+      - latitude
+      - longitude
+      - locationId
+      - locationType
+      - country
+      - zipcode
+    NewLocation:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            type: string
+            example: Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México
+        city:
+          type: string
+        country:
+          type: string
+      required:
+      - addresses
+      - city
+      - country
     AllLocationResponse:
       type: object
       properties:
@@ -796,150 +846,105 @@ components:
           next: https://sandbox.99minutos.com/api/v3/locations/all?page=2
           previous: null
           errors: {}
-    NearestResponse:
+    LocationSchedule:
       type: object
+      x-examples:
+        Example Location Schedule:
+          friday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          monday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          sunday:
+            opens: 08:00
+            closed: true
+            closes: '19:00'
+          tuesday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          saturday:
+            opens: 08:00
+            closed: true
+            closes: '13:00'
+          thursday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          time_zone: America/Mexico_City
+          wednesday:
+            opens: 08:00
+            closed: false
+            closes: '18:00'
       properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NearestList'
-        next:
-          type: string
-          format: uri
-        previous:
-          type: string
-          format: uri
-        errors:
+        friday:
           type: object
-          additionalProperties: {}
-      required:
-      - data
-      - errors
-      - message
-      - next
-      - previous
-      - traceId
-    LocationsResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationsList'
-        next:
-          type: string
-          format: uri
-        previous:
-          type: string
-          format: uri
-        errors:
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        monday:
           type: object
-          additionalProperties: {}
-      required:
-      - data
-      - errors
-      - message
-      - next
-      - previous
-      - traceId
-    LocationTypeEnum:
-      enum:
-      - p99_network
-      - private
-      type: string
-    NewLocation:
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            type: string
-            example: Calle Zoquipa 196, El Parque, Venustiano Carranza, 15960 Ciudad de México, CDMX, México
-        city:
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        sunday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        tuesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        saturday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        thursday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        time_zone:
           type: string
-        country:
-          type: string
-      required:
-      - addresses
-      - city
-      - country
-    AllLocationList:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Description of the location
-        address:
-          type: string
-          description: String address of the location
-        latitude:
-          type: string
-          description: Lattitude of the location
-        longitude:
-          type: string
-          description: Longitude of the location
-        locationId:
-          type: string
-          format: uuid
-          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
-        locationType:
-          allOf:
-          - $ref: '#/components/schemas/LocationTypeEnum'
-        country:
-          type: string
-        schedule:
-          $ref: '#/components/schemas/LocationSchedule'
-        zipcode:
-          type: string
-          description: Zipcode address
-      required:
-      - description
-      - address
-      - latitude
-      - longitude
-      - locationId
-      - locationType
-      - country
-      - zipcode
-    LocationsList:
-      type: object
-      properties:
-        address:
-          type: string
-          description: String address of the location
-        latitude:
-          type: string
-          description: Lattitude of the location
-        longitude:
-          type: string
-          description: Longitude of the location
-        locationId:
-          type: string
-          format: uuid
-          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
-        locationType:
-          allOf:
-          - $ref: '#/components/schemas/LocationTypeEnum'
-          description: p99_network if the location belongs to our network of points 99 or private if is a private address outside of p99_network.
-        geoType:
-          type: string
-      required:
-      - address
-      - geoType
-      - latitude
-      - locationId
-      - locationType
-      - longitude
+        wednesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
   securitySchemes:
     AuthJWT:
       type: http

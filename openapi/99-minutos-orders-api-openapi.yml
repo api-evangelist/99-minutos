@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: API Version 3 coverage Orders API
+  title: Version 3 Orders API
   version: 3.0.0
-  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+  description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:
 - url: https://delivery.99minutos.com
   description: Produccion
@@ -16,9 +16,7 @@ paths:
       tags:
       - Orders
       summary: Create multibox orders
-      description: 'Create multibox orders. N child shipments will be created plus the master shipment. The number of child shipments is determined by the `packages` field, and by default, always 1 master shipment is created.
-
-        '
+      description: Create multibox orders. N child shipments will be created plus the master shipment. The number of child shipments is determined by the `packages` field, and by default, always 1 master shipment is created.
       operationId: createMultiboxOrder
       requestBody:
         required: true
@@ -89,6 +87,8 @@ paths:
                     message: order confirmed successfully
                     data: {}
                     errors: {}
+      summary: Orders confirm create
+      x-summary-source: derived
   /api/v3/orders/{id}:
     parameters:
     - schema:
@@ -185,6 +185,8 @@ paths:
                       expiresAt: '2023-07-08T22:59:51.521000'
                     errors: []
           description: ''
+      summary: Orders retrieve
+      x-summary-source: derived
   /api/v3/orders:
     get:
       operationId: orders_list
@@ -214,6 +216,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedOrderList'
           description: ''
+      summary: Orders list
+      x-summary-source: derived
     post:
       operationId: orders_create
       description: Create orders.
@@ -591,16 +595,15 @@ paths:
                     type: object
                     description: Objeto que contiene detalles específicos del error.
           description: ''
+      summary: Orders create
+      x-summary-source: derived
   /api/v3/orders/multibox:
     post:
       operationId: orders_multibox_create
       description: 'Create a multibox order that groups multiple packages (children) under a single parent order (master). All children share the same origin, destination, sender and recipient. Useful when a single shipment contains multiple parcels that must travel together.
 
 
-        Minimum 1 child, maximum 20 children per order.
-
-
-        '
+        Minimum 1 child, maximum 20 children per order.'
       tags:
       - Orders
       security:
@@ -760,6 +763,8 @@ paths:
                     errors:
                     - code: GENERIC_500_ERROR
                       message: Internal server error
+      summary: Orders multibox create
+      x-summary-source: derived
 components:
   schemas:
     Destination:
@@ -797,6 +802,580 @@ components:
           - PER
           - COL
           example: MEX
+    MultiboxOrderRequest:
+      type: object
+      properties:
+        apikey:
+          type: string
+          description: API key for authentication
+          example: 15b6d64efc25c4755633332233443308f39c5931
+        deliveryType:
+          type: string
+          description: Type of delivery
+          enum:
+          - taylormade
+          - sameday
+          - nextday
+          - nxd
+          - spt
+          - tlm
+          - smd
+          example: nextday
+        packageSize:
+          type: string
+          description: Size of the package
+          enum:
+          - xs
+          - s
+          - m
+          - l
+          - xl
+          example: l
+        notes:
+          type: string
+          description: Additional notes
+          example: ' s/r'
+        packages:
+          type: integer
+          description: Number of packages
+          example: 1
+        cashOnDelivery:
+          type: boolean
+          description: Whether cash on delivery is enabled
+          example: false
+        amountCash:
+          type: number
+          format: float
+          description: Amount for cash on delivery
+          example: 0
+        SecurePackage:
+          type: boolean
+          description: Whether secure package is enabled
+          example: false
+        amountSecure:
+          type: number
+          format: float
+          description: Amount for secure package
+          example: 0
+        receivedId:
+          type: string
+          description: Identifier for the received order
+          example: orders/microservice.local.05.03.24
+        origin:
+          $ref: '#/components/schemas/Origin'
+        destination:
+          $ref: '#/components/schemas/Destination'
+    BadRequestResponse3:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - ShippingRatesService, out of coverage error
+        traceId: d4a3a4b0-216a-4ef7-b8e9-61f1079c43a8
+        code: 400
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 201
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              counter:
+                type: integer
+              trackingid:
+                type: string
+              clienid:
+                type: string
+              receivedId:
+                type: string
+              created:
+                type: string
+                format: date-time
+        trace_id:
+          type: string
+          example: 72aea272-ce53-41fe-b03f-413e77356c5b
+    BadRequestResponse2:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - Delivery type (nedxtday) not allowed
+        traceId: 0b5b0d10-9fd8-43f7-bcd5-cc301c470f7c
+        code: 400
+    BadRequestResponse1:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - Error on CustomerProfileService
+        traceId: 5e011b32-000f-4896-8aaf-34d7a8f85960
+        code: 400
+    Origin:
+      type: object
+      properties:
+        sender:
+          type: string
+          example: Food House
+        nameSender:
+          type: string
+          example: Food
+        lastNameSender:
+          type: string
+          example: House
+        emailSender:
+          type: string
+          example: correo@h.com
+        phoneSender:
+          type: string
+          example: '11111111'
+        addressOrigin:
+          type: string
+          example: AV. JESUS REYES HEROLES NO. 6 ESQ.
+        numberOrigin:
+          type: string
+          example: AV. MARAVILLAS COL. EL ROSARIO CEYLAN
+        codePostalOrigin:
+          type: string
+          example: '54092'
+        country:
+          type: string
+          enum:
+          - MEX
+          - CHL
+          - PER
+          - COL
+          example: MEX
+    Sender:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    MultiboxChild:
+      type: object
+      description: A child package within a multibox order.
+      properties:
+        internalKey:
+          type: string
+          description: Internal key to individually identify the child package.
+        items:
+          type: array
+          description: Items contained in the child package.
+          items:
+            $ref: '#/components/schemas/MultiboxItem'
+      required:
+      - items
+    MultiboxResponse:
+      type: object
+      description: Successful response for multibox order creation.
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging.
+        message:
+          type: string
+          description: Descriptive result message.
+        data:
+          type: object
+          properties:
+            master:
+              type: string
+              description: Tracking ID of the parent (master) order.
+            children:
+              type: array
+              description: List of created child packages.
+              items:
+                $ref: '#/components/schemas/MultiboxChildResponse'
+        errors:
+          type: array
+          description: Empty array on success.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    ItemSizeEnum:
+      enum:
+      - xs
+      - s
+      - m
+      - l
+      - xl
+      - xxl
+      - unknown
+      - '-'
+      type: string
+    Order:
+      type: object
+      description: Order serializer
+      properties:
+        id:
+          type: string
+          readOnly: true
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        account:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+        billId:
+          type: integer
+          readOnly: true
+        transactionId:
+          type: integer
+          readOnly: true
+        channelId:
+          type: integer
+          readOnly: true
+        draft:
+          type: boolean
+          description: Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.
+        deactivated:
+          type: boolean
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        expiresAt:
+          type: string
+          format: date-time
+          readOnly: true
+        migratedBy:
+          allOf:
+          - $ref: '#/components/schemas/MigratedByEnum'
+          readOnly: true
+      required:
+      - account
+      - billId
+      - channelId
+      - createdAt
+      - deactivated
+      - expiresAt
+      - id
+      - migratedBy
+      - shipments
+      - transactionId
+    DeliveryType5c6Enum:
+      type: string
+      description: Indicate the Delivery Type which can be SameDay(SMD), Sprint (SPT), 99minutos(99M), Co2Free (CO2F), Reverse(RET) Tailor made (TLM), PuntoaPunto (P2P). Be careful submitting accepted abbreviations.
+      enum:
+      - SMD
+      - SPT
+      - 99M
+      - CO2F
+      - RET
+      - NAL
+      - TLM
+      - P2P
+    MultiboxItem:
+      type: object
+      description: An item within a child package.
+      properties:
+        weight:
+          type: number
+          description: Weight in grams.
+        height:
+          type: number
+          description: Height in centimeters.
+        width:
+          type: number
+          description: Width in centimeters.
+        length:
+          type: number
+          description: Length/depth in centimeters.
+        size:
+          type: string
+          description: Package size category. Use the endpoint GET /api/v3/shipping/rates/sizes to calculate it from dimensions.
+          enum:
+          - xs
+          - s
+          - m
+          - l
+          - xl
+          - xxl
+      required:
+      - weight
+      - size
+    LocationCountryEnum:
+      enum:
+      - MEX
+      - COL
+      - CHL
+      - PER
+      type: string
+    Recipient:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    Item:
+      type: object
+      description: Array of items/packages to send.
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          readOnly: true
+        size:
+          $ref: '#/components/schemas/ItemSizeEnum'
+        description:
+          type: string
+        weight:
+          type: integer
+          minimum: 1
+          description: Measurement in grams of weight
+        length:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
+        width:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
+        height:
+          type: integer
+          minimum: 1
+          description: Vertical measure in centimeters of distance from base to top
+      required:
+      - id
+      - size
+      - weight
+    Location:
+      type: object
+      description: 'Location where the package is picked up.
+
+        Depending on the flow you choose,
+
+        you must send different parameters.
+
+
+        A location is a geographical point that can be taken as the origin and/or destination of a shipment.
+
+
+        There are 3 ways in which you can define a location, feel free to choose the one that best suits your business rules.
+
+        Each one is described below.
+
+
+        1. Coords-based
+
+        It is the option with the best precision to define an origin or destination.
+
+        Latitude and longitude are taken to define the location
+
+
+        2. LocationId-based
+
+        A LocationId is a uuid that identifies a single geographic point.
+
+        The locationId is generated by this API (check out the Get Location id request in Locations folder).
+
+        By using locationId, no further data needs to be passed.
+
+        It is useful when you have the same point in several shipments since you can reuse the locationId.
+
+
+        3. Address string-based
+
+        In this option the client sends only the address. We will process the address to obtain the other data.
+
+
+        However, if the address does not contain information necessary to locate it,
+
+        the system will return a 400 error and the order will not be created, so you must handle the error.
+
+
+        It is important to emphasize that in the two previous flows there is no possibility to reject an order for the location'
+      properties:
+        locationId:
+          type: string
+          format: uuid
+          description: LocationId is a uuid that identifies a single geographic point.
+        lat:
+          type: number
+          format: double
+          maximum: 90
+          minimum: -90
+          description: Longitude coordinates
+        lng:
+          type: number
+          format: double
+          maximum: 180
+          minimum: -180
+          description: Lattitude coordinates
+        address:
+          type: string
+          description: Text sentence that references the location. This address will be printed on the labels.
+        country:
+          allOf:
+          - $ref: '#/components/schemas/LocationCountryEnum'
+        reference:
+          type: string
+          description: Any other text that enrich the address of the location such apartment, Suite, Box number, Tower, etc.
+        zipcode:
+          type:
+          - string
+          - 'null'
+          description: Location zipcode. If it is not included we will try to extract the zipcode from the address. So if your address does not include zipcode, you must include it in this field
+        city:
+          type: string
+          description: Text that reference the city of the location
+    Payment:
+      type: object
+      description: Payment options are included in this section
+      properties:
+        insured:
+          type: boolean
+        insuredValue:
+          type: number
+          format: double
+          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
+        cashOnDelivery:
+          allOf:
+          - $ref: '#/components/schemas/Embedded'
+          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
+    MultiboxErrorResponse:
+      type: object
+      description: Error response for multibox endpoint. Contains a trace ID and an array of error items.
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging.
+        errors:
+          type: array
+          description: List of errors.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    Shipment:
+      type: object
+      description: Array of shipments that belong to the order. sss
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        origin:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        payments:
+          $ref: '#/components/schemas/Payment'
+        options:
+          $ref: '#/components/schemas/Option'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id:
+          type: string
+          readOnly: true
+        internalKey:
+          type:
+          - string
+          - 'null'
+          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
+          maxLength: 200
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType5c6Enum'
+        trackingId:
+          type: integer
+          readOnly: true
+      required:
+      - deliveryType
+      - destination
+      - id
+      - items
+      - options
+      - origin
+      - recipient
+      - sender
+      - trackingId
+    Embedded:
+      type: object
+      description: 'Serializer for EmbeddedDocuments.
+
+
+        Skips id field and uniqueness validation.
+
+        When saving, skips calling instance.save'
+      properties:
+        amount:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+      required:
+      - amount
+      - currency
     CurrencyEnum:
       enum:
       - COP
@@ -805,6 +1384,18 @@ components:
       - PEN
       - ARP
       type: string
+    MigratedByEnum:
+      enum:
+      - stream
+      - batch
+      type: string
+    MultiboxOptions:
+      type: object
+      description: Additional delivery options.
+      properties:
+        notes:
+          type: string
+          description: Special instructions or notes for the delivery.
     MultiboxLocation:
       type: object
       description: Location for origin or destination of a multibox order.
@@ -842,143 +1433,6 @@ components:
       required:
       - address
       - country
-    BadRequestResponse2:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        traceId:
-          type: string
-        code:
-          type: integer
-          example: 400
-      example:
-        errors:
-        - Delivery type (nedxtday) not allowed
-        traceId: 0b5b0d10-9fd8-43f7-bcd5-cc301c470f7c
-        code: 400
-    Shipment:
-      type: object
-      description: Array of shipments that belong to the order. sss
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        recipient:
-          $ref: '#/components/schemas/Recipient'
-        origin:
-          $ref: '#/components/schemas/Location'
-        destination:
-          $ref: '#/components/schemas/Location'
-        payments:
-          $ref: '#/components/schemas/Payment'
-        options:
-          $ref: '#/components/schemas/Option'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        id:
-          type: string
-          readOnly: true
-        internalKey:
-          type: string
-          nullable: true
-          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
-          maxLength: 200
-        deliveryType:
-          $ref: '#/components/schemas/DeliveryType5c6Enum'
-        trackingId:
-          type: integer
-          readOnly: true
-      required:
-      - deliveryType
-      - destination
-      - id
-      - items
-      - options
-      - origin
-      - recipient
-      - sender
-      - trackingId
-    Option:
-      type: object
-      description: Options to customize the shipment.
-      properties:
-        pickUpAfter:
-          type: string
-          format: date-time
-          description: Date time from which the shipment is available for pickup
-        deliveryBetween:
-          type: object
-          additionalProperties:
-            type: string
-            format: date-time
-        requiresIdentification:
-          type: boolean
-        requiresSignature:
-          type: boolean
-        twoFactorAuth:
-          type: boolean
-          description: Code is required to mark the order as delivered. Needs to be activated previously
-        notes:
-          type: string
-          description: Notes that will be displayed on the label
-    Payment:
-      type: object
-      description: Payment options are included in this section
-      properties:
-        insured:
-          type: boolean
-        insuredValue:
-          type: number
-          format: double
-          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
-        cashOnDelivery:
-          allOf:
-          - $ref: '#/components/schemas/Embedded'
-          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
-    Sender:
-      type: object
-      description: Person who will receive the shipment.
-      properties:
-        firstName:
-          type: string
-          description: Name of the person receiving or sending the shipment.
-        lastName:
-          type: string
-          description: Last name of the person receiving or sending the shipment.
-        phone:
-          type: string
-          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
-          example: '+525547596221'
-        email:
-          type: string
-          format: email
-          description: Email of the person receiving or sending the shipment.
-      required:
-      - firstName
-      - lastName
-      - phone
-      - email
-    BadRequestResponse1:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        traceId:
-          type: string
-        code:
-          type: integer
-          example: 400
-      example:
-        errors:
-        - Error on CustomerProfileService
-        traceId: 5e011b32-000f-4896-8aaf-34d7a8f85960
-        code: 400
     MultiboxErrorItem:
       type: object
       description: 'Individual error item returned by the multibox endpoint.
@@ -1053,275 +1507,80 @@ components:
       required:
       - code
       - message
-    MigratedByEnum:
-      enum:
-      - stream
-      - batch
-      type: string
-    Location:
+    Option:
       type: object
-      description: 'Location where the package is picked up.
-
-        Depending on the flow you choose,
-
-        you must send different parameters.
-
-
-        A location is a geographical point that can be taken as the origin and/or destination of a shipment.
-
-
-        There are 3 ways in which you can define a location, feel free to choose the one that best suits your business rules.
-
-        Each one is described below.
-
-
-        1. Coords-based
-
-        It is the option with the best precision to define an origin or destination.
-
-        Latitude and longitude are taken to define the location
-
-
-        2. LocationId-based
-
-        A LocationId is a uuid that identifies a single geographic point.
-
-        The locationId is generated by this API (check out the Get Location id request in Locations folder).
-
-        By using locationId, no further data needs to be passed.
-
-        It is useful when you have the same point in several shipments since you can reuse the locationId.
-
-
-        3. Address string-based
-
-        In this option the client sends only the address. We will process the address to obtain the other data.
-
-
-        However, if the address does not contain information necessary to locate it,
-
-        the system will return a 400 error and the order will not be created, so you must handle the error.
-
-
-        It is important to emphasize that in the two previous flows there is no possibility to reject an order for the location'
+      description: Options to customize the shipment.
       properties:
-        locationId:
+        pickUpAfter:
           type: string
-          format: uuid
-          description: LocationId is a uuid that identifies a single geographic point.
-        lat:
-          type: number
-          format: double
-          maximum: 90
-          minimum: -90
-          description: Longitude coordinates
-        lng:
-          type: number
-          format: double
-          maximum: 180
-          minimum: -180
-          description: Lattitude coordinates
-        address:
+          format: date-time
+          description: Date time from which the shipment is available for pickup
+        deliveryBetween:
+          type: object
+          additionalProperties:
+            type: string
+            format: date-time
+        requiresIdentification:
+          type: boolean
+        requiresSignature:
+          type: boolean
+        twoFactorAuth:
+          type: boolean
+          description: Code is required to mark the order as delivered. Needs to be activated previously
+        notes:
           type: string
-          description: Text sentence that references the location. This address will be printed on the labels.
-        country:
-          allOf:
-          - $ref: '#/components/schemas/LocationCountryEnum'
-        reference:
-          type: string
-          description: Any other text that enrich the address of the location such apartment, Suite, Box number, Tower, etc.
-        zipcode:
-          type: string
-          description: Location zipcode. If it is not included we will try to extract the zipcode from the address. So if your address does not include zipcode, you must include it in this field
-          nullable: true
-        city:
-          type: string
-          description: Text that reference the city of the location
-    Item:
+          description: Notes that will be displayed on the label
+    MultiboxPerson:
       type: object
-      description: Array of items/packages to send.
-      properties:
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-          nullable: true
-        size:
-          $ref: '#/components/schemas/ItemSizeEnum'
-        description:
-          type: string
-        weight:
-          type: integer
-          minimum: 1
-          description: Measurement in grams of weight
-        length:
-          type: integer
-          minimum: 1
-          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
-        width:
-          type: integer
-          minimum: 1
-          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
-        height:
-          type: integer
-          minimum: 1
-          description: Vertical measure in centimeters of distance from base to top
-      required:
-      - id
-      - size
-      - weight
-    MultiboxErrorResponse:
-      type: object
-      description: Error response for multibox endpoint. Contains a trace ID and an array of error items.
-      properties:
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging.
-        errors:
-          type: array
-          description: List of errors.
-          items:
-            $ref: '#/components/schemas/MultiboxErrorItem'
-    MultiboxChild:
-      type: object
-      description: A child package within a multibox order.
-      properties:
-        internalKey:
-          type: string
-          description: Internal key to individually identify the child package.
-        items:
-          type: array
-          description: Items contained in the child package.
-          items:
-            $ref: '#/components/schemas/MultiboxItem'
-      required:
-      - items
-    Recipient:
-      type: object
-      description: Person who will receive the shipment.
+      description: Person information for sender or recipient.
       properties:
         firstName:
           type: string
-          description: Name of the person receiving or sending the shipment.
+          description: First name.
         lastName:
           type: string
-          description: Last name of the person receiving or sending the shipment.
-        phone:
-          type: string
-          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
-          example: '+525547596221'
+          description: Last name.
         email:
           type: string
           format: email
-          description: Email of the person receiving or sending the shipment.
+          description: Email address. Must be a valid email.
+        phone:
+          type: string
+          description: Phone number including country code (e.g. +525555555544).
       required:
       - firstName
       - lastName
-      - phone
       - email
-    ItemSizeEnum:
-      enum:
-      - xs
-      - s
-      - m
-      - l
-      - xl
-      - xxl
-      - unknown
-      - '-'
-      type: string
-    Embedded:
-      type: object
-      description: 'Serializer for EmbeddedDocuments.
-
-
-        Skips id field and uniqueness validation.
-
-        When saving, skips calling instance.save'
-      properties:
-        amount:
-          type: number
-          format: double
-        currency:
-          $ref: '#/components/schemas/CurrencyEnum'
-      required:
-      - amount
-      - currency
-    MultiboxOrderRequest:
+      - phone
+    PaginatedOrderList:
       type: object
       properties:
-        apikey:
+        traceId:
           type: string
-          description: API key for authentication
-          example: 15b6d64efc25c4755633332233443308f39c5931
-        deliveryType:
+          format: uuid
+          example: 361be31e-943d-46be-96e2-83676cd98d6d
+        message:
           type: string
-          description: Type of delivery
-          enum:
-          - taylormade
-          - sameday
-          - nextday
-          - nxd
-          - spt
-          - tlm
-          - smd
-          example: nextday
-        packageSize:
-          type: string
-          description: Size of the package
-          enum:
-          - xs
-          - s
-          - m
-          - l
-          - xl
-          example: l
-        notes:
-          type: string
-          description: Additional notes
-          example: ' s/r'
-        packages:
-          type: integer
-          description: Number of packages
-          example: 1
-        cashOnDelivery:
-          type: boolean
-          description: Whether cash on delivery is enabled
-          example: false
-        amountCash:
-          type: number
-          format: float
-          description: Amount for cash on delivery
-          example: 0
-        SecurePackage:
-          type: boolean
-          description: Whether secure package is enabled
-          example: false
-        amountSecure:
-          type: number
-          format: float
-          description: Amount for secure package
-          example: 0
-        receivedId:
-          type: string
-          description: Identifier for the received order
-          example: orders/microservice.local.05.03.24
-        origin:
-          $ref: '#/components/schemas/Origin'
-        destination:
-          $ref: '#/components/schemas/Destination'
-    DeliveryType5c6Enum:
-      type: string
-      description: Indicate the Delivery Type which can be SameDay(SMD), Sprint (SPT), 99minutos(99M), Co2Free (CO2F), Reverse(RET) Tailor made (TLM), PuntoaPunto (P2P). Be careful submitting accepted abbreviations.
-      enum:
-      - SMD
-      - SPT
-      - 99M
-      - CO2F
-      - RET
-      - NAL
-      - TLM
-      - P2P
+          example: orders retrieved successfully
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: https://sandbox.99minutos.com/api/v3/orders?page=4
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          example: https://sandbox.99minutos.com/api/v3/orders?page=2
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        errors:
+          type: object
+          example: {}
     MultiboxChildResponse:
       type: object
       description: Response data for a created child package.
@@ -1335,82 +1594,6 @@ components:
         client_id:
           type: string
           description: Client identifier that owns the order.
-    PaginatedOrderList:
-      type: object
-      properties:
-        traceId:
-          type: string
-          format: uuid
-          example: 361be31e-943d-46be-96e2-83676cd98d6d
-        message:
-          type: string
-          example: orders retrieved successfully
-        next:
-          type: string
-          nullable: true
-          format: uri
-          example: https://sandbox.99minutos.com/api/v3/orders?page=4
-        previous:
-          type: string
-          nullable: true
-          format: uri
-          example: https://sandbox.99minutos.com/api/v3/orders?page=2
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        errors:
-          type: object
-          example: {}
-    LocationCountryEnum:
-      enum:
-      - MEX
-      - COL
-      - CHL
-      - PER
-      type: string
-    Origin:
-      type: object
-      properties:
-        sender:
-          type: string
-          example: Food House
-        nameSender:
-          type: string
-          example: Food
-        lastNameSender:
-          type: string
-          example: House
-        emailSender:
-          type: string
-          example: correo@h.com
-        phoneSender:
-          type: string
-          example: '11111111'
-        addressOrigin:
-          type: string
-          example: AV. JESUS REYES HEROLES NO. 6 ESQ.
-        numberOrigin:
-          type: string
-          example: AV. MARAVILLAS COL. EL ROSARIO CEYLAN
-        codePostalOrigin:
-          type: string
-          example: '54092'
-        country:
-          type: string
-          enum:
-          - MEX
-          - CHL
-          - PER
-          - COL
-          example: MEX
-    MultiboxOptions:
-      type: object
-      description: Additional delivery options.
-      properties:
-        notes:
-          type: string
-          description: Special instructions or notes for the delivery.
     MultiboxRequest:
       type: object
       description: Request payload for creating a multibox order. A multibox order groups multiple packages (children) under a single parent order (master), sharing origin, destination, sender and recipient.
@@ -1462,32 +1645,6 @@ components:
       required:
       - deliveryType
       - children
-    MultiboxResponse:
-      type: object
-      description: Successful response for multibox order creation.
-      properties:
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging.
-        message:
-          type: string
-          description: Descriptive result message.
-        data:
-          type: object
-          properties:
-            master:
-              type: string
-              description: Tracking ID of the parent (master) order.
-            children:
-              type: array
-              description: List of created child packages.
-              items:
-                $ref: '#/components/schemas/MultiboxChildResponse'
-        errors:
-          type: array
-          description: Empty array on success.
-          items:
-            $ref: '#/components/schemas/MultiboxErrorItem'
     ResponseJWT:
       type: object
       properties:
@@ -1496,153 +1653,6 @@ components:
         code:
           type: integer
           description: jwt expires in seconds
-    Order:
-      type: object
-      description: Order serializer
-      properties:
-        id:
-          type: string
-          readOnly: true
-        shipments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Shipment'
-        account:
-          type: object
-          additionalProperties:
-            type: string
-          readOnly: true
-        billId:
-          type: integer
-          readOnly: true
-        transactionId:
-          type: integer
-          readOnly: true
-        channelId:
-          type: integer
-          readOnly: true
-        draft:
-          type: boolean
-          description: Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.
-        deactivated:
-          type: boolean
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          readOnly: true
-        expiresAt:
-          type: string
-          format: date-time
-          readOnly: true
-        migratedBy:
-          allOf:
-          - $ref: '#/components/schemas/MigratedByEnum'
-          readOnly: true
-      required:
-      - account
-      - billId
-      - channelId
-      - createdAt
-      - deactivated
-      - expiresAt
-      - id
-      - migratedBy
-      - shipments
-      - transactionId
-    BadRequestResponse3:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        traceId:
-          type: string
-        code:
-          type: integer
-          example: 400
-      example:
-        errors:
-        - ShippingRatesService, out of coverage error
-        traceId: d4a3a4b0-216a-4ef7-b8e9-61f1079c43a8
-        code: 400
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 201
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              counter:
-                type: integer
-              trackingid:
-                type: string
-              clienid:
-                type: string
-              receivedId:
-                type: string
-              created:
-                type: string
-                format: date-time
-        trace_id:
-          type: string
-          example: 72aea272-ce53-41fe-b03f-413e77356c5b
-    MultiboxItem:
-      type: object
-      description: An item within a child package.
-      properties:
-        weight:
-          type: number
-          description: Weight in grams.
-        height:
-          type: number
-          description: Height in centimeters.
-        width:
-          type: number
-          description: Width in centimeters.
-        length:
-          type: number
-          description: Length/depth in centimeters.
-        size:
-          type: string
-          description: Package size category. Use the endpoint GET /api/v3/shipping/rates/sizes to calculate it from dimensions.
-          enum:
-          - xs
-          - s
-          - m
-          - l
-          - xl
-          - xxl
-      required:
-      - weight
-      - size
-    MultiboxPerson:
-      type: object
-      description: Person information for sender or recipient.
-      properties:
-        firstName:
-          type: string
-          description: First name.
-        lastName:
-          type: string
-          description: Last name.
-        email:
-          type: string
-          format: email
-          description: Email address. Must be a valid email.
-        phone:
-          type: string
-          description: Phone number including country code (e.g. +525555555544).
-      required:
-      - firstName
-      - lastName
-      - email
-      - phone
   securitySchemes:
     AuthJWT:
       type: http

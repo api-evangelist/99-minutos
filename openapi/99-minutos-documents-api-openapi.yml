@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: API Version 3 coverage documents API
+  title: Version 3 Documents API
   version: 3.0.0
-  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+  description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:
 - url: https://delivery.99minutos.com
   description: Produccion
 - url: https://sandbox.99minutos.com
   description: Sandbox Environment
 tags:
-- name: documents
+- name: Documents
 paths:
   /api/v3/documents/guides:
     post:
@@ -33,7 +33,7 @@ paths:
 
         All sizes are inches'
       tags:
-      - documents
+      - Documents
       requestBody:
         content:
           application/json:
@@ -79,12 +79,14 @@ paths:
                   summary: return guides response
                   description: return guides
           description: ''
+      summary: Documents guides create
+      x-summary-source: derived
   /api/v3/documents/zpl:
     post:
       operationId: documents_zpl_create
       description: ZPL returns a list of ZPL based on the received identifiers.
       tags:
-      - documents
+      - Documents
       requestBody:
         content:
           application/json:
@@ -129,6 +131,8 @@ paths:
                   summary: Create zpl response
                   description: Create zpl response
           description: ''
+      summary: Documents zpl create
+      x-summary-source: derived
 components:
   schemas:
     Zpl:
@@ -147,48 +151,6 @@ components:
       - zebra
       - small
       type: string
-    ZplResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Zpl'
-        errors:
-          type: object
-          additionalProperties: {}
-      required:
-      - data
-      - errors
-      - message
-      - traceId
-    Guide:
-      type: object
-      properties:
-        identifier:
-          type: string
-          description: The identifier represent a internalKey or trackingId of one shipment.
-        size:
-          allOf:
-          - $ref: '#/components/schemas/GuideSizeEnum'
-          description: All sizes are inches<br/>letter -> Document size of 9 x 11<br/>zebra -> Document size of 6 x 8<br/>small -> Document size of 4 x 6<br/>
-      required:
-      - identifier
-      - size
-    GuidesRequest:
-      type: object
-      properties:
-        guides:
-          type: array
-          items:
-            $ref: '#/components/schemas/Guide'
-      required:
-      - guides
     ZplRequest:
       type: object
       properties:
@@ -225,6 +187,48 @@ components:
       required:
       - id
       - pdf
+    GuidesRequest:
+      type: object
+      properties:
+        guides:
+          type: array
+          items:
+            $ref: '#/components/schemas/Guide'
+      required:
+      - guides
+    Guide:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: The identifier represent a internalKey or trackingId of one shipment.
+        size:
+          allOf:
+          - $ref: '#/components/schemas/GuideSizeEnum'
+          description: All sizes are inches<br/>letter -> Document size of 9 x 11<br/>zebra -> Document size of 6 x 8<br/>small -> Document size of 4 x 6<br/>
+      required:
+      - identifier
+      - size
+    ZplResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Zpl'
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - traceId
   securitySchemes:
     AuthJWT:
       type: http

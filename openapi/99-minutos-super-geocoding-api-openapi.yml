@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: API Version 3 coverage super-geocoding API
+  title: Version 3 Super Geocoding API
   version: 3.0.0
-  description: "This is the documentation for the public api *(version 3)* of 99minutos. [https://www.99minutos.com/.](https://www.99minutos.com/.EnvironmentAPI)\n\n# First Steps\n\n1.  Create an account in the sandbox website: [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/)\n2.  Go to Developers section\n3.  On API Keys V3 section click on `Generar`\n4.  After this the `client_id` and `client_secret` will be displayed\n    \n\nUse the credentials to generate access tokens as shown below in the endpoint `create access token`\n\nFollow the same process in production.\n\n## Environments\n\n| **Environment** | **Website** | **API url** |\n| --- | --- | --- |\n| Sandbox | [https://delivery-git-sandbox-99minutos.vercel.app/](https://delivery-git-sandbox-99minutos.vercel.app/) | [https://sandbox.99minutos.com](https://sandbox.99minutos.com) |\n| Production | [https://envios.99minutos.com/developers](https://envios.99minutos.com/developers) | [https://delivery.99minutos.com](https://delivery.99minutos.com) |\n\n`Each environment has an independent set of credentials`"
+  description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:
 - url: https://delivery.99minutos.com
   description: Produccion
@@ -38,40 +38,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AddressValidationRequest:
-      properties:
-        address_lines:
-          items:
-            type: string
-          type: array
-          title: Address Lines
-          example:
-          - Calle Masaryk 29
-          - Anzures
-        region_code:
-          type: string
-          enum:
-          - MX
-          - US
-          - CO
-          - PE
-          - CL
-          title: Region Code
-          example: MX
-        algorithm:
-          anyOf:
-          - type: string
-            enum:
-            - FAST
-            - EXPENSIVE
-          title: Algorithm
-          default: FAST
-          example: FAST
-      type: object
-      required:
-      - address_lines
-      - region_code
-      title: AddressValidationRequest
     AddressValidationResponse:
       properties:
         status:
@@ -152,26 +118,40 @@ components:
       - algorithm
       - credits
       title: AddressValidationResponse
-    AddressComponent:
+    AddressValidationRequest:
       properties:
-        name:
+        address_lines:
+          items:
+            type: string
+          type: array
+          title: Address Lines
+          example:
+          - Calle Masaryk 29
+          - Anzures
+        region_code:
           type: string
-          title: Name
-          example: Calle Masaryk
-        type:
-          type: string
-          title: Type
-          example: street
-        confidence:
-          type: string
-          title: Confidence
-          example: CONFIRMED
+          enum:
+          - MX
+          - US
+          - CO
+          - PE
+          - CL
+          title: Region Code
+          example: MX
+        algorithm:
+          anyOf:
+          - type: string
+            enum:
+            - FAST
+            - EXPENSIVE
+          title: Algorithm
+          default: FAST
+          example: FAST
       type: object
       required:
-      - name
-      - type
-      - confidence
-      title: AddressComponent
+      - address_lines
+      - region_code
+      title: AddressValidationRequest
     ValidationError:
       properties:
         loc:
@@ -202,6 +182,26 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AddressComponent:
+      properties:
+        name:
+          type: string
+          title: Name
+          example: Calle Masaryk
+        type:
+          type: string
+          title: Type
+          example: street
+        confidence:
+          type: string
+          title: Confidence
+          example: CONFIRMED
+      type: object
+      required:
+      - name
+      - type
+      - confidence
+      title: AddressComponent
   securitySchemes:
     AuthJWT:
       type: http

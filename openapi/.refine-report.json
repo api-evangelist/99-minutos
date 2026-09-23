@@ -1,38 +1,47 @@
 {
   "provider": "99-minutos",
   "sources": [
-    "99-minutos-coverage-api-openapi.yml",
-    "99-minutos-documents-api-openapi.yml",
-    "99-minutos-locations-api-openapi.yml",
-    "99-minutos-oauth-api-openapi.yml",
-    "99-minutos-orders-api-openapi.yml",
-    "99-minutos-shipments-api-openapi.yml",
-    "99-minutos-shipping-rates-api-openapi.yml",
-    "99-minutos-super-geocoding-api-openapi.yml",
-    "99-minutos-webhooks-api-openapi.yml"
+    "_original/99minutos-api-v3-openapi.json"
   ],
   "outputs": [
+    "99-minutos-orders-api-openapi.yml",
     "99-minutos-coverage-api-openapi.yml",
     "99-minutos-documents-api-openapi.yml",
     "99-minutos-locations-api-openapi.yml",
     "99-minutos-oauth-api-openapi.yml",
-    "99-minutos-orders-api-openapi.yml",
     "99-minutos-shipments-api-openapi.yml",
     "99-minutos-shipping-rates-api-openapi.yml",
     "99-minutos-super-geocoding-api-openapi.yml",
     "99-minutos-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [
-    "99-minutos-shipments-api-openapi.yml: dangling $ref: #/components/responses/ShipmentDeactiveResponse",
-    "99-minutos-shipments-api-openapi.yml: dangling $ref: #/components/responses/ShipmentDetailResponse",
-    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/requestBodies/Config",
-    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/ConfigGetResponse",
-    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/ConfigResponse",
-    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/DeleteConfigResponse",
-    "99-minutos-webhooks-api-openapi.yml: dangling $ref: #/components/responses/Notification"
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/requestBodies/Config",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/ConfigGetResponse",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/ConfigResponse",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/DeleteConfigResponse",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/Notification",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/ShipmentDeactiveResponse",
+    "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/ShipmentDetailResponse"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "99minutos-api-v3-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: 99-minutos-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 9 total)"
+  ],
+  "skipped": [
+    "99-minutos-coverage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-shipments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-shipping-rates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-super-geocoding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
