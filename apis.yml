@@ -76,7 +76,7 @@ tags_raw:
 - Mexico
 apis:
 - aid: 99-minutos:99-minutos-coverage-api
-  name: 99 Minutos coverage API
+  name: 99 Minutos Coverage API
   description: The coverage API from 99 Minutos — 1 operation(s) for coverage.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -100,7 +100,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-documents-api
-  name: 99 Minutos documents API
+  name: 99 Minutos Documents API
   description: The documents API from 99 Minutos — 2 operation(s) for documents.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -124,7 +124,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-locations-api
-  name: 99 Minutos locations API
+  name: 99 Minutos Locations API
   description: The locations API from 99 Minutos — 3 operation(s) for locations.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -172,7 +172,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-shipments-api
-  name: 99 Minutos shipments API
+  name: 99 Minutos Shipments API
   description: The shipments API from 99 Minutos — 3 operation(s) for shipments.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -196,7 +196,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-shipping-rates-api
-  name: 99 Minutos shipping-rates API
+  name: 99 Minutos Shipping Rates API
   description: The shipping-rates API from 99 Minutos — 5 operation(s) for shipping-rates.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -218,7 +218,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-super-geocoding-api
-  name: 99 Minutos super-geocoding API
+  name: 99 Minutos Super Geocoding API
   description: The super-geocoding API from 99 Minutos — 1 operation(s) for super-geocoding.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com
@@ -240,7 +240,7 @@ apis:
   - type: Webhooks
     url: asyncapi/99-minutos-webhooks.yml
 - aid: 99-minutos:99-minutos-webhooks-api
-  name: 99 Minutos webhooks API
+  name: 99 Minutos Webhooks API
   description: The webhooks API from 99 Minutos — 3 operation(s) for webhooks.
   humanURL: https://developers.99minutos.com/
   baseURL: https://delivery.99minutos.com

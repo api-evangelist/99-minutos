@@ -410,13 +410,37 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TooManyRequest:
+    Option:
       type: object
+      description: Options to customize the shipment.
       properties:
-        message:
+        pickUpAfter:
           type: string
-      required:
-      - message
+          format: date-time
+          description: Date time from which the shipment is available for pickup
+        deliveryBetween:
+          type: object
+          additionalProperties:
+            type: string
+            format: date-time
+        requiresIdentification:
+          type: boolean
+        requiresSignature:
+          type: boolean
+        twoFactorAuth:
+          type: boolean
+          description: Code is required to mark the order as delivered. Needs to be activated previously
+        notes:
+          type: string
+          description: Notes that will be displayed on the label
+    CurrencyEnum:
+      enum:
+      - COP
+      - MXN
+      - CLP
+      - PEN
+      - ARP
+      type: string
     Sender:
       type: object
       description: Person who will receive the shipment.
@@ -440,55 +464,70 @@ components:
       - lastName
       - phone
       - email
-    ItemSizeEnum:
+    StatusNameEnum:
       enum:
-      - xs
-      - s
-      - m
-      - l
-      - xl
-      - xxl
-      - unknown
-      - '-'
+      - SHIPMENT_TO_BE_CONFIRMED
+      - CONFIRMED
+      - ON_ROAD_TO_PICKUP
+      - COLLECTED
+      - UNSUCCESSFUL_PICKUP
+      - STORED
+      - ON_LINEHAUL
+      - ON_ROAD_TO_DELIVERY
+      - DELIVERED
+      - UNSUCCESSFUL_DELIVERY
+      - ON_ROAD_TO_RETURN
+      - RETURNED
+      - UNSUCCESSFUL_RETURN
+      - IN_CORRECTION
+      - CORRECTED
+      - STOLEN
+      - CANCELLED
+      - DAMAGED
       type: string
-    LocationCountryEnum:
-      enum:
-      - MEX
-      - COL
-      - CHL
-      - PER
-      type: string
-    TrackingResponse:
+    PatchedShipmentUpdate:
+      type: object
+      description: 'Update shipment serializer.
+
+        Only the origin and destination fields can be updated.
+
+        The deliveryType is not in read only fields because
+
+        is required for the covered'
+      properties:
+        destination:
+          $ref: '#/components/schemas/Location'
+      x-examples:
+        Example update order destination:
+          destination:
+            address: Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico
+            country: MEX
+            reference: Torre 3 Apartamente 905
+            zipcode: '15900'
+    TooManyRequest:
       type: object
       properties:
-        traceId:
-          type: string
-          readOnly: true
         message:
           type: string
-          readOnly: true
-        data:
-          $ref: '#/components/schemas/Event'
-        errors:
-          type: object
-          additionalProperties: {}
-          readOnly: true
       required:
-      - data
-      - errors
       - message
-      - traceId
-      description: ''
-    DeliveryType2faEnum:
-      enum:
-      - SMD
-      - SPT
-      - 99M
-      - CO2F
-      - RET
-      - NAL
-      - P2P
-      type: string
+    Embedded:
+      type: object
+      description: 'Serializer for EmbeddedDocuments.
+
+
+        Skips id field and uniqueness validation.
+
+        When saving, skips calling instance.save'
+      properties:
+        amount:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+      required:
+      - amount
+      - currency
     Recipient:
       type: object
       description: Person who will receive the shipment.
@@ -512,92 +551,6 @@ components:
       - lastName
       - phone
       - email
-    Item:
-      type: object
-      description: Array of items/packages to send.
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          readOnly: true
-        size:
-          $ref: '#/components/schemas/ItemSizeEnum'
-        description:
-          type: string
-        weight:
-          type: integer
-          minimum: 1
-          description: Measurement in grams of weight
-        length:
-          type: integer
-          minimum: 1
-          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
-        width:
-          type: integer
-          minimum: 1
-          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
-        height:
-          type: integer
-          minimum: 1
-          description: Vertical measure in centimeters of distance from base to top
-      required:
-      - id
-      - size
-      - weight
-    ShipmentUpdate:
-      type: object
-      description: 'Update shipment serializer.
-
-        Only the origin and destination fields can be updated.
-
-        The deliveryType is not in read only fields because
-
-        is required for the covered'
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        recipient:
-          $ref: '#/components/schemas/Recipient'
-        origin:
-          $ref: '#/components/schemas/Location'
-        destination:
-          $ref: '#/components/schemas/Location'
-        payments:
-          $ref: '#/components/schemas/Payment'
-        options:
-          $ref: '#/components/schemas/Option'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        id:
-          type: string
-          readOnly: true
-        internalKey:
-          type: string
-          readOnly: true
-          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
-        deliveryType:
-          $ref: '#/components/schemas/DeliveryType2faEnum'
-        trackingId:
-          type: integer
-          readOnly: true
-        apiVersion:
-          type: integer
-          default: 3
-      required:
-      - deliveryType
-      - destination
-      - id
-      - internalKey
-      - items
-      - options
-      - origin
-      - recipient
-      - sender
-      - trackingId
     Location:
       type: object
       description: 'Location where the package is picked up.
@@ -678,106 +631,6 @@ components:
         city:
           type: string
           description: Text that reference the city of the location
-    StatusNameEnum:
-      enum:
-      - SHIPMENT_TO_BE_CONFIRMED
-      - CONFIRMED
-      - ON_ROAD_TO_PICKUP
-      - COLLECTED
-      - UNSUCCESSFUL_PICKUP
-      - STORED
-      - ON_LINEHAUL
-      - ON_ROAD_TO_DELIVERY
-      - DELIVERED
-      - UNSUCCESSFUL_DELIVERY
-      - ON_ROAD_TO_RETURN
-      - RETURNED
-      - UNSUCCESSFUL_RETURN
-      - IN_CORRECTION
-      - CORRECTED
-      - STOLEN
-      - CANCELLED
-      - DAMAGED
-      type: string
-    Payment:
-      type: object
-      description: Payment options are included in this section
-      properties:
-        insured:
-          type: boolean
-        insuredValue:
-          type: number
-          format: double
-          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
-        cashOnDelivery:
-          allOf:
-          - $ref: '#/components/schemas/Embedded'
-          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
-    PatchedShipmentUpdate:
-      type: object
-      description: 'Update shipment serializer.
-
-        Only the origin and destination fields can be updated.
-
-        The deliveryType is not in read only fields because
-
-        is required for the covered'
-      properties:
-        destination:
-          $ref: '#/components/schemas/Location'
-      x-examples:
-        Example update order destination:
-          destination:
-            address: Cda. de Guaymas 8, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX, Mexico
-            country: MEX
-            reference: Torre 3 Apartamente 905
-            zipcode: '15900'
-    Embedded:
-      type: object
-      description: 'Serializer for EmbeddedDocuments.
-
-
-        Skips id field and uniqueness validation.
-
-        When saving, skips calling instance.save'
-      properties:
-        amount:
-          type: number
-          format: double
-        currency:
-          $ref: '#/components/schemas/CurrencyEnum'
-      required:
-      - amount
-      - currency
-    CurrencyEnum:
-      enum:
-      - COP
-      - MXN
-      - CLP
-      - PEN
-      - ARP
-      type: string
-    StatusCodeEnum:
-      enum:
-      - '1001'
-      - '1002'
-      - '2002'
-      - '2003'
-      - '2101'
-      - '3001'
-      - '3004'
-      - '4001'
-      - '4002'
-      - '4101'
-      - '5001'
-      - '5002'
-      - '5101'
-      - '7101'
-      - '7102'
-      - '8001'
-      - '8003'
-      - '8004'
-      type: string
     TrackingBatchResponse:
       type: object
       properties:
@@ -818,29 +671,68 @@ components:
                       type: string
                       format: date-time
                       example: '2023-08-21T23:18:23.979000-05:00'
-    Option:
+    Item:
       type: object
-      description: Options to customize the shipment.
+      description: Array of items/packages to send.
       properties:
-        pickUpAfter:
+        id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          readOnly: true
+        size:
+          $ref: '#/components/schemas/ItemSizeEnum'
+        description:
           type: string
-          format: date-time
-          description: Date time from which the shipment is available for pickup
-        deliveryBetween:
+        weight:
+          type: integer
+          minimum: 1
+          description: Measurement in grams of weight
+        length:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters take from one end to the other of the longer or longest side of an object
+        width:
+          type: integer
+          minimum: 1
+          description: Horizontal measurement in centimeters taken from one end to the other of theshorter or shortest side of an object
+        height:
+          type: integer
+          minimum: 1
+          description: Vertical measure in centimeters of distance from base to top
+      required:
+      - id
+      - size
+      - weight
+    LocationCountryEnum:
+      enum:
+      - MEX
+      - COL
+      - CHL
+      - PER
+      type: string
+    TrackingResponse:
+      type: object
+      properties:
+        traceId:
+          type: string
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+        data:
+          $ref: '#/components/schemas/Event'
+        errors:
           type: object
-          additionalProperties:
-            type: string
-            format: date-time
-        requiresIdentification:
-          type: boolean
-        requiresSignature:
-          type: boolean
-        twoFactorAuth:
-          type: boolean
-          description: Code is required to mark the order as delivered. Needs to be activated previously
-        notes:
-          type: string
-          description: Notes that will be displayed on the label
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - data
+      - errors
+      - message
+      - traceId
+      description: ''
     Event:
       type: object
       properties:
@@ -868,6 +760,114 @@ components:
       - data
       - metadata
       - createdAt
+    ShipmentUpdate:
+      type: object
+      description: 'Update shipment serializer.
+
+        Only the origin and destination fields can be updated.
+
+        The deliveryType is not in read only fields because
+
+        is required for the covered'
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        origin:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        payments:
+          $ref: '#/components/schemas/Payment'
+        options:
+          $ref: '#/components/schemas/Option'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id:
+          type: string
+          readOnly: true
+        internalKey:
+          type: string
+          readOnly: true
+          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType2faEnum'
+        trackingId:
+          type: integer
+          readOnly: true
+        apiVersion:
+          type: integer
+          default: 3
+      required:
+      - deliveryType
+      - destination
+      - id
+      - internalKey
+      - items
+      - options
+      - origin
+      - recipient
+      - sender
+      - trackingId
+    DeliveryType2faEnum:
+      enum:
+      - SMD
+      - SPT
+      - 99M
+      - CO2F
+      - RET
+      - NAL
+      - P2P
+      type: string
+    Payment:
+      type: object
+      description: Payment options are included in this section
+      properties:
+        insured:
+          type: boolean
+        insuredValue:
+          type: number
+          format: double
+          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
+        cashOnDelivery:
+          allOf:
+          - $ref: '#/components/schemas/Embedded'
+          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
+    StatusCodeEnum:
+      enum:
+      - '1001'
+      - '1002'
+      - '2002'
+      - '2003'
+      - '2101'
+      - '3001'
+      - '3004'
+      - '4001'
+      - '4002'
+      - '4101'
+      - '5001'
+      - '5002'
+      - '5101'
+      - '7101'
+      - '7102'
+      - '8001'
+      - '8003'
+      - '8004'
+      type: string
+    ItemSizeEnum:
+      enum:
+      - xs
+      - s
+      - m
+      - l
+      - xl
+      - xxl
+      - unknown
+      - '-'
+      type: string
   securitySchemes:
     AuthJWT:
       type: http

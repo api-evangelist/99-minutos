@@ -38,6 +38,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AddressValidationResponse:
       properties:
         status:
@@ -118,6 +127,26 @@ components:
       - algorithm
       - credits
       title: AddressValidationResponse
+    AddressComponent:
+      properties:
+        name:
+          type: string
+          title: Name
+          example: Calle Masaryk
+        type:
+          type: string
+          title: Type
+          example: street
+        confidence:
+          type: string
+          title: Confidence
+          example: CONFIRMED
+      type: object
+      required:
+      - name
+      - type
+      - confidence
+      title: AddressComponent
     AddressValidationRequest:
       properties:
         address_lines:
@@ -173,35 +202,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AddressComponent:
-      properties:
-        name:
-          type: string
-          title: Name
-          example: Calle Masaryk
-        type:
-          type: string
-          title: Type
-          example: street
-        confidence:
-          type: string
-          title: Confidence
-          example: CONFIRMED
-      type: object
-      required:
-      - name
-      - type
-      - confidence
-      title: AddressComponent
   securitySchemes:
     AuthJWT:
       type: http

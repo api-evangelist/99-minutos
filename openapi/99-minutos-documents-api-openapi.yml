@@ -135,67 +135,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Zpl:
-      type: object
-      properties:
-        id:
-          type: string
-        zpl:
-          type: string
-      required:
-      - id
-      - zpl
-    GuideSizeEnum:
-      enum:
-      - letter
-      - zebra
-      - small
-      type: string
-    ZplRequest:
-      type: object
-      properties:
-        identifiers:
-          type: array
-          items:
-            type: string
-          description: The identifier represent a internalKey or trackingId of one shipment.
-      required:
-      - identifiers
-    GuideResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideList'
-      required:
-      - data
-      - message
-      - traceId
-    GuideList:
-      type: object
-      properties:
-        id:
-          type: string
-        pdf:
-          type: string
-      required:
-      - id
-      - pdf
-    GuidesRequest:
-      type: object
-      properties:
-        guides:
-          type: array
-          items:
-            $ref: '#/components/schemas/Guide'
-      required:
-      - guides
     Guide:
       type: object
       properties:
@@ -229,6 +168,67 @@ components:
       - errors
       - message
       - traceId
+    Zpl:
+      type: object
+      properties:
+        id:
+          type: string
+        zpl:
+          type: string
+      required:
+      - id
+      - zpl
+    GuideResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideList'
+      required:
+      - data
+      - message
+      - traceId
+    GuideList:
+      type: object
+      properties:
+        id:
+          type: string
+        pdf:
+          type: string
+      required:
+      - id
+      - pdf
+    GuideSizeEnum:
+      enum:
+      - letter
+      - zebra
+      - small
+      type: string
+    ZplRequest:
+      type: object
+      properties:
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: The identifier represent a internalKey or trackingId of one shipment.
+      required:
+      - identifiers
+    GuidesRequest:
+      type: object
+      properties:
+        guides:
+          type: array
+          items:
+            $ref: '#/components/schemas/Guide'
+      required:
+      - guides
   securitySchemes:
     AuthJWT:
       type: http

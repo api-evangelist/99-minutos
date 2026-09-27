@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Version 3 OAUTH API
+  title: Version 3 OAuth API
   version: 3.0.0
   description: This is the documentation for the public api *(version 3)* of 99minutos.
 servers:

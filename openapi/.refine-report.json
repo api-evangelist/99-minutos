@@ -14,9 +14,7 @@
     "99-minutos-super-geocoding-api-openapi.yml",
     "99-minutos-webhooks-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [
     "99minutos-api-v3-openapi.json: dangling $ref: #/components/requestBodies/Config",
     "99minutos-api-v3-openapi.json: dangling $ref: #/components/responses/ConfigGetResponse",
@@ -30,14 +28,13 @@
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "99minutos-api-v3-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "superseded outputs removed: 99-minutos-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 9 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "99-minutos-coverage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "99-minutos-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "99-minutos-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "99-minutos-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "99-minutos-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "99-minutos-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "99-minutos-shipments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "99-minutos-shipping-rates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
