@@ -255,6 +255,44 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    NearestList:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+        distance:
+          type: number
+          format: double
+          description: Distance to the given address.
+        zipcode:
+          type: string
+          description: Zipcode address
+      required:
+      - description
+      - address
+      - latitude
+      - longitude
+      - locationId
+      - locationType
+      - distance
+      - zipcode
     NewLocation:
       type: object
       properties:
@@ -271,6 +309,265 @@ components:
       - addresses
       - city
       - country
+    LocationTypeEnum:
+      enum:
+      - p99_network
+      - private
+      type: string
+    NearestRequest:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        includeP99:
+          type: boolean
+          description: p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.
+        distance:
+          type: integer
+          maximum: 20000
+          minimum: 0
+          default: 5000
+          description: Maximum distance in meters between the given direction and the nearest p99
+        city:
+          type: string
+          description: City of the address
+        country:
+          type: string
+          description: Country of the address
+      required:
+      - address
+      - city
+      - country
+      x-examples:
+        example-1:
+          address: string
+          includeP99: true
+          distance: 5000
+          city: string
+          country: string
+    LocationsList:
+      type: object
+      properties:
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+          description: p99_network if the location belongs to our network of points 99 or private if is a private address outside of p99_network.
+        geoType:
+          type: string
+      required:
+      - address
+      - geoType
+      - latitude
+      - locationId
+      - locationType
+      - longitude
+    AllLocationList:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location
+        address:
+          type: string
+          description: String address of the location
+        latitude:
+          type: string
+          description: Lattitude of the location
+        longitude:
+          type: string
+          description: Longitude of the location
+        locationId:
+          type: string
+          format: uuid
+          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
+        locationType:
+          allOf:
+          - $ref: '#/components/schemas/LocationTypeEnum'
+        country:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/LocationSchedule'
+        zipcode:
+          type: string
+          description: Zipcode address
+      required:
+      - description
+      - address
+      - latitude
+      - longitude
+      - locationId
+      - locationType
+      - country
+      - zipcode
+    LocationsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationsList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    NearestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NearestList'
+        next:
+          type: string
+          format: uri
+        previous:
+          type: string
+          format: uri
+        errors:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - errors
+      - message
+      - next
+      - previous
+      - traceId
+    LocationSchedule:
+      type: object
+      x-examples:
+        Example Location Schedule:
+          friday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          monday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          sunday:
+            opens: 08:00
+            closed: true
+            closes: '19:00'
+          tuesday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          saturday:
+            opens: 08:00
+            closed: true
+            closes: '13:00'
+          thursday:
+            opens: 08:00
+            closed: false
+            closes: '16:00'
+          time_zone: America/Mexico_City
+          wednesday:
+            opens: 08:00
+            closed: false
+            closes: '18:00'
+      properties:
+        friday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        monday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        sunday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        tuesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        saturday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        thursday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
+        time_zone:
+          type: string
+        wednesday:
+          type: object
+          properties:
+            opens:
+              type: string
+            closed:
+              type: boolean
+            closes:
+              type: string
     AllLocationResponse:
       type: object
       properties:
@@ -648,303 +945,6 @@ components:
           next: https://sandbox.99minutos.com/api/v3/locations/all?page=2
           previous: null
           errors: {}
-    LocationsList:
-      type: object
-      properties:
-        address:
-          type: string
-          description: String address of the location
-        latitude:
-          type: string
-          description: Lattitude of the location
-        longitude:
-          type: string
-          description: Longitude of the location
-        locationId:
-          type: string
-          format: uuid
-          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
-        locationType:
-          allOf:
-          - $ref: '#/components/schemas/LocationTypeEnum'
-          description: p99_network if the location belongs to our network of points 99 or private if is a private address outside of p99_network.
-        geoType:
-          type: string
-      required:
-      - address
-      - geoType
-      - latitude
-      - locationId
-      - locationType
-      - longitude
-    NearestResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NearestList'
-        next:
-          type: string
-          format: uri
-        previous:
-          type: string
-          format: uri
-        errors:
-          type: object
-          additionalProperties: {}
-      required:
-      - data
-      - errors
-      - message
-      - next
-      - previous
-      - traceId
-    LocationTypeEnum:
-      enum:
-      - p99_network
-      - private
-      type: string
-    AllLocationList:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Description of the location
-        address:
-          type: string
-          description: String address of the location
-        latitude:
-          type: string
-          description: Lattitude of the location
-        longitude:
-          type: string
-          description: Longitude of the location
-        locationId:
-          type: string
-          format: uuid
-          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
-        locationType:
-          allOf:
-          - $ref: '#/components/schemas/LocationTypeEnum'
-        country:
-          type: string
-        schedule:
-          $ref: '#/components/schemas/LocationSchedule'
-        zipcode:
-          type: string
-          description: Zipcode address
-      required:
-      - description
-      - address
-      - latitude
-      - longitude
-      - locationId
-      - locationType
-      - country
-      - zipcode
-    NearestRequest:
-      type: object
-      properties:
-        address:
-          type: string
-          description: String address of the location
-        includeP99:
-          type: boolean
-          description: p99 represents the network of point99. If you set it to true, the nearests p99 place locations will be returned. Otherwise, only will be returned the location according to the giving address.
-        distance:
-          type: integer
-          maximum: 20000
-          minimum: 0
-          default: 5000
-          description: Maximum distance in meters between the given direction and the nearest p99
-        city:
-          type: string
-          description: City of the address
-        country:
-          type: string
-          description: Country of the address
-      required:
-      - address
-      - city
-      - country
-      x-examples:
-        example-1:
-          address: string
-          includeP99: true
-          distance: 5000
-          city: string
-          country: string
-    LocationSchedule:
-      type: object
-      x-examples:
-        Example Location Schedule:
-          friday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          monday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          sunday:
-            opens: 08:00
-            closed: true
-            closes: '19:00'
-          tuesday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          saturday:
-            opens: 08:00
-            closed: true
-            closes: '13:00'
-          thursday:
-            opens: 08:00
-            closed: false
-            closes: '16:00'
-          time_zone: America/Mexico_City
-          wednesday:
-            opens: 08:00
-            closed: false
-            closes: '18:00'
-      properties:
-        friday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        monday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        sunday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        tuesday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        saturday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        thursday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-        time_zone:
-          type: string
-        wednesday:
-          type: object
-          properties:
-            opens:
-              type: string
-            closed:
-              type: boolean
-            closes:
-              type: string
-    LocationsResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocationsList'
-        next:
-          type: string
-          format: uri
-        previous:
-          type: string
-          format: uri
-        errors:
-          type: object
-          additionalProperties: {}
-      required:
-      - data
-      - errors
-      - message
-      - next
-      - previous
-      - traceId
-    NearestList:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Description of the location
-        address:
-          type: string
-          description: String address of the location
-        latitude:
-          type: string
-          description: Lattitude of the location
-        longitude:
-          type: string
-          description: Longitude of the location
-        locationId:
-          type: string
-          format: uuid
-          description: Unique uuid for the location. This id can be used to refer an origin or destination in the order creation endpoint.
-        locationType:
-          allOf:
-          - $ref: '#/components/schemas/LocationTypeEnum'
-        distance:
-          type: number
-          format: double
-          description: Distance to the given address.
-        zipcode:
-          type: string
-          description: Zipcode address
-      required:
-      - description
-      - address
-      - latitude
-      - longitude
-      - locationId
-      - locationType
-      - distance
-      - zipcode
   securitySchemes:
     AuthJWT:
       type: http
