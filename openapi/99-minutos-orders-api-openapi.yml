@@ -767,6 +767,58 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    BadRequestResponse1:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - Error on CustomerProfileService
+        traceId: 5e011b32-000f-4896-8aaf-34d7a8f85960
+        code: 400
+    Destination:
+      type: object
+      properties:
+        receiver:
+          type: string
+          example: David Ludueña
+        nameReceiver:
+          type: string
+          example: David
+        lastNameReceiver:
+          type: string
+          example: Ludueña
+        emailReceiver:
+          type: string
+          example: ''
+        phoneReceiver:
+          type: string
+          example: '11111111'
+        addressDestination:
+          type: string
+          example: Calle Prol. Melchor, Miguel de la Madrid, Iztapalapa, 09698 Ciudad de México, CDMX
+        numberDestination:
+          type: string
+          example: s/r
+        codePostalDestination:
+          type: string
+          example: 09698
+        country:
+          type: string
+          enum:
+          - MEX
+          - CHL
+          - PER
+          - COL
+          example: MEX
     MultiboxOrderRequest:
       type: object
       properties:
@@ -830,6 +882,23 @@ components:
           $ref: '#/components/schemas/Origin'
         destination:
           $ref: '#/components/schemas/Destination'
+    BadRequestResponse3:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        traceId:
+          type: string
+        code:
+          type: integer
+          example: 400
+      example:
+        errors:
+        - ShippingRatesService, out of coverage error
+        traceId: d4a3a4b0-216a-4ef7-b8e9-61f1079c43a8
+        code: 400
     SuccessResponse:
       type: object
       properties:
@@ -855,58 +924,6 @@ components:
         trace_id:
           type: string
           example: 72aea272-ce53-41fe-b03f-413e77356c5b
-    BadRequestResponse1:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        traceId:
-          type: string
-        code:
-          type: integer
-          example: 400
-      example:
-        errors:
-        - Error on CustomerProfileService
-        traceId: 5e011b32-000f-4896-8aaf-34d7a8f85960
-        code: 400
-    Destination:
-      type: object
-      properties:
-        receiver:
-          type: string
-          example: David Ludueña
-        nameReceiver:
-          type: string
-          example: David
-        lastNameReceiver:
-          type: string
-          example: Ludueña
-        emailReceiver:
-          type: string
-          example: ''
-        phoneReceiver:
-          type: string
-          example: '11111111'
-        addressDestination:
-          type: string
-          example: Calle Prol. Melchor, Miguel de la Madrid, Iztapalapa, 09698 Ciudad de México, CDMX
-        numberDestination:
-          type: string
-          example: s/r
-        codePostalDestination:
-          type: string
-          example: 09698
-        country:
-          type: string
-          enum:
-          - MEX
-          - CHL
-          - PER
-          - COL
-          example: MEX
     Origin:
       type: object
       properties:
@@ -959,123 +976,6 @@ components:
         - Delivery type (nedxtday) not allowed
         traceId: 0b5b0d10-9fd8-43f7-bcd5-cc301c470f7c
         code: 400
-    BadRequestResponse3:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        traceId:
-          type: string
-        code:
-          type: integer
-          example: 400
-      example:
-        errors:
-        - ShippingRatesService, out of coverage error
-        traceId: d4a3a4b0-216a-4ef7-b8e9-61f1079c43a8
-        code: 400
-    MultiboxErrorResponse:
-      type: object
-      description: Error response for multibox endpoint. Contains a trace ID and an array of error items.
-      properties:
-        traceId:
-          type: string
-          description: Trace identifier for support and debugging.
-        errors:
-          type: array
-          description: List of errors.
-          items:
-            $ref: '#/components/schemas/MultiboxErrorItem'
-    Payment:
-      type: object
-      description: Payment options are included in this section
-      properties:
-        insured:
-          type: boolean
-        insuredValue:
-          type: number
-          format: double
-          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
-        cashOnDelivery:
-          allOf:
-          - $ref: '#/components/schemas/Embedded'
-          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
-    MultiboxErrorItem:
-      type: object
-      description: 'Individual error item returned by the multibox endpoint.
-
-
-        Possible error codes:
-
-        - GENERIC_INVALID_PARAMETERS (422): Validation error on request fields
-
-        - INTERNAL_KEY_ALREADY_EXISTS (422): The internalKey was already used
-
-        - CUSTOMER_INACTIVE (422): Customer is not active
-
-        - ORGANIZATION_INACTIVE (422): Customer organization is not active
-
-        - CUSTOMER_HAS_NO_CREDIT (422): Customer has no credit available
-
-        - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE (422): Delivery type not enabled for the customer
-
-        - GEOCODING_SERVICE_ERROR (500): Geocoding service failure
-
-        - COVERAGE_SERVICE_ERROR (500): Coverage validation failure
-
-        - SHIPPING_RATES_SERVICE_ERROR (varies): Shipping rates service error
-
-        - TRACKING_ID_SERVICE_ERROR (500): Tracking ID generation failure
-
-        - STATE_MACHINE_ERROR_RESPONSE (500/varies): State machine processing error
-
-        - CUSTOMERS_V3_SERVICE_ERROR (500): Customer service error
-
-        - FAILED_TO_CREATE_REQUEST (500): Could not build internal HTTP request
-
-        - FAILED_TO_SEND_REQUEST (500): Internal HTTP request failed
-
-        - FAILED_TO_DECODE_RESPONSE (500): Could not decode internal service response
-
-        - JWT_EXPIRED (401): JWT token has expired
-
-        - FAILED_TO_RETRIEVE_USER_DATA (500): Could not extract user data from JWT
-
-        - GENERIC_500_ERROR (500): Uncategorized internal server error'
-      properties:
-        code:
-          type: string
-          description: Error code identifier.
-          enum:
-          - GENERIC_INVALID_PARAMETERS
-          - INTERNAL_KEY_ALREADY_EXISTS
-          - CUSTOMER_INACTIVE
-          - ORGANIZATION_INACTIVE
-          - CUSTOMER_HAS_NO_CREDIT
-          - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE
-          - GEOCODING_SERVICE_ERROR
-          - COVERAGE_SERVICE_ERROR
-          - SHIPPING_RATES_SERVICE_ERROR
-          - TRACKING_ID_SERVICE_ERROR
-          - STATE_MACHINE_ERROR_RESPONSE
-          - CUSTOMERS_V3_SERVICE_ERROR
-          - FAILED_TO_CREATE_REQUEST
-          - FAILED_TO_SEND_REQUEST
-          - FAILED_TO_DECODE_RESPONSE
-          - JWT_EXPIRED
-          - FAILED_TO_RETRIEVE_USER_DATA
-          - GENERIC_500_ERROR
-        message:
-          type: string
-          description: Human-readable error description.
-        field:
-          type: string
-          description: Field name that caused the error (only present for validation errors).
-      required:
-      - code
-      - message
     MultiboxRequest:
       type: object
       description: Request payload for creating a multibox order. A multibox order groups multiple packages (children) under a single parent order (master), sharing origin, destination, sender and recipient.
@@ -1127,127 +1027,13 @@ components:
       required:
       - deliveryType
       - children
-    MultiboxResponse:
+    MultiboxOptions:
       type: object
-      description: Successful response for multibox order creation.
+      description: Additional delivery options.
       properties:
-        traceId:
+        notes:
           type: string
-          description: Trace identifier for support and debugging.
-        message:
-          type: string
-          description: Descriptive result message.
-        data:
-          type: object
-          properties:
-            master:
-              type: string
-              description: Tracking ID of the parent (master) order.
-            children:
-              type: array
-              description: List of created child packages.
-              items:
-                $ref: '#/components/schemas/MultiboxChildResponse'
-        errors:
-          type: array
-          description: Empty array on success.
-          items:
-            $ref: '#/components/schemas/MultiboxErrorItem'
-    MigratedByEnum:
-      enum:
-      - stream
-      - batch
-      type: string
-    Recipient:
-      type: object
-      description: Person who will receive the shipment.
-      properties:
-        firstName:
-          type: string
-          description: Name of the person receiving or sending the shipment.
-        lastName:
-          type: string
-          description: Last name of the person receiving or sending the shipment.
-        phone:
-          type: string
-          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
-          example: '+525547596221'
-        email:
-          type: string
-          format: email
-          description: Email of the person receiving or sending the shipment.
-      required:
-      - firstName
-      - lastName
-      - phone
-      - email
-    MultiboxChildResponse:
-      type: object
-      description: Response data for a created child package.
-      properties:
-        tracking_id:
-          type: string
-          description: Unique tracking ID of the child package.
-        internal_key:
-          type: string
-          description: Internal key associated with the child package (same as sent in the request).
-        client_id:
-          type: string
-          description: Client identifier that owns the order.
-    Order:
-      type: object
-      description: Order serializer
-      properties:
-        id:
-          type: string
-          readOnly: true
-        shipments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Shipment'
-        account:
-          type: object
-          additionalProperties:
-            type: string
-          readOnly: true
-        billId:
-          type: integer
-          readOnly: true
-        transactionId:
-          type: integer
-          readOnly: true
-        channelId:
-          type: integer
-          readOnly: true
-        draft:
-          type: boolean
-          description: Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.
-        deactivated:
-          type: boolean
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          readOnly: true
-        expiresAt:
-          type: string
-          format: date-time
-          readOnly: true
-        migratedBy:
-          allOf:
-          - $ref: '#/components/schemas/MigratedByEnum'
-          readOnly: true
-      required:
-      - account
-      - billId
-      - channelId
-      - createdAt
-      - deactivated
-      - expiresAt
-      - id
-      - migratedBy
-      - shipments
-      - transactionId
+          description: Special instructions or notes for the delivery.
     MultiboxLocation:
       type: object
       description: Location for origin or destination of a multibox order.
@@ -1307,81 +1093,17 @@ components:
       - lastName
       - email
       - phone
-    Embedded:
-      type: object
-      description: 'Serializer for EmbeddedDocuments.
-
-
-        Skips id field and uniqueness validation.
-
-        When saving, skips calling instance.save'
-      properties:
-        amount:
-          type: number
-          format: double
-        currency:
-          $ref: '#/components/schemas/CurrencyEnum'
-      required:
-      - amount
-      - currency
-    MultiboxChild:
-      type: object
-      description: A child package within a multibox order.
-      properties:
-        internalKey:
-          type: string
-          description: Internal key to individually identify the child package.
-        items:
-          type: array
-          description: Items contained in the child package.
-          items:
-            $ref: '#/components/schemas/MultiboxItem'
-      required:
-      - items
-    Shipment:
-      type: object
-      description: Array of shipments that belong to the order. sss
-      properties:
-        sender:
-          $ref: '#/components/schemas/Sender'
-        recipient:
-          $ref: '#/components/schemas/Recipient'
-        origin:
-          $ref: '#/components/schemas/Location'
-        destination:
-          $ref: '#/components/schemas/Location'
-        payments:
-          $ref: '#/components/schemas/Payment'
-        options:
-          $ref: '#/components/schemas/Option'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        id:
-          type: string
-          readOnly: true
-        internalKey:
-          type:
-          - string
-          - 'null'
-          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
-          maxLength: 200
-        deliveryType:
-          $ref: '#/components/schemas/DeliveryType5c6Enum'
-        trackingId:
-          type: integer
-          readOnly: true
-      required:
-      - deliveryType
-      - destination
-      - id
-      - items
-      - options
-      - origin
-      - recipient
-      - sender
-      - trackingId
+    ItemSizeEnum:
+      enum:
+      - xs
+      - s
+      - m
+      - l
+      - xl
+      - xxl
+      - unknown
+      - '-'
+      type: string
     MultiboxItem:
       type: object
       description: An item within a child package.
@@ -1411,48 +1133,79 @@ components:
       required:
       - weight
       - size
-    Option:
+    Recipient:
       type: object
-      description: Options to customize the shipment.
+      description: Person who will receive the shipment.
       properties:
-        pickUpAfter:
+        firstName:
           type: string
-          format: date-time
-          description: Date time from which the shipment is available for pickup
-        deliveryBetween:
-          type: object
-          additionalProperties:
-            type: string
-            format: date-time
-        requiresIdentification:
-          type: boolean
-        requiresSignature:
-          type: boolean
-        twoFactorAuth:
-          type: boolean
-          description: Code is required to mark the order as delivered. Needs to be activated previously
-        notes:
+          description: Name of the person receiving or sending the shipment.
+        lastName:
           type: string
-          description: Notes that will be displayed on the label
-    ItemSizeEnum:
-      enum:
-      - xs
-      - s
-      - m
-      - l
-      - xl
-      - xxl
-      - unknown
-      - '-'
-      type: string
-    CurrencyEnum:
-      enum:
-      - COP
-      - MXN
-      - CLP
-      - PEN
-      - ARP
-      type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    Sender:
+      type: object
+      description: Person who will receive the shipment.
+      properties:
+        firstName:
+          type: string
+          description: Name of the person receiving or sending the shipment.
+        lastName:
+          type: string
+          description: Last name of the person receiving or sending the shipment.
+        phone:
+          type: string
+          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
+          example: '+525547596221'
+        email:
+          type: string
+          format: email
+          description: Email of the person receiving or sending the shipment.
+      required:
+      - firstName
+      - lastName
+      - phone
+      - email
+    MultiboxChildResponse:
+      type: object
+      description: Response data for a created child package.
+      properties:
+        tracking_id:
+          type: string
+          description: Unique tracking ID of the child package.
+        internal_key:
+          type: string
+          description: Internal key associated with the child package (same as sent in the request).
+        client_id:
+          type: string
+          description: Client identifier that owns the order.
+    Payment:
+      type: object
+      description: Payment options are included in this section
+      properties:
+        insured:
+          type: boolean
+        insuredValue:
+          type: number
+          format: double
+          description: Amount in local currency for which the shipment will be insured. The shipment will be insured in case of damage, loss, theft. Extra fees could be applied, check with your support agent.
+        cashOnDelivery:
+          allOf:
+          - $ref: '#/components/schemas/Embedded'
+          description: Cash on delivery (COD) applies to shipments paid by the recipient in cash at the time of delivery. If it is not sent in the payload, it is assumed that this does not happen, otherwise the amount and currency fields must be included
     PaginatedOrderList:
       type: object
       properties:
@@ -1482,6 +1235,80 @@ components:
         errors:
           type: object
           example: {}
+    MultiboxChild:
+      type: object
+      description: A child package within a multibox order.
+      properties:
+        internalKey:
+          type: string
+          description: Internal key to individually identify the child package.
+        items:
+          type: array
+          description: Items contained in the child package.
+          items:
+            $ref: '#/components/schemas/MultiboxItem'
+      required:
+      - items
+    Option:
+      type: object
+      description: Options to customize the shipment.
+      properties:
+        pickUpAfter:
+          type: string
+          format: date-time
+          description: Date time from which the shipment is available for pickup
+        deliveryBetween:
+          type: object
+          additionalProperties:
+            type: string
+            format: date-time
+        requiresIdentification:
+          type: boolean
+        requiresSignature:
+          type: boolean
+        twoFactorAuth:
+          type: boolean
+          description: Code is required to mark the order as delivered. Needs to be activated previously
+        notes:
+          type: string
+          description: Notes that will be displayed on the label
+    MigratedByEnum:
+      enum:
+      - stream
+      - batch
+      type: string
+    LocationCountryEnum:
+      enum:
+      - MEX
+      - COL
+      - CHL
+      - PER
+      type: string
+    CurrencyEnum:
+      enum:
+      - COP
+      - MXN
+      - CLP
+      - PEN
+      - ARP
+      type: string
+    Embedded:
+      type: object
+      description: 'Serializer for EmbeddedDocuments.
+
+
+        Skips id field and uniqueness validation.
+
+        When saving, skips calling instance.save'
+      properties:
+        amount:
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/CurrencyEnum'
+      required:
+      - amount
+      - currency
     Location:
       type: object
       description: 'Location where the package is picked up.
@@ -1562,13 +1389,150 @@ components:
         city:
           type: string
           description: Text that reference the city of the location
-    MultiboxOptions:
+    MultiboxResponse:
       type: object
-      description: Additional delivery options.
+      description: Successful response for multibox order creation.
       properties:
-        notes:
+        traceId:
           type: string
-          description: Special instructions or notes for the delivery.
+          description: Trace identifier for support and debugging.
+        message:
+          type: string
+          description: Descriptive result message.
+        data:
+          type: object
+          properties:
+            master:
+              type: string
+              description: Tracking ID of the parent (master) order.
+            children:
+              type: array
+              description: List of created child packages.
+              items:
+                $ref: '#/components/schemas/MultiboxChildResponse'
+        errors:
+          type: array
+          description: Empty array on success.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    MultiboxErrorResponse:
+      type: object
+      description: Error response for multibox endpoint. Contains a trace ID and an array of error items.
+      properties:
+        traceId:
+          type: string
+          description: Trace identifier for support and debugging.
+        errors:
+          type: array
+          description: List of errors.
+          items:
+            $ref: '#/components/schemas/MultiboxErrorItem'
+    Shipment:
+      type: object
+      description: Array of shipments that belong to the order. sss
+      properties:
+        sender:
+          $ref: '#/components/schemas/Sender'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        origin:
+          $ref: '#/components/schemas/Location'
+        destination:
+          $ref: '#/components/schemas/Location'
+        payments:
+          $ref: '#/components/schemas/Payment'
+        options:
+          $ref: '#/components/schemas/Option'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        id:
+          type: string
+          readOnly: true
+        internalKey:
+          type:
+          - string
+          - 'null'
+          description: Unique shipment identifier. You can use this field to store your unique identifier of the shipment. All of our tracking systems support searching by internalKey. We strongly suggest you always use this field and make sure it is unique.If its not given we will assign an uuid for this field.
+          maxLength: 200
+        deliveryType:
+          $ref: '#/components/schemas/DeliveryType5c6Enum'
+        trackingId:
+          type: integer
+          readOnly: true
+      required:
+      - deliveryType
+      - destination
+      - id
+      - items
+      - options
+      - origin
+      - recipient
+      - sender
+      - trackingId
+    Order:
+      type: object
+      description: Order serializer
+      properties:
+        id:
+          type: string
+          readOnly: true
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        account:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+        billId:
+          type: integer
+          readOnly: true
+        transactionId:
+          type: integer
+          readOnly: true
+        channelId:
+          type: integer
+          readOnly: true
+        draft:
+          type: boolean
+          description: Indicates if an order is not yet finalized. The order is only processed when is confirmed. By default it's false.
+        deactivated:
+          type: boolean
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        expiresAt:
+          type: string
+          format: date-time
+          readOnly: true
+        migratedBy:
+          allOf:
+          - $ref: '#/components/schemas/MigratedByEnum'
+          readOnly: true
+      required:
+      - account
+      - billId
+      - channelId
+      - createdAt
+      - deactivated
+      - expiresAt
+      - id
+      - migratedBy
+      - shipments
+      - transactionId
+    ResponseJWT:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          description: jwt expires in seconds
     DeliveryType5c6Enum:
       type: string
       description: Indicate the Delivery Type which can be SameDay(SMD), Sprint (SPT), 99minutos(99M), Co2Free (CO2F), Reverse(RET) Tailor made (TLM), PuntoaPunto (P2P). Be careful submitting accepted abbreviations.
@@ -1581,29 +1545,6 @@ components:
       - NAL
       - TLM
       - P2P
-    Sender:
-      type: object
-      description: Person who will receive the shipment.
-      properties:
-        firstName:
-          type: string
-          description: Name of the person receiving or sending the shipment.
-        lastName:
-          type: string
-          description: Last name of the person receiving or sending the shipment.
-        phone:
-          type: string
-          description: Phone of the person receiving or sending the shipment. Must include the international code (+52, +51)
-          example: '+525547596221'
-        email:
-          type: string
-          format: email
-          description: Email of the person receiving or sending the shipment.
-      required:
-      - firstName
-      - lastName
-      - phone
-      - email
     Item:
       type: object
       description: Array of items/packages to send.
@@ -1638,21 +1579,80 @@ components:
       - id
       - size
       - weight
-    ResponseJWT:
+    MultiboxErrorItem:
       type: object
+      description: 'Individual error item returned by the multibox endpoint.
+
+
+        Possible error codes:
+
+        - GENERIC_INVALID_PARAMETERS (422): Validation error on request fields
+
+        - INTERNAL_KEY_ALREADY_EXISTS (422): The internalKey was already used
+
+        - CUSTOMER_INACTIVE (422): Customer is not active
+
+        - ORGANIZATION_INACTIVE (422): Customer organization is not active
+
+        - CUSTOMER_HAS_NO_CREDIT (422): Customer has no credit available
+
+        - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE (422): Delivery type not enabled for the customer
+
+        - GEOCODING_SERVICE_ERROR (500): Geocoding service failure
+
+        - COVERAGE_SERVICE_ERROR (500): Coverage validation failure
+
+        - SHIPPING_RATES_SERVICE_ERROR (varies): Shipping rates service error
+
+        - TRACKING_ID_SERVICE_ERROR (500): Tracking ID generation failure
+
+        - STATE_MACHINE_ERROR_RESPONSE (500/varies): State machine processing error
+
+        - CUSTOMERS_V3_SERVICE_ERROR (500): Customer service error
+
+        - FAILED_TO_CREATE_REQUEST (500): Could not build internal HTTP request
+
+        - FAILED_TO_SEND_REQUEST (500): Internal HTTP request failed
+
+        - FAILED_TO_DECODE_RESPONSE (500): Could not decode internal service response
+
+        - JWT_EXPIRED (401): JWT token has expired
+
+        - FAILED_TO_RETRIEVE_USER_DATA (500): Could not extract user data from JWT
+
+        - GENERIC_500_ERROR (500): Uncategorized internal server error'
       properties:
+        code:
+          type: string
+          description: Error code identifier.
+          enum:
+          - GENERIC_INVALID_PARAMETERS
+          - INTERNAL_KEY_ALREADY_EXISTS
+          - CUSTOMER_INACTIVE
+          - ORGANIZATION_INACTIVE
+          - CUSTOMER_HAS_NO_CREDIT
+          - CUSTOMER_DELIVERY_TYPE_NOT_ACTIVE
+          - GEOCODING_SERVICE_ERROR
+          - COVERAGE_SERVICE_ERROR
+          - SHIPPING_RATES_SERVICE_ERROR
+          - TRACKING_ID_SERVICE_ERROR
+          - STATE_MACHINE_ERROR_RESPONSE
+          - CUSTOMERS_V3_SERVICE_ERROR
+          - FAILED_TO_CREATE_REQUEST
+          - FAILED_TO_SEND_REQUEST
+          - FAILED_TO_DECODE_RESPONSE
+          - JWT_EXPIRED
+          - FAILED_TO_RETRIEVE_USER_DATA
+          - GENERIC_500_ERROR
         message:
           type: string
-        code:
-          type: integer
-          description: jwt expires in seconds
-    LocationCountryEnum:
-      enum:
-      - MEX
-      - COL
-      - CHL
-      - PER
-      type: string
+          description: Human-readable error description.
+        field:
+          type: string
+          description: Field name that caused the error (only present for validation errors).
+      required:
+      - code
+      - message
   securitySchemes:
     AuthJWT:
       type: http

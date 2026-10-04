@@ -135,22 +135,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GuideResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        traceId:
-          type: string
-          format: uuid
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideList'
-      required:
-      - data
-      - message
-      - traceId
     ZplResponse:
       type: object
       properties:
@@ -171,42 +155,6 @@ components:
       - errors
       - message
       - traceId
-    ZplRequest:
-      type: object
-      properties:
-        identifiers:
-          type: array
-          items:
-            type: string
-          description: The identifier represent a internalKey or trackingId of one shipment.
-      required:
-      - identifiers
-    Zpl:
-      type: object
-      properties:
-        id:
-          type: string
-        zpl:
-          type: string
-      required:
-      - id
-      - zpl
-    GuideSizeEnum:
-      enum:
-      - letter
-      - zebra
-      - small
-      type: string
-    GuideList:
-      type: object
-      properties:
-        id:
-          type: string
-        pdf:
-          type: string
-      required:
-      - id
-      - pdf
     Guide:
       type: object
       properties:
@@ -220,6 +168,16 @@ components:
       required:
       - identifier
       - size
+    Zpl:
+      type: object
+      properties:
+        id:
+          type: string
+        zpl:
+          type: string
+      required:
+      - id
+      - zpl
     GuidesRequest:
       type: object
       properties:
@@ -229,6 +187,48 @@ components:
             $ref: '#/components/schemas/Guide'
       required:
       - guides
+    ZplRequest:
+      type: object
+      properties:
+        identifiers:
+          type: array
+          items:
+            type: string
+          description: The identifier represent a internalKey or trackingId of one shipment.
+      required:
+      - identifiers
+    GuideList:
+      type: object
+      properties:
+        id:
+          type: string
+        pdf:
+          type: string
+      required:
+      - id
+      - pdf
+    GuideResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        traceId:
+          type: string
+          format: uuid
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideList'
+      required:
+      - data
+      - message
+      - traceId
+    GuideSizeEnum:
+      enum:
+      - letter
+      - zebra
+      - small
+      type: string
   securitySchemes:
     AuthJWT:
       type: http

@@ -38,49 +38,26 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AddressValidationRequest:
+    AddressComponent:
       properties:
-        address_lines:
-          items:
-            type: string
-          type: array
-          title: Address Lines
-          example:
-          - Calle Masaryk 29
-          - Anzures
-        region_code:
+        name:
           type: string
-          enum:
-          - MX
-          - US
-          - CO
-          - PE
-          - CL
-          title: Region Code
-          example: MX
-        algorithm:
-          anyOf:
-          - type: string
-            enum:
-            - FAST
-            - EXPENSIVE
-          title: Algorithm
-          default: FAST
-          example: FAST
+          title: Name
+          example: Calle Masaryk
+        type:
+          type: string
+          title: Type
+          example: street
+        confidence:
+          type: string
+          title: Confidence
+          example: CONFIRMED
       type: object
       required:
-      - address_lines
-      - region_code
-      title: AddressValidationRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - name
+      - type
+      - confidence
+      title: AddressComponent
     ValidationError:
       properties:
         loc:
@@ -102,26 +79,15 @@ components:
       - msg
       - type
       title: ValidationError
-    AddressComponent:
+    HTTPValidationError:
       properties:
-        name:
-          type: string
-          title: Name
-          example: Calle Masaryk
-        type:
-          type: string
-          title: Type
-          example: street
-        confidence:
-          type: string
-          title: Confidence
-          example: CONFIRMED
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - name
-      - type
-      - confidence
-      title: AddressComponent
+      title: HTTPValidationError
     AddressValidationResponse:
       properties:
         status:
@@ -202,6 +168,40 @@ components:
       - algorithm
       - credits
       title: AddressValidationResponse
+    AddressValidationRequest:
+      properties:
+        address_lines:
+          items:
+            type: string
+          type: array
+          title: Address Lines
+          example:
+          - Calle Masaryk 29
+          - Anzures
+        region_code:
+          type: string
+          enum:
+          - MX
+          - US
+          - CO
+          - PE
+          - CL
+          title: Region Code
+          example: MX
+        algorithm:
+          anyOf:
+          - type: string
+            enum:
+            - FAST
+            - EXPENSIVE
+          title: Algorithm
+          default: FAST
+          example: FAST
+      type: object
+      required:
+      - address_lines
+      - region_code
+      title: AddressValidationRequest
   securitySchemes:
     AuthJWT:
       type: http
