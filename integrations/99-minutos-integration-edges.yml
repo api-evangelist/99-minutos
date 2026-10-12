@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/99-minutos/integrations
+- https://n8n.io/integrations/99-minutos/
+- https://composio.dev/toolkits/99-minutos
+- https://monid.ai/tools/99-minutos
+checked:
+- https://composio.dev/toolkits/99-minutos
+- https://monid.ai/tools/99-minutos
+- https://n8n.io/integrations/99-minutos/
+- https://zapier.com/apps/99-minutos/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
