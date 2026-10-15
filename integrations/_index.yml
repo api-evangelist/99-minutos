@@ -14,3 +14,15 @@
   relationship: carrier-coverage
   status: not-a-workflow
   arazzo: null
+- slug: 99-minutos-shopify-own
+  label: Shopify (own)
+  partner: shopify
+  partner_name: Shopify (own)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://apps.shopify.com/99minutos-com
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
