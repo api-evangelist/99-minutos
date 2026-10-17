@@ -38,26 +38,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AddressComponent:
-      properties:
-        name:
-          type: string
-          title: Name
-          example: Calle Masaryk
-        type:
-          type: string
-          title: Type
-          example: street
-        confidence:
-          type: string
-          title: Confidence
-          example: CONFIRMED
-      type: object
-      required:
-      - name
-      - type
-      - confidence
-      title: AddressComponent
     ValidationError:
       properties:
         loc:
@@ -88,6 +68,26 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AddressComponent:
+      properties:
+        name:
+          type: string
+          title: Name
+          example: Calle Masaryk
+        type:
+          type: string
+          title: Type
+          example: street
+        confidence:
+          type: string
+          title: Confidence
+          example: CONFIRMED
+      type: object
+      required:
+      - name
+      - type
+      - confidence
+      title: AddressComponent
     AddressValidationResponse:
       properties:
         status:
