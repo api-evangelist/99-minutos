@@ -64,6 +64,148 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-99 Minutos is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+99minutos (99 Minutos) is a Latin American last-mile logistics and delivery platform serving ecommerce businesses across Mexico, Chile, Colombia and Peru. It offers express parcel delivery (envios99), full-truck-load and drayage freight (freight99), fulfillment and warehousing (fulfill99) and custom logistics operations (tailor99), backed by a network of pickup/delivery points (Punto99). Its public REST API v3 lets developers resolve addresses to reusable location ids, quote shipping rates and coverage, create/confirm orders (including multibox), print PDF and ZPL labels, track shipments and subscribe to real-time status webhooks. Authentication is OAuth2 client-credentials that returns a bearer JWT. Surfaced as a 500 Global portfolio company and enriched by the API Evangelist pipeline from the provider's own developer portal.
 
-Backed by: 500-global — https://99minutos.com
+**Areas:** Company · Logistics · Last Mile Delivery · Shipping · E-Commerce · Fulfillment · Freight · Tracking · Webhook · Latin America · Mexico
+
+## 99 Minutos on APIs.io
+
+Everything profiled for 99 Minutos is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/99-minutos/](https://apis.io/providers/99-minutos/)** — or go straight to one of the APIs or properties below.
+
+### APIs (9)
+
+- [99 Minutos Coverage API](https://apis.io/apis/99-minutos/99-minutos-coverage-api/) — The coverage API from 99 Minutos — 1 operation(s) for coverage.
+- [99 Minutos Documents API](https://apis.io/apis/99-minutos/99-minutos-documents-api/) — The documents API from 99 Minutos — 2 operation(s) for documents.
+- [99 Minutos Locations API](https://apis.io/apis/99-minutos/99-minutos-locations-api/) — The locations API from 99 Minutos — 3 operation(s) for locations.
+- [99 Minutos Orders API](https://apis.io/apis/99-minutos/99-minutos-orders-api/) — The Orders API from 99 Minutos — 5 operation(s) for orders.
+- [99 Minutos Shipments API](https://apis.io/apis/99-minutos/99-minutos-shipments-api/) — The shipments API from 99 Minutos — 3 operation(s) for shipments.
+- [99 Minutos Shipping Rates API](https://apis.io/apis/99-minutos/99-minutos-shipping-rates-api/) — The shipping-rates API from 99 Minutos — 5 operation(s) for shipping-rates.
+- [99 Minutos Super Geocoding API](https://apis.io/apis/99-minutos/99-minutos-super-geocoding-api/) — The super-geocoding API from 99 Minutos — 1 operation(s) for super-geocoding.
+- [99 Minutos Webhooks API](https://apis.io/apis/99-minutos/99-minutos-webhooks-api/) — The webhooks API from 99 Minutos — 3 operation(s) for webhooks.
+- [99 Minutos OAUTH API](https://apis.io/apis/99-minutos/99-minutos-oauth-api/) — The oauth API from 99 Minutos — 1 operation(s) for oauth.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [99 Minutos Webhooks](https://apis.io/asyncapis/99-minutos/99-minutos-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [99minutos](https://apis.io/servers/99-minutos/99minutos/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [99 Minutos Agentic Access](https://apis.io/agentic-access/99-minutos/99-minutos-agentic-access/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [API Version 3 coverage API](https://apis.io/collections/99-minutos/open-99-minutos-coverage-api/)
+- [API Version 3 coverage documents API](https://apis.io/collections/99-minutos/open-99-minutos-documents-api/)
+- [API Version 3 coverage locations API](https://apis.io/collections/99-minutos/open-99-minutos-locations-api/)
+- [API Version 3 coverage oauth API](https://apis.io/collections/99-minutos/open-99-minutos-oauth-api/)
+- [API Version 3 coverage Orders API](https://apis.io/collections/99-minutos/open-99-minutos-orders-api/)
+- [API Version 3 coverage shipments API](https://apis.io/collections/99-minutos/open-99-minutos-shipments-api/)
+- [API Version 3 coverage shipping-rates API](https://apis.io/collections/99-minutos/open-99-minutos-shipping-rates-api/)
+- [API Version 3 coverage super-geocoding API](https://apis.io/collections/99-minutos/open-99-minutos-super-geocoding-api/)
+- [API Version 3 coverage webhooks API](https://apis.io/collections/99-minutos/open-99-minutos-webhooks-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [99 Minutos Api V3 Overlay](https://apis.io/overlays/99-minutos/99-minutos-api-v3-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [99 Minutos Authentication](https://apis.io/security/99-minutos/99-minutos-authentication/)
+- [99 Minutos Domain Security](https://apis.io/security/99-minutos/99-minutos-domain-security/)
+- [99 Minutos Trust Center](https://apis.io/security/99-minutos/99-minutos-trust-center/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [99 Minutos Rate Limits](https://apis.io/rate-limits/99-minutos/99-minutos-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://99minutos.com)
+- [Documentation](https://developers.99minutos.com/)
+- [Getting started](https://developers.99minutos.com/recipes/autenticarse-login)
+- [API reference](https://developers.99minutos.com/reference/)
+- [Sign up](https://envios.99minutos.com/developers)
+- [Support](https://www.99minutos.com/preguntas-frecuentes/)
+- [Changelog](https://developers.99minutos.com/release-notes)
+- [Blog](https://www.99minutos.com/blog/)
+- [Compliance](https://security.99minutos.com/)
+- [Terms of service](https://www.99minutos.com/terminos-y-condiciones)
+- [Privacy policy](https://www.99minutos.com/politicas-de-privacidad)
+- [GitHub](https://github.com/99minutos)
+
+## API Evangelist rating
+
+**Kin Score 46.3** — developing · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 55.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 43.4 |
+
+**Agent readiness 35.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 29.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/99-minutos/](https://apis.io/providers/99-minutos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for 99 Minutos: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/99-minutos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
